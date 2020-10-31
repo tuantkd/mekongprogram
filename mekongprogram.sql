@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2020 at 07:17 AM
+-- Generation Time: Oct 30, 2020 at 03:55 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -57,12 +57,27 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2020_10_13_025615_create_roles_table', 1),
-(3, '2020_10_13_031420_create_project_parents_table', 1),
 (4, '2020_10_13_031709_create_project_level_ones_table', 1),
 (5, '2020_10_13_032521_create_project_level_twos_table', 1),
 (6, '2020_10_13_032721_create_project_level_threes_table', 1),
 (7, '2020_10_13_032939_create_deployment_times_table', 1),
-(8, '2014_10_12_000000_create_users_table', 2);
+(8, '2014_10_12_000000_create_users_table', 2),
+(9, '2020_10_30_195912_create_project_and_users_table', 3),
+(10, '2020_10_13_031420_create_project_parents_table', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_and_users`
+--
+
+CREATE TABLE `project_and_users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `project_parent_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -129,7 +144,6 @@ CREATE TABLE `project_level_twos` (
 
 CREATE TABLE `project_parents` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `project_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -150,6 +164,14 @@ CREATE TABLE `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `role_name`, `role_description`, `created_at`, `updated_at`) VALUES
+(1, 'Quản trị', 'Quản trị toàn quyền', '2020-10-30 12:45:10', '2020-10-30 12:45:10'),
+(2, 'Điều phối viên', 'Nhận làm nhiệm vụ của admin', '2020-10-30 14:04:37', '2020-10-30 14:04:37');
 
 -- --------------------------------------------------------
 
@@ -175,6 +197,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `role_id`, `fullname`, `username`, `password`, `email`, `sex`, `birthday`, `phone`, `address`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
+(2, 1, 'Phạm Ngọc Nhàn', 'ngocnhan', '$2y$10$Q86rrzG3EvBmbXGhzILdGeIKLVQ76H.Ck3vVJ/V4VHl3Yzta/DFtK', NULL, 'Nam', NULL, NULL, NULL, 'avatar5.png', NULL, '2020-10-30 12:45:28', '2020-10-30 12:45:28');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -191,6 +220,14 @@ ALTER TABLE `deployment_times`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `project_and_users`
+--
+ALTER TABLE `project_and_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `project_and_users_user_id_foreign` (`user_id`),
+  ADD KEY `project_and_users_project_parent_id_foreign` (`project_parent_id`);
 
 --
 -- Indexes for table `project_level_ones`
@@ -221,8 +258,7 @@ ALTER TABLE `project_level_twos`
 --
 ALTER TABLE `project_parents`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `project_parents_project_code_unique` (`project_code`),
-  ADD KEY `project_parents_user_id_foreign` (`user_id`);
+  ADD UNIQUE KEY `project_parents_project_code_unique` (`project_code`);
 
 --
 -- Indexes for table `roles`
@@ -253,7 +289,13 @@ ALTER TABLE `deployment_times`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `project_and_users`
+--
+ALTER TABLE `project_and_users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_level_ones`
@@ -283,13 +325,13 @@ ALTER TABLE `project_parents`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -300,6 +342,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `deployment_times`
   ADD CONSTRAINT `deployment_times_project_three_id_foreign` FOREIGN KEY (`project_three_id`) REFERENCES `project_level_threes` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `project_and_users`
+--
+ALTER TABLE `project_and_users`
+  ADD CONSTRAINT `project_and_users_project_parent_id_foreign` FOREIGN KEY (`project_parent_id`) REFERENCES `project_parents` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `project_and_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `project_level_ones`
@@ -318,12 +367,6 @@ ALTER TABLE `project_level_threes`
 --
 ALTER TABLE `project_level_twos`
   ADD CONSTRAINT `project_level_twos_project_one_id_foreign` FOREIGN KEY (`project_one_id`) REFERENCES `project_level_ones` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `project_parents`
---
-ALTER TABLE `project_parents`
-  ADD CONSTRAINT `project_parents_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`

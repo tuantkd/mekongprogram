@@ -76,7 +76,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 
     /*======================================================================*/
-    //Trang người dùng nhân viên
+    /*//Trang người dùng nhân viên
     Route::get('page-emloyee', [MekongController::class, 'page_emloyee']);
 
     //Thêm người dùng nhân viên
@@ -86,7 +86,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('delete-emloyee/{id}', [MekongController::class, 'delete_emloyee']);
 
     //Thêm người dùng nhân viên CSDL
-    Route::post('post-page-add-emloyee', [MekongController::class, 'post_page_add_emloyee']);
+    Route::post('post-page-add-emloyee', [MekongController::class, 'post_page_add_emloyee']);*/
     /*======================================================================*/
 
 
@@ -106,11 +106,20 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 
     /*======================================================================*/
+    //Phân công dự án giao quyền cho người dùng
+    Route::get('division-user/{id_project_parent}', [MekongController::class, 'division_user']);
+
+    //Phân công dự án giao quyền cho người dùng CSDL
+    Route::post('post-division-user/{id_project_parent}', [MekongController::class, 'post_division_user']);
+
     //Trang dự án cha gốc
     Route::get('page-project-parent', [MekongController::class, 'page_project_parent']);
 
     //Thêm dự án cha gốc
     Route::get('page-add-project-parent', [MekongController::class, 'page_add_project_parent']);
+
+    //Thêm dự án cha gốc CSDL
+    Route::post('post-add-project-parent', [MekongController::class, 'post_add_project_parent']);
 
     //Chỉnh sửa dự án cha gốc
     Route::get('page-edit-project-parent', [MekongController::class, 'page_edit_project_parent']);

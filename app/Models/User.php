@@ -37,9 +37,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
-    //Người dùng tạo nhiều dự án cha
-    public function projectparent()
+    //Dự án cha có nhiều dự án người dùng
+    public function ProjectAndUser()
     {
-        return $this->hasMany('App\Models\ProjectParent');
+        return $this->hasMany('App\Models\ProjectAndUser');
     }
 }

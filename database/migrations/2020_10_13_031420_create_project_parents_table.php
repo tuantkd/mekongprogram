@@ -15,10 +15,6 @@ class CreateProjectParentsTable extends Migration
     {
         Schema::create('project_parents', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
             $table->string('project_code')->unique()->nullable();
             $table->text('project_name')->nullable();
             $table->text('project_description')->nullable();

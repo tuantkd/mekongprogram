@@ -2,10 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ProjectAndUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_10_30_195912_create_project_and_users_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/upload_avatar/nguyen-van-dui-05.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_division_user.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/platform_check.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ProjectParent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProjectParent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_13_031420_create_project_parents_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_13_031420_create_project_parents_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mekongprogram.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mekongprogram.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/add_project_parent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/add_project_parent.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_project_parent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_project_parent.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/ClassLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/ClassLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_real.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,17 +151,22 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1iieiEFAKIU9PH54hjcvNPOD7jw" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -181,12 +202,17 @@
       <workItem from="1604037769403" duration="288000" />
       <workItem from="1604038093646" duration="904000" />
       <workItem from="1604039028095" duration="1802000" />
-      <workItem from="1604061775044" duration="665000" />
+      <workItem from="1604061775044" duration="4970000" />
+      <workItem from="1604132023623" duration="1602000" />
+      <workItem from="1604134116270" duration="5334000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="439" y="189" key="#Notifications" timestamp="1604037757922">
@@ -197,10 +223,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="427" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1602488952291" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604037766514">
+    <state x="312" y="0" key="CommitChangelistDialog2" timestamp="1604062571885">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604037766514" />
+    <state x="312" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1604062571885" />
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604066750811">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604066750811" />
+    <state x="199" y="9" key="SettingsEditor" timestamp="1604138050133">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="199" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1604138050133" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1604062582463">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1604062582463" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1602515970817">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
