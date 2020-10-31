@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\ProjectAndUser;
+use App\Models\ProjectParent;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Models\User;
@@ -219,7 +221,7 @@ class MekongController extends Controller
 
     /*========================================================*/
     //Trang người dùng nhân viên
-    public function page_emloyee(Request $request)
+    /*public function page_emloyee(Request $request)
     {
         $search = $request->input('inputSearch');
         if($search != ""){
@@ -233,24 +235,24 @@ class MekongController extends Controller
             $show_emloyees = User::where('role_id',3)->latest()->paginate(5);
         }
         return view('page.manage_emloyee.page_emloyee',['show_emloyees'=>$show_emloyees]);
-    }
+    }*/
 
     //Thêm người dùng nhân viên
-    public function page_add_emloyee()
+    /*public function page_add_emloyee()
     {
         return view('page.manage_emloyee.add_emloyee');
-    }
+    }*/
 
     //Xóa người dùng nhân viên
-    public function delete_emloyee(Request $request, $id)
+    /*public function delete_emloyee(Request $request, $id)
     {
         User::where([['id','=',$id],['role_id','=',3]])->delete();
         $delete_emloyee_session = $request->session()->get('delete_emloyee_session');
         return redirect('page-emloyee')->with('delete_emloyee_session','delete_emloyee_session');
-    }
+    }*/
 
     //Thêm người dùng nhân viên CSDL
-    public function post_page_add_emloyee(Request $request)
+    /*public function post_page_add_emloyee(Request $request)
     {
         $add_emloyee = new User();
         $add_emloyee->role_id = 3;
@@ -273,20 +275,20 @@ class MekongController extends Controller
         $add_emloyee->save();
         $add_emloyee_session = $request->session()->get('add_emloyee_session');
         return redirect('page-emloyee')->with('add_emloyee_session','add_emloyee_session');
-    }
+    }*/
     /*========================================================*/
 
 
 
     /*========================================================*/
-    //Thêm người dùng nhân viên
+    //Thông tin người dùng
     public function page_profile_user($id)
     {
         $profile_user = User::find($id);
         return view('page.manage_profile.profile_information',['profile_user'=>$profile_user]);
     }
 
-    //Cập nhật người dùng nhân viên
+    //Cập nhật Thông tin người dùng
     public function update_profile_user(Request $request, $id)
     {
         $update_profile_user = User::find($id);
@@ -347,17 +349,81 @@ class MekongController extends Controller
     /*========================================================*/
 
 
+
     /*========================================================*/
+    //Phân công dự án giao quyền cho người dùng
+    public function division_user($id_project_parent)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        return view('page.manage_project_parent.page_division_user',['project_parent_id'=>$project_parent_id]);
+    }
+
+    //Phân công dự án giao quyền cho người dùng CSDL
+    public function post_division_user(Request $request,$id_project_parent)
+    {
+        $inputUserId = $request->input('inputUserId');
+        $count_division_user = DB::table('project_and_users')
+            ->where([['project_parent_id','=',$id_project_parent],['user_id','=',$inputUserId]])->count();
+        if ($count_division_user >= 1) {
+            $mes_error = $request->session()->get('mes_error');
+            return redirect()->back()->with('mes_error','');
+        }else{
+            $division_user = new ProjectAndUser();
+            $division_user->user_id = $request->input('inputUserId');
+            $division_user->project_parent_id  = $id_project_parent;
+            $division_user->save();
+
+            $add_division_user_session = $request->session()->get('add_division_user_session');
+            return redirect('page-project-parent')->with('add_division_user_session','');
+        }
+    }
+
     //Trang dự án cha gốc
     public function page_project_parent()
     {
-        return view('page.manage_project_parent.page_project_parent');
+        $show_project_parents = ProjectParent::all();
+        return view('page.manage_project_parent.page_project_parent',['show_project_parents'=>$show_project_parents]);
     }
 
     //Thêm dự án cha gốc
     public function page_add_project_parent()
     {
         return view('page.manage_project_parent.add_project_parent');
+    }
+
+    //Thêm dự án cha gốc CSDL
+    public function post_add_project_parent(Request $request)
+    {
+        /*-------------------------------------------------------*/
+        //Thực hiện đầu tiên thêm dữ liệu vào CSDL
+        $this->validate($request, [
+            'inputCodeProjectParent'=>'unique:project_parents,project_code'
+        ],[
+            'inputCodeProjectParent.unique'=>'Mã dự án đã tồn tại'
+        ]);
+
+        $add_project_parent = new ProjectParent();
+        $add_project_parent->project_code = $request->input('inputCodeProjectParent');
+        $add_project_parent->project_name = $request->input('inputNameProject');
+        $add_project_parent->project_description = $request->input('inputDiscribeProject');
+        $add_project_parent->save();
+        /*-------------------------------------------------------*/
+
+        /*-------------------------------------------------------*/
+        //Thực hiện thứ 2 lấy ID MAX mới thêm
+        $id_max_project_parent = DB::table('project_parents')->max('id');
+        /*-------------------------------------------------------*/
+
+        /*-------------------------------------------------------*/
+        //Thêm dự án người dùng với mã dự án mới nhất
+        $add_project_user = new ProjectAndUser();
+        $add_project_user->user_id = Auth::id();
+        $add_project_user->project_parent_id = $id_max_project_parent;
+        $add_project_user->save();
+        /*-------------------------------------------------------*/
+
+        $add_project_parent_session = $request->session()->get('add_project_parent_session');
+        return redirect('page-project-parent')->with('add_project_parent_session','');
     }
 
     //Chỉnh sửa dự án cha gốc
