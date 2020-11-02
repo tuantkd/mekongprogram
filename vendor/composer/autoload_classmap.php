@@ -26,6 +26,7 @@ return array(
     'App\\Models\\ProjectLevelThree' => $baseDir . '/app/Models/ProjectLevelThree.php',
     'App\\Models\\ProjectLevelTwo' => $baseDir . '/app/Models/ProjectLevelTwo.php',
     'App\\Models\\ProjectParent' => $baseDir . '/app/Models/ProjectParent.php',
+    'App\\Models\\ProjectParentHistory' => $baseDir . '/app/Models/ProjectParentHistory.php',
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

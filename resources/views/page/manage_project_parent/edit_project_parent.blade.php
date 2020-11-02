@@ -43,21 +43,26 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="" id="AddAdmin" method="POST">
+                            <form action="{{ url('update-project-parent/'.$edit_project_parent->id) }}" id="EditProjectParent" method="POST">
+                                @csrf
+                                @method('PUT')
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-6">
                                         <label for="">Mã dự án</label>
-                                        <input type="text" name="inputCodeProject" class="form-control" placeholder="Nhập mã dự án">
+                                        <input type="text" name="inputCodeProject" class="form-control"
+                                        value="{{ $edit_project_parent->project_code }}" disabled>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label for="">Tên dự án</label>
-                                        <input type="text" name="inputNameProject" class="form-control" placeholder="Nhập tên dự án">
+                                        <input type="text" name="inputNameProject" value="{{ $edit_project_parent->project_name }}"
+                                        class="form-control" placeholder="Nhập tên dự án">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-12">
                                         <label for="">Mô tả dự án</label>
-                                        <textarea name="inputDiscribeProject" rows="5" class="form-control" placeholder="Nhập mô tả dự án"></textarea>
+                                        <textarea name="inputDiscribeProject" rows="5"
+                                        class="form-control" placeholder="Nhập mô tả dự án">{{ $edit_project_parent->project_description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="text-right">
@@ -82,22 +87,18 @@
             debug: true,
             success: "valid"
         });
-        $( "#AddAdmin" ).validate({
+        $( "#EditProjectParent" ).validate({
             rules: {
-                inputCodeProject: {
+                inputDiscribeProject: {
                     required: true
                 },
                 inputNameProject: {
                     required: true
-                },
-                inputDiscribeProject: {
-                    required: true
                 }
             },
             messages: {
-                inputCodeProject: "Chưa nhập mã dự án",
-                inputNameProject: "Chưa nhập tên dự án",
-                inputDiscribeProject: "Chưa nhập mô tả dự án"
+                inputDiscribeProject: "Chưa nhập mô tả dự án",
+                inputNameProject: "Chưa nhập tên dự án"
             },
             submitHandler: function(form) {
                 form.submit();

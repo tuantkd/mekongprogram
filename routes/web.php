@@ -106,6 +106,15 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 
     /*======================================================================*/
+    //Xóa Lịch sử chỉnh sửa dự án cấp cha
+    Route::get('delete-history-project-parent/{id_project_parent}', [MekongController::class, 'delete_history_project_parent']);
+
+    //Lịch sử chỉnh sửa dự án cấp cha
+    Route::get('history-project-parent/{id_project_parent}', [MekongController::class, 'history_project_parent']);
+
+    //Xóa Phân công dự án giao quyền cho người dùng
+    Route::get('delete-division-user/{id_division_user}', [MekongController::class, 'delete_division_user']);
+
     //Phân công dự án giao quyền cho người dùng
     Route::get('division-user/{id_project_parent}', [MekongController::class, 'division_user']);
 
@@ -121,8 +130,14 @@ Route::middleware([CheckLogin::class])->group(function () {
     //Thêm dự án cha gốc CSDL
     Route::post('post-add-project-parent', [MekongController::class, 'post_add_project_parent']);
 
+    //Xóa dự án cha gốc
+    Route::get('delete-project-parent/{id_project_parent}', [MekongController::class, 'delete_project_parent']);
+
     //Chỉnh sửa dự án cha gốc
-    Route::get('page-edit-project-parent', [MekongController::class, 'page_edit_project_parent']);
+    Route::get('page-edit-project-parent/{id_project_parent}', [MekongController::class, 'page_edit_project_parent']);
+
+    //Cập nhật dự án cha gốc
+    Route::put('update-project-parent/{id_project_parent}', [MekongController::class, 'update_project_parent']);
     /*======================================================================*/
 
 

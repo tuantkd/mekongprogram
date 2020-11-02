@@ -540,6 +540,7 @@ class ComposerStaticInitf1134a1268f76bc633428d82029aff0b
         'App\\Models\\ProjectLevelThree' => __DIR__ . '/../..' . '/app/Models/ProjectLevelThree.php',
         'App\\Models\\ProjectLevelTwo' => __DIR__ . '/../..' . '/app/Models/ProjectLevelTwo.php',
         'App\\Models\\ProjectParent' => __DIR__ . '/../..' . '/app/Models/ProjectParent.php',
+        'App\\Models\\ProjectParentHistory' => __DIR__ . '/../..' . '/app/Models/ProjectParentHistory.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
