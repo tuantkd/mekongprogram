@@ -217,54 +217,147 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($show_project_parents as $key => $show_project_parent)
-                                        <tr>
-                                        <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
-                                        <td data-label="Mã dự án:" class="text-primary p-1">
-                                            <a href="{{ url('page-project-one') }}">
-                                                <h6 style="text-transform: uppercase;font-weight: bold;">{{ $show_project_parent->project_code }}</h6>
-                                            </a>
-                                        </td>
-                                        <td data-label="Tên dự án:" class="text-primary p-1">
-                                            <b>{{ $show_project_parent->project_name }}</b>
-                                        </td>
-                                        <td data-label="Mô tả dự án:" class="text-muted p-1">
-                                            <p>{{ $show_project_parent->project_description }}</p>
-                                        </td>
-                                        <td data-label="Khởi tạo:" class="p-1">
-                                            <b>Phạm Ngọc Nhàn</b>
-                                        </td>
+                                        @if (Auth::user()->role_id == 1)
+                                            {{--TẤT CẢ DỰ ÁN--}}
+                                            @forelse($show_project_parents as $key => $show_project_parent)
+                                                <tr>
+                                                <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
+                                                <td data-label="Mã dự án:" class="text-primary p-1">
+                                                    <a href="{{ url('page-project-one') }}">
+                                                        <h6 style="text-transform: uppercase;font-weight: bold;">{{ $show_project_parent->project_code }}</h6>
+                                                    </a>
+                                                </td>
+                                                <td data-label="Tên dự án:" class="text-primary p-1">
+                                                    <b>{{ $show_project_parent->project_name }}</b>
+                                                </td>
+                                                <td data-label="Mô tả dự án:" class="text-muted p-1">
+                                                    <p>{{ $show_project_parent->project_description }}</p>
+                                                </td>
+                                                <td data-label="Khởi tạo:" class="p-1">
+                                                    @php($get_project_users = DB::table('project_and_users')->where('project_parent_id',$show_project_parent->id)->get())
+                                                    @foreach($get_project_users as $get_project_user)
+                                                        @php($users = DB::table('users')->where('id',$get_project_user->user_id)->get())
+                                                        @foreach($users as $user)
+                                                            <b>{{ $user->fullname }}</b> <br>
+                                                        @endforeach
+                                                    @endforeach
+                                                </td>
 
-                                        <td data-label="Tùy chọn:" class="p-1">
-                                            <a class="btn btn-success btn-xs"
-                                            href="{{ url('division-user/'.$show_project_parent->id) }}" title="Phân công">
-                                                <i class="fa fa-user-plus"></i>
-                                            </a>
-                                        </td>
-                                        <td data-label="Tùy chọn:" class="p-1">
-                                            <a class="btn btn-primary btn-xs" href="{{ url('page-edit-project-parent') }}" title="Chỉnh sửa">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td data-label="Chọn:" class="p-1">
-                                            <a class="btn btn-danger btn-xs" href="#" title="Xóa" onclick="return confirm('Bạn có chắc chắn xóa ?');">
-                                                <i class="fa fa-trash-o"></i>
-                                            </a>
-                                        </td>
-                                        <td data-label="Chọn:" class="p-1">
-                                            <a class="btn btn-warning btn-xs" href="#" title="Lịch sử">
-                                                <i class="fa fa-history"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                        <tr>
+                                                @if (Auth::user()->role_id ==1)
+                                                <td data-label="Tùy chọn:" class="p-1">
+                                                    <a class="btn btn-success btn-xs"
+                                                       href="{{ url('division-user/'.$show_project_parent->id) }}" title="Phân công">
+                                                        <i class="fa fa-user-plus"></i>
+                                                    </a>
+                                                </td>
+                                                @endif
 
-                                        </tr>
-                                    @endforelse
+                                                <td data-label="Tùy chọn:" class="p-1">
+                                                    <a class="btn btn-primary btn-xs"
+                                                    href="{{ url('page-edit-project-parent/'.$show_project_parent->id) }}" title="Chỉnh sửa">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                                <td data-label="Chọn:" class="p-1">
+                                                    <a class="btn btn-danger btn-xs"
+                                                    href="{{ url('delete-project-parent/'.$show_project_parent->id) }}" title="Xóa"
+                                                    onclick="return confirm('Bạn có chắc chắn xóa ?');">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
+                                                <td data-label="Chọn:" class="p-1">
+                                                    <a class="btn btn-warning btn-xs"
+                                                       href="{{ url('history-project-parent/'.$show_project_parent->id) }}" title="Lịch sử">
+                                                        <i class="fa fa-history"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @empty
+                                            <tr>
+                                                <td colspan="9">
+                                                    <b class="text-danger">Không có dữ liệu</b>
+                                                </td>
+                                            </tr>
+                                            @endforelse
+                                            {{--TẤT CẢ DỰ ÁN--}}
+
+
+
+                                        @else
+
+
+                                            {{--DỰ ÁN CỦA NGƯỜI DÙNG--}}
+                                            @forelse($show_project_parents as $key => $show_project_parent)
+                                                @php($get_project_users = DB::table('project_and_users')
+                                                ->where([['user_id','=',Auth::id()], ['project_parent_id','=',$show_project_parent->id]])->get())
+                                                @foreach($get_project_users as $get_project_user)
+                                                <tr>
+                                                    <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
+                                                    <td data-label="Mã dự án:" class="text-primary p-1">
+                                                        <a href="{{ url('page-project-one') }}">
+                                                            <h6 style="text-transform: uppercase;font-weight: bold;">{{ $show_project_parent->project_code }}</h6>
+                                                        </a>
+                                                    </td>
+                                                    <td data-label="Tên dự án:" class="text-primary p-1">
+                                                        <b>{{ $show_project_parent->project_name }}</b>
+                                                    </td>
+                                                    <td data-label="Mô tả dự án:" class="text-muted p-1">
+                                                        <p>{{ $show_project_parent->project_description }}</p>
+                                                    </td>
+                                                    <td data-label="Khởi tạo:" class="p-1">
+                                                        @php($users = DB::table('users')->where('id',$get_project_user->user_id)->get())
+                                                        @foreach($users as $user)
+                                                            <b>{{ $user->fullname }}</b> <br>
+                                                        @endforeach
+                                                    </td>
+
+                                                    @if (Auth::user()->role_id ==1)
+                                                        <td data-label="Tùy chọn:" class="p-1">
+                                                            <a class="btn btn-success btn-xs"
+                                                            href="{{ url('division-user/'.$show_project_parent->id) }}" title="Phân công">
+                                                                <i class="fa fa-user-plus"></i>
+                                                            </a>
+                                                        </td>
+                                                    @endif
+
+                                                    <td data-label="Tùy chọn:" class="p-1">
+                                                        <a class="btn btn-primary btn-xs"
+                                                        href="{{ url('page-edit-project-parent/'.$show_project_parent->id) }}" title="Chỉnh sửa">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td data-label="Chọn:" class="p-1">
+                                                        <a class="btn btn-danger btn-xs"
+                                                        href="{{ url('delete-project-parent/'.$show_project_parent->id) }}" title="Xóa" onclick="return confirm('Bạn có chắc chắn xóa ?');">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td data-label="Chọn:" class="p-1">
+                                                        <a class="btn btn-warning btn-xs"
+                                                        href="{{ url('history-project-parent/'.$show_project_parent->id) }}" title="Lịch sử">
+                                                            <i class="fa fa-history"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @empty
+                                                <tr>
+                                                    <td colspan="9">
+                                                        <b class="text-danger">Không có dữ liệu</b>
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                            {{--DỰ ÁN CỦA NGƯỜI DÙNG--}}
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
+
+                            {{--pagination--}}
+                            <ul class="pagination justify-content-center pagination-sm">
+                                {{ $show_project_parents->links() }}
+                            </ul>
+                            {{--pagination--}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -295,6 +388,30 @@
                 position: 'center'
                 , icon: 'success'
                 , title: 'Đã phân công dự án'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
+
+    @if (Session::has('update_project_parent_session'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'success'
+                , title: 'Đã cập nhật dự án'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
+
+    @if (Session::has('delete_project_parent_session'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'success'
+                , title: 'Đã xóa dự án'
                 , showConfirmButton: false
                 , timer: 2000
             });

@@ -25,4 +25,10 @@ class ProjectParent extends Model
         return $this->hasMany('App\Models\ProjectAndUser');
     }
 
+    //Dự án cha có nhiều lịch sử chỉnh sửa
+    public function ProjectParentHistory()
+    {
+        return $this->hasMany('App\Models\ProjectParentHistory');
+    }
+
 }

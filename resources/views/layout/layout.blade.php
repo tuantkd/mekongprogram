@@ -180,120 +180,80 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="{{ url('/') }}" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>Bảng điều khiển</p>
-                        </a>
-                    </li>
+                    @if (Auth::user()->role_id == 1)
 
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Quản lý người dùng
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ url('page-role') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Quyền truy cập</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('page-admin') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Quản trị</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('page-editor') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Điều phối viên</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        {{--===================================================--}}
+                        {{--BẢNG ĐIỀU KHIỂN--}}
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="{{ url('/') }}" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Bảng điều khiển</p>
+                            </a>
+                        </li>
+                        {{--QUẢN LÝ NGƯỜI DÙNG--}}
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Quản lý người dùng
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('page-role') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Quyền truy cập</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('page-admin') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Quản trị</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('page-editor') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Điều phối viên</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <div class="dropdown-divider mb-0"></div>
+                        {{--===================================================--}}
 
-                    <div class="dropdown-divider mb-0"></div>
 
-                    <li class="nav-header">CẤP DỰ ÁN</li>
-                    <li class="nav-item">
-                        <a href="{{ url('page-project-parent') }}" class="nav-link">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>Dự án</p>
-                        </a>
-                    </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-circle"></i>
-                            <p>
-                                VN-0054
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link pl-4">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        1.1
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link pl-5">
-                                            <i class="far fa-dot-circle nav-icon"></i>
-                                            <p>
-                                                1.1.1
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link" style="padding-left:30%;">
-                                                    <i class="fa fa-chevron-circle-right nav-icon"></i>
-                                                    <p>1.1.1.1</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link" style="padding-left:30%;">
-                                                    <i class="fa fa-chevron-circle-right nav-icon"></i>
-                                                    <p>1.1.1.2</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                        {{--===================================================--}}
+                        {{--DỰ ÁN BAN ĐẦU--}}
+                        <li class="nav-header">DỰ ÁN BAN ĐẦU</li>
+                        <li class="nav-item">
+                            <a href="{{ url('page-project-parent') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>Dự án ban đầu</p>
+                            </a>
+                        </li>
+                        <div class="dropdown-divider mb-0"></div>
+                        {{--===================================================--}}
 
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link pl-5">
-                                            <i class="far fa-dot-circle nav-icon"></i>
-                                            <p>
-                                                1.1.2
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
 
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link pl-4">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        1.2
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <div class="dropdown-divider mb-0"></div>
+
+                    @else
+
+
+
+                        {{--===================================================--}}
+                        {{--DỰ ÁN BAN ĐẦU--}}
+                        <li class="nav-header">DỰ ÁN BAN ĐẦU</li>
+                        <li class="nav-item">
+                            <a href="{{ url('page-project-parent') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>Dự án ban đầu</p>
+                            </a>
+                        </li>
+                        <div class="dropdown-divider mb-0"></div>
+                        {{--===================================================--}}
+                    @endif
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\ProjectAndUser;
 use App\Models\ProjectParent;
+use App\Models\ProjectParentHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Models\User;
@@ -37,7 +38,7 @@ class MekongController extends Controller
         $inputPassword = $request->input('inputPassword');
         $remember_token = ($request->has('remember')) ? true : false;
 
-        if (Auth::attempt(['username' => $inputUsername, 'password' => $inputPassword, 'role_id' => 1], $remember_token)) {
+        if (Auth::attempt(['username' => $inputUsername, 'password' => $inputPassword], $remember_token)) {
             return redirect('/');
         }else{
             $error_login = $request->session()->get('error_login');
@@ -351,11 +352,25 @@ class MekongController extends Controller
 
 
     /*========================================================*/
+    //Xóa Phân công dự án giao quyền cho người dùng
+    public function delete_division_user(Request $request, $id_division_user)
+    {
+        ProjectAndUser::destroy($id_division_user);
+        $delete_division_user_session = $request->session()->get('delete_division_user_session');
+        return redirect()->back()->with('delete_division_user_session','');
+    }
+
     //Phân công dự án giao quyền cho người dùng
     public function division_user($id_project_parent)
     {
         $project_parent_id = ProjectParent::find($id_project_parent);
-        return view('page.manage_project_parent.page_division_user',['project_parent_id'=>$project_parent_id]);
+        $show_division_users = ProjectAndUser::where([
+            ['project_parent_id','=',$id_project_parent],
+            ['user_id','<>',Auth::id()]
+        ])->paginate(5);
+
+        return view('page.manage_project_parent.page_division_user',
+        ['project_parent_id'=>$project_parent_id, 'show_division_users'=>$show_division_users]);
     }
 
     //Phân công dự án giao quyền cho người dùng CSDL
@@ -381,7 +396,7 @@ class MekongController extends Controller
     //Trang dự án cha gốc
     public function page_project_parent()
     {
-        $show_project_parents = ProjectParent::all();
+        $show_project_parents = ProjectParent::paginate(5);
         return view('page.manage_project_parent.page_project_parent',['show_project_parents'=>$show_project_parents]);
     }
 
@@ -426,10 +441,56 @@ class MekongController extends Controller
         return redirect('page-project-parent')->with('add_project_parent_session','');
     }
 
-    //Chỉnh sửa dự án cha gốc
-    public function page_edit_project_parent()
+    //Cập nhật án cha gốc CSDL
+    public function update_project_parent(Request $request, $id_project_parent)
     {
-        return view('page.manage_project_parent.edit_project_parent');
+        $update_project_parent = ProjectParent::find($id_project_parent);
+        $update_project_parent->project_name = $request->input('inputNameProject');
+        $update_project_parent->project_description = $request->input('inputDiscribeProject');
+        $update_project_parent->save();
+
+        $update_project_parent_session = $request->session()->get('update_project_parent_session');
+        return redirect('page-project-parent')->with('update_project_parent_session','');
+    }
+
+    //Chỉnh sửa dự án cha gốc
+    public function page_edit_project_parent($id_project_parent)
+    {
+        $edit_project_parent = ProjectParent::find($id_project_parent);
+
+        //Lưu lịch sử chỉnh sửa cấp cha
+        $history_project_parent = new ProjectParentHistory();
+        $history_project_parent->user_id = Auth::id();
+        $history_project_parent->project_parent_id = $id_project_parent;
+        $history_project_parent->project_code = $edit_project_parent->project_code;
+        $history_project_parent->project_name = $edit_project_parent->project_name;
+        $history_project_parent->project_description = $edit_project_parent->project_description;
+        $history_project_parent->save();
+
+        return view('page.manage_project_parent.edit_project_parent',['edit_project_parent'=>$edit_project_parent]);
+    }
+
+    //Xóa dự án cha gốc
+    public function delete_project_parent(Request $request, $id_project_parent)
+    {
+        ProjectParent::destroy($id_project_parent);
+        $delete_project_parent_session = $request->session()->get('delete_project_parent_session');
+        return redirect()->back()->with('delete_project_parent_session','');
+    }
+
+    //XEM lịch sử chỉnh sửa dự án cha gốc
+    public function history_project_parent(Request $request, $id_project_parent)
+    {
+        $history_parents = ProjectParentHistory::where('project_parent_id',$id_project_parent)->paginate(5);
+        return view('page.manage_project_parent.history_project_parent',['history_parents'=>$history_parents]);
+    }
+
+    //Xóa lịch sử chỉnh sửa dự án cha gốc
+    public function delete_history_project_parent(Request $request, $id_history_project_parent)
+    {
+        ProjectParentHistory::destroy($id_history_project_parent);
+        $delete_history_project_parent_session = $request->session()->get('delete_history_project_parent_session');
+        return redirect()->back()->with('delete_history_project_parent_session','');
     }
     /*========================================================*/
 

@@ -2,26 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/ProjectAndUser.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_10_30_195912_create_project_and_users_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/upload_avatar/nguyen-van-dui-05.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_division_user.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/composer/platform_check.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ProjectParentHistory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_11_01_161043_create_project_parent_histories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/history_project_parent.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/ProjectParent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProjectParent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_13_031420_create_project_parents_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_13_031420_create_project_parents_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mekongprogram.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mekongprogram.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/add_project_parent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/add_project_parent.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/edit_project_parent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/edit_project_parent.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_division_user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_division_user.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_project_parent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_project_parent.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/ClassLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/ClassLoader.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_real.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/platform_check.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,6 +202,10 @@
       <workItem from="1604061775044" duration="4970000" />
       <workItem from="1604132023623" duration="1602000" />
       <workItem from="1604134116270" duration="5334000" />
+      <workItem from="1604156658728" duration="452000" />
+      <workItem from="1604211752459" duration="9403000" />
+      <workItem from="1604243821237" duration="2101000" />
+      <workItem from="1604280577371" duration="2650000" />
     </task>
     <servers />
   </component>
@@ -227,10 +228,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="312" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1604062571885" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604066750811">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604221943979">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604066750811" />
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604221943979" />
     <state x="199" y="9" key="SettingsEditor" timestamp="1604138050133">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

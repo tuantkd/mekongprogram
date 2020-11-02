@@ -29,7 +29,7 @@
         <div class="container-fluid p-0">
             <!-- Main row -->
             <div class="row">
-                <section class="col-lg-6 offset-lg-3">
+                <section class="col-lg-6">
                     <!-- TO DO List -->
                     <div class="card">
                         <div class="card-header">
@@ -76,35 +76,76 @@
                     <!-- /.card -->
                 </section>
 
+                <section class="col-lg-6">
+                    <!-- TO DO List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <b>
+                                    <i class="ion ion-clipboard mr-1"></i>
+                                    NGƯỜI DÙNG DỰ ÁN
+                                </b>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-1">
+                            <div class="table-responsive-sm">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Mã dự án</th>
+                                        <th scope="col">Tên người dùng</th>
+                                        <th scope="col">Tùy chọn</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($show_division_users as $key => $show_division_user)
+                                        <tr>
+                                            <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
+                                            <td data-label="Mã dự án:" class="text-primary p-1">
+                                                <h6 style="text-transform: uppercase;font-weight: bold;">
+                                                    @php($project_parents = DB::table('project_parents')->where('id',$show_division_user->project_parent_id)->get())
+                                                    @foreach($project_parents as $project_parent)
+                                                    {{ $project_parent->project_code }}
+                                                    @endforeach
+                                                </h6>
+                                            </td>
+                                            <td data-label="Tên dự án:" class="text-primary p-1">
+                                                @php($users = DB::table('users')->where('id',$show_division_user->user_id)->get())
+                                                @foreach($users as $user)
+                                                    <h6>{{ $user->fullname }}</h6>
+                                                @endforeach
+                                            </td>
+                                            <td data-label="Chọn:" class="p-1">
+                                                <a class="btn btn-danger btn-xs"
+                                                href="{{ url('delete-division-user/'.$show_division_user->id) }}" title="Xóa"
+                                                onclick="return confirm('Bạn có chắc chắn xóa ?');">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4">
+                                                <b class="text-danger">Không có dữ liệu</b>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </section>
             </div>
             <!-- /.row (main row) -->
         </div>
         <!-- /.container-fluid -->
     </section>
 
-    {{--<script>
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
-        $( "#AddRole" ).validate({
-            rules: {
-                inputNameRole: {
-                    required: true
-                },
-                inputRoleDiscribe: {
-                    required: true
-                }
-            },
-            messages: {
-                inputNameRole: "Chưa nhập tên quyền",
-                inputRoleDiscribe: "Chưa nhập miêu tả quyền"
-            },
-            submitHandler: function(form) {
-                form.submit();
-            }
-        });
-    </script>--}}
 
     @if (Session::has('mes_error'))
         <script type="text/javascript">
@@ -114,6 +155,18 @@
                 , title: 'Người dùng đã phân công !'
                 , showConfirmButton: false
                 , timer: 3000
+            });
+        </script>
+    @endif
+
+    @if (Session::has('delete_division_user_session'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'success'
+                , title: 'Đã xóa phân công !'
+                , showConfirmButton: false
+                , timer: 2000
             });
         </script>
     @endif

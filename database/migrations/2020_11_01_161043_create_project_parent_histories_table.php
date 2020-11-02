@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectParentsTable extends Migration
+class CreateProjectParentHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,21 @@ class CreateProjectParentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_parents', function (Blueprint $table) {
+        Schema::create('project_parent_histories', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('project_parent_id')->nullable();
+            $table->foreign('project_parent_id')->references('id')
+                ->on('project_parents')->onDelete('cascade');
+
             $table->string('project_code')->nullable();
             $table->text('project_name')->nullable();
             $table->text('project_description')->nullable();
+
             $table->timestamps();
         });
     }
@@ -29,6 +39,6 @@ class CreateProjectParentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_parents');
+        Schema::dropIfExists('project_parent_histories');
     }
 }
