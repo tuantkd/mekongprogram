@@ -23,6 +23,7 @@ return array(
     'App\\Models\\DeploymentTime' => $baseDir . '/app/Models/DeploymentTime.php',
     'App\\Models\\ProjectAndUser' => $baseDir . '/app/Models/ProjectAndUser.php',
     'App\\Models\\ProjectLevelOne' => $baseDir . '/app/Models/ProjectLevelOne.php',
+    'App\\Models\\ProjectLevelOneHistory' => $baseDir . '/app/Models/ProjectLevelOneHistory.php',
     'App\\Models\\ProjectLevelThree' => $baseDir . '/app/Models/ProjectLevelThree.php',
     'App\\Models\\ProjectLevelTwo' => $baseDir . '/app/Models/ProjectLevelTwo.php',
     'App\\Models\\ProjectParent' => $baseDir . '/app/Models/ProjectParent.php',

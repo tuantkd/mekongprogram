@@ -12,8 +12,16 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('page-project-parent') }}">Dự án</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-one') }}">VN-0054</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-two') }}">1.1</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-one/'.$project_parent_id->id) }}">
+                                {{ $project_parent_id->project_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}">
+                                {{ $project_one_id->project_one_code }}
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">Thêm dự án cấp hai</li>
                     </ol>
                 </div><!-- /.col -->
@@ -44,11 +52,13 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="" id="AddAdmin" method="POST">
+                            <form action="{{ url('post-add-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}"
+                            id="AddProjectTwo" method="POST">
+                                @csrf
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-2">
-                                        <label for="">Mã dự án</label>
-                                        <input type="number" name="inputCodeProject" class="form-control" placeholder="Nhập mã dự án">
+                                        <label for="">Mã hoạt động</label>
+                                        <input type="text" name="inputCodeProjectTwo" class="form-control" placeholder="Nhập mã dự án">
                                     </div>
                                     <div class="col-12 col-lg-5">
                                         <label for="">Tên hoạt động</label>
@@ -99,9 +109,9 @@
             debug: true,
             success: "valid"
         });
-        $( "#AddAdmin" ).validate({
+        $( "#AddProjectTwo" ).validate({
             rules: {
-                inputCodeProject: {
+                inputCodeProjectTwo: {
                     required: true
                 },
                 inputNameOperation: {
@@ -112,23 +122,43 @@
                 },
                 inputResultReach: {
                     required: true
-                },
-                inputNote: {
-                    required: true
                 }
             },
             messages: {
-                inputCodeProject: "Chưa nhập mã dự án",
+                inputCodeProjectTwo: "Nhập mã hoạt động",
                 inputNameOperation: "Chưa nhập tên hoạt động",
                 inputIndexReach: "Chưa nhập chỉ số cần đạt",
-                inputResultReach: "Chưa nhập kết quả cần đạt",
-                inputNote: "Chưa nhập ghi chú"
+                inputResultReach: "Chưa nhập kết quả cần đạt"
             },
             submitHandler: function(form) {
                 form.submit();
             }
         });
     </script>
+
+    @if (Session::has('mes_error_two'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'error'
+                , title: 'Đã hoạt động đã tồn tại!'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
+
+    @if (Session::has('mes_required'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'error'
+                , title: 'Bắt buộc phải có ký tự mã trước!'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
 
 
 @endsection

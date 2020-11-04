@@ -223,12 +223,14 @@
                                                 <tr>
                                                 <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
                                                 <td data-label="Mã dự án:" class="text-primary p-1">
-                                                    <a href="{{ url('page-project-one') }}">
+                                                    <a href="{{ url('page-project-one/'.$show_project_parent->id) }}">
                                                         <h6 style="text-transform: uppercase;font-weight: bold;">{{ $show_project_parent->project_code }}</h6>
                                                     </a>
                                                 </td>
                                                 <td data-label="Tên dự án:" class="text-primary p-1">
-                                                    <b>{{ $show_project_parent->project_name }}</b>
+                                                    <a href="{{ url('page-project-one/'.$show_project_parent->id) }}">
+                                                        <b>{{ $show_project_parent->project_name }}</b>
+                                                    </a>
                                                 </td>
                                                 <td data-label="Mô tả dự án:" class="text-muted p-1">
                                                     <p>{{ $show_project_parent->project_description }}</p>

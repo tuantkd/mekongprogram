@@ -27,4 +27,10 @@ class ProjectLevelOne extends Model
     {
         return $this->hasMany('App\Models\ProjectLevelTwo');
     }
+
+    //Dự án cấp một có nhiều lịch sử chỉnh sửa
+    public function ProjectLevelOneHistory()
+    {
+        return $this->hasMany('App\Models\ProjectLevelOneHistory');
+    }
 }

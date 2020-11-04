@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\ProjectAndUser;
+use App\Models\ProjectLevelOne;
+use App\Models\ProjectLevelOneHistory;
+use App\Models\ProjectLevelTwo;
 use App\Models\ProjectParent;
 use App\Models\ProjectParentHistory;
 use Illuminate\Support\Facades\Auth;
@@ -367,7 +370,7 @@ class MekongController extends Controller
         $show_division_users = ProjectAndUser::where([
             ['project_parent_id','=',$id_project_parent],
             ['user_id','<>',Auth::id()]
-        ])->paginate(5);
+        ])->latest()->paginate(5);
 
         return view('page.manage_project_parent.page_division_user',
         ['project_parent_id'=>$project_parent_id, 'show_division_users'=>$show_division_users]);
@@ -396,7 +399,7 @@ class MekongController extends Controller
     //Trang dự án cha gốc
     public function page_project_parent()
     {
-        $show_project_parents = ProjectParent::paginate(5);
+        $show_project_parents = ProjectParent::latest()->paginate(5);
         return view('page.manage_project_parent.page_project_parent',['show_project_parents'=>$show_project_parents]);
     }
 
@@ -481,7 +484,7 @@ class MekongController extends Controller
     //XEM lịch sử chỉnh sửa dự án cha gốc
     public function history_project_parent(Request $request, $id_project_parent)
     {
-        $history_parents = ProjectParentHistory::where('project_parent_id',$id_project_parent)->paginate(5);
+        $history_parents = ProjectParentHistory::where('project_parent_id',$id_project_parent)->latest()->paginate(5);
         return view('page.manage_project_parent.history_project_parent',['history_parents'=>$history_parents]);
     }
 
@@ -497,22 +500,109 @@ class MekongController extends Controller
 
 
     /*========================================================*/
-    //Trang dự án cấp 1
-    public function page_project_one()
+    //Xóa dự án cấp 1
+    public function delete_project_one(Request $request,$id_project_one)
     {
-        return view('page.manage_project_one.page_project_one');
+        ProjectLevelOne::destroy($id_project_one);
+        $delete_project_one_session = $request->session()->get('delete_project_one_session');
+        return redirect()->back()->with('delete_project_one_session','');
+    }
+
+    //Xóa lịch sử chỉnh sửa dự án cấp 1
+    public function delete_history_project_one(Request $request,$id_history_project_one)
+    {
+        ProjectLevelOneHistory::destroy($id_history_project_one);
+        $delete_history_project_one_session = $request->session()->get('delete_history_project_one_session');
+        return redirect()->back()->with('delete_history_project_one_session','');
+    }
+
+    //Xem lịch sử chỉnh sửa dự án cấp 1
+    public function history_project_one($id_project_parent,$id_project_one)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $history_ones = ProjectLevelOneHistory::where('project_one_id', $id_project_one)->latest()->paginate(5);
+        return view('page.manage_project_one.history_project_one',
+        ['project_parent_id'=>$project_parent_id, 'history_ones'=>$history_ones]);
+    }
+
+    //Trang dự án cấp 1
+    public function page_project_one($id_project_parent)
+    {
+        $view_project_parent_id = ProjectParent::find($id_project_parent);
+        $show_project_ones = ProjectLevelOne::where('project_parent_id',$id_project_parent)->latest()->paginate(5);
+
+        return view('page.manage_project_one.page_project_one',
+        ['view_project_parent_id'=>$view_project_parent_id, 'show_project_ones'=>$show_project_ones]);
     }
 
     //Thêm dự án cấp 1
-    public function page_add_project_one()
+    public function page_add_project_one($id_project_parent)
     {
-        return view('page.manage_project_one.add_project_one');
+        $view_project_parent_id = ProjectParent::find($id_project_parent);
+        return view('page.manage_project_one.add_project_one', ['view_project_parent_id'=>$view_project_parent_id]);
+    }
+
+    //Thêm dự án cấp 1 CSDL
+    public function post_add_project_one(Request $request, $id_project_parent)
+    {
+        $inputCodeProjectOne = $request->input('inputCodeProjectOne');
+        $count_project_one_and_id_project_parent = DB::table('project_level_ones')
+            ->where([
+                ['project_one_code','=',$inputCodeProjectOne],
+                ['project_parent_id','=',$id_project_parent]
+            ])->count();
+
+        if ($count_project_one_and_id_project_parent >= 1) {
+            $mes_exist_error_one = $request->session()->get('mes_exist_error_one');
+            return redirect()->back()->with('mes_exist_error_one','');
+        }else{
+            $add_project_one = new ProjectLevelOne();
+            $add_project_one->project_parent_id = $id_project_parent;
+            $add_project_one->project_one_code = $request->input('inputCodeProjectOne');
+            $add_project_one->project_one_name_operation = $request->input('inputNameOperation');
+            $add_project_one->project_one_result_need_reach = $request->input('inputResultReach');
+            $add_project_one->project_one_index_need_reach = $request->input('inputIndexReach');
+            $add_project_one->project_one_note = $request->input('inputNote');
+            $add_project_one->save();
+
+            $add_project_one_session = $request->session()->get('add_project_one_session');
+            return redirect('page-project-one/'.$id_project_parent)->with('add_project_one_session','');
+        }
+    }
+
+    //Cập nhật dự án cấp 1 CSDL
+    public function update_project_one(Request $request, $id_project_parent, $id_project_one)
+    {
+        $update_project_one = ProjectLevelOne::find($id_project_one);
+        $update_project_one->project_one_name_operation = $request->input('inputNameOperation');
+        $update_project_one->project_one_result_need_reach = $request->input('inputResultReach');
+        $update_project_one->project_one_index_need_reach = $request->input('inputIndexReach');
+        $update_project_one->project_one_note = $request->input('inputNote');
+        $update_project_one->save();
+
+        $update_project_one_session = $request->session()->get('update_project_one_session');
+        return redirect('page-project-one/'.$id_project_parent)->with('update_project_one_session','');
     }
 
     //Chỉnh sửa dự án cấp 1
-    public function page_edit_project_one()
+    public function page_edit_project_one($id_project_parent, $id_project_one)
     {
-        return view('page.manage_project_one.edit_project_one');
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $edit_project_one = ProjectLevelOne::find($id_project_one);
+
+        //Lưu chỉnh sửa dự án cấp 1
+        $history_project_one = new ProjectLevelOneHistory();
+        $history_project_one->user_id = Auth::id();
+        $history_project_one->project_one_id = $id_project_one;
+        $history_project_one->project_one_code = $edit_project_one->project_one_code;
+        $history_project_one->project_one_name_operation = $edit_project_one->project_one_name_operation;
+        $history_project_one->project_one_result_need_reach = $edit_project_one->project_one_result_need_reach;
+        $history_project_one->project_one_index_need_reach = $edit_project_one->project_one_index_need_reach;
+        $history_project_one->project_one_note = $edit_project_one->project_one_note;
+        $history_project_one->save();
+
+        return view('page.manage_project_one.edit_project_one',
+        ['project_parent_id'=>$project_parent_id, 'edit_project_one'=>$edit_project_one]);
     }
     /*========================================================*/
 
@@ -520,15 +610,60 @@ class MekongController extends Controller
 
     /*========================================================*/
     //Trang dự án cấp 2
-    public function page_project_two()
+    public function page_project_two($id_project_parent,$id_project_one)
     {
-        return view('page.manage_project_two.page_project_two');
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+
+        $show_project_twos = ProjectLevelTwo::where('project_one_id',$id_project_one)->latest()->paginate(5);
+        return view('page.manage_project_two.page_project_two',
+        ['project_parent_id'=>$project_parent_id, 'project_one_id'=>$project_one_id, 'show_project_twos'=>$show_project_twos]);
     }
 
     //Thêm dự án cấp 2
-    public function page_add_project_two()
+    public function page_add_project_two($id_project_parent,$id_project_one)
     {
-        return view('page.manage_project_two.add_project_two');
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        return view('page.manage_project_two.add_project_two',
+        ['project_parent_id'=>$project_parent_id, 'project_one_id'=>$project_one_id]);
+    }
+
+    //Thêm dự án cấp 2 csdl
+    public function post_add_project_two(Request $request,$id_project_parent,$id_project_one)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+
+        $inputCodeProjectOne = $project_one_id->project_one_code;
+        $inputCodeProjectTwo = $request->input('inputCodeProjectTwo');
+
+        $count_id_project_one_two_code = DB::table('project_level_twos')
+            ->where([
+                ['project_one_id','=',$id_project_one],
+                ['project_two_code','=',$inputCodeProjectTwo]
+            ])->count();
+
+        if ($count_id_project_one_two_code >= 1) {
+            $mes_error_two = $request->session()->get('mes_error_two');
+            return redirect()->back()->with('mes_error_two','');
+        }elseif (!strripos($inputCodeProjectTwo, $inputCodeProjectOne) && strrpos($inputCodeProjectTwo, $inputCodeProjectOne)){
+            //Nếu tìm thấy khác chuổi cuối cùng và tìm thấy chuổi đầu tiên xuất hiện trong 1 chuỗi mới thì thêm mới CSDL
+            $add_project_two = new ProjectLevelTwo();
+            $add_project_two->project_one_id = $id_project_one;
+            $add_project_two->project_two_code = $request->input('inputCodeProjectTwo');
+            $add_project_two->project_two_name_operation = $request->input('inputNameOperation');
+            $add_project_two->project_two_result_need_reach = $request->input('inputResultReach');
+            $add_project_two->project_two_index_need_reach = $request->input('inputIndexReach');
+            $add_project_two->project_two_note = $request->input('inputNote');
+            $add_project_two->save();
+
+            $add_project_two_session = $request->session()->get('add_project_two_session');
+            return redirect('page-project-two/'.$id_project_parent.'/'.$id_project_one)->with('add_project_two_session','');
+        }else{
+            $mes_required = $request->session()->get('mes_required');
+            return redirect()->back()->with('mes_required','');
+        }
     }
 
     //Chỉnh sửa dự án cấp 2

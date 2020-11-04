@@ -142,22 +142,47 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 
     /*======================================================================*/
+    //Xoá lịch sử chỉnh sửa dự án cấp 1
+    Route::get('delete-project-one/{id_project_one}',
+    [MekongController::class, 'delete_project_one']);
+
+    //Xóa lịch sử chỉnh sửa dự án cấp 1
+    Route::get('delete-history-project-one/{id_history_project_one}',
+    [MekongController::class, 'delete_history_project_one']);
+
+    //Xem lịch sử chỉnh sửa dự án cấp 1
+    Route::get('history-project-one/{id_project_parent}/{id_project_one}',
+    [MekongController::class, 'history_project_one']);
+
     //Trang dự án cấp 1
-    Route::get('page-project-one', [MekongController::class, 'page_project_one']);
+    Route::get('page-project-one/{id_project_parent}', [MekongController::class, 'page_project_one']);
 
     //Thêm dự án cấp 1
-    Route::get('page-add-project-one', [MekongController::class, 'page_add_project_one']);
+    Route::get('page-add-project-one/{id_project_parent}', [MekongController::class, 'page_add_project_one']);
+
+    //Thêm dự án cấp 1 CSDL
+    Route::post('post-add-project-one/{id_project_parent}', [MekongController::class, 'post_add_project_one']);
 
     //Chỉnh sửa dự án cấp 1
-    Route::get('page-edit-project-one', [MekongController::class, 'page_edit_project_one']);
+    Route::get('page-edit-project-one/{id_project_parent}/{id_project_one}',
+    [MekongController::class, 'page_edit_project_one']);
+
+    //Cập nhật dự án cấp 1
+    Route::put('update-project-one/{id_project_parent}/{id_project_one}',
+    [MekongController::class, 'update_project_one']);
     /*======================================================================*/
 
     /*======================================================================*/
     //Trang dự án cấp 2
-    Route::get('page-project-two', [MekongController::class, 'page_project_two']);
+    Route::get('page-project-two/{id_project_parent}/{id_project_one}', [MekongController::class, 'page_project_two']);
 
     //Thêm dự án cấp 2
-    Route::get('page-add-project-two', [MekongController::class, 'page_add_project_two']);
+    Route::get('page-add-project-two/{id_project_parent}/{id_project_one}',
+    [MekongController::class, 'page_add_project_two']);
+
+    //Thêm dự án cấp 2 CSDL
+    Route::post('post-add-project-two/{id_project_parent}/{id_project_one}',
+    [MekongController::class, 'post_add_project_two']);
 
     //Chỉnh sửa dự án cấp 2
     Route::get('page-edit-project-two', [MekongController::class, 'page_edit_project_two']);

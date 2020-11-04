@@ -12,8 +12,12 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('page-project-parent') }}">Dự án</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-one') }}">VN-0054</a></li>
-                        <li class="breadcrumb-item active">1.1</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-one/'.$project_parent_id->id) }}">
+                                {{ $project_parent_id->project_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ $project_one_id->project_one_code }}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -36,10 +40,11 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="ion ion-clipboard mr-1"></i>
-                                <b style="text-transform: uppercase;color: #00008b;">1.1</b>
+                                <b style="text-transform: uppercase;color: #00008b;">{{ $project_one_id->project_one_code }}</b>
                             </h3>
                             <div class="card-tools">
-                                <a class="btn btn-primary btn-xs" href="{{ url('page-add-project-two') }}">
+                                <a class="btn btn-primary btn-xs"
+                                href="{{ url('page-add-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}">
                                     <i class="fa fa-plus"></i> Thêm mới
                                 </a>
                             </div>
@@ -51,38 +56,39 @@
                                     <thead>
                                     <tr>
                                         <th scope="col" style="width:5%;">STT</th>
-                                        <th scope="col" style="width:10%;">Mã dự án</th>
+                                        <th scope="col" style="width:12%;">Mã hoạt động</th>
                                         <th scope="col" style="width:15%;">Tên hoạt động</th>
                                         <th scope="col" style="width:10%;">Tổng tiền</th>
                                         <th scope="col" style="width:15%;">Kết quả cần đạt</th>
                                         <th scope="col" style="width:15%;">Chỉ số cần đạt</th>
-                                        <th scope="col" style="width:17%;">Ghi chú</th>
+                                        <th scope="col" style="width:15%;">Ghi chú</th>
                                         <th scope="col" colspan="2" style="width:8%;">Tùy chọn</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @forelse($show_project_twos as $key => $show_project_two)
                                     <tr>
-                                        <td data-label="STT:" class="p-1"><h6>1</h6></td>
-                                        <td data-label="Mã dự án:" class="p-1">
+                                        <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
+                                        <td data-label="Mã hoạt động:" class="p-1">
                                             <a href="{{ url('page-project-three') }}">
-                                                <h6 style="text-transform: uppercase;font-weight: bold;color:#00bfff;">1.1.1</h6>
+                                                <h6 style="text-transform: uppercase;font-weight: bold;color:#00bfff;">{{ $show_project_two->project_two_code }}</h6>
                                             </a>
                                         </td>
                                         <td data-label="Tên hoạt động:" class="p-1">
-                                            <b style="color:#00bfff;">Thay đổi nhận thức của đối tác về phương pháp tiếp cận, lợi ích của các giải pháp NLBV tại địa phương</b>
+                                            <b style="color:#00bfff;">{{ $show_project_two->project_two_name_operation }}</b>
                                         </td>
                                         <td data-label="Tổng tiền:" class="p-1">
-                                            <b style="color:#2e8b57;">19.000.000 đ</b>
+                                            <b style="color:#2e8b57;">1.000 đ</b>
                                         </td>
                                         <td data-label="Kết quả cần đạt:" class="text-muted p-1">
-                                            <p>Số thanh viên BQL các cấp hiểu rõ về phương pháp tiếp cận cua dự án và lợi ích của cac giải pháp NLBV</p>
+                                            <p>{{ $show_project_two->project_two_result_need_reach }}</p>
                                         </td>
                                         <td data-label="Chỉ số cần đạt:" class="text-muted p-1">
-                                            <p>Các tờ trình hoạt động được phê duyệt</p>
+                                            <p>{{ $show_project_two->project_two_index_need_reach }}</p>
                                         </td>
 
                                         <td data-label="Ghi chú:" class="text-muted p-1">
-                                            <p>Không có</p>
+                                            <p>{{ $show_project_two->project_two_note }}</p>
                                         </td>
                                         <td data-label="Tùy chọn:" class="p-1">
                                             <a class="btn btn-primary btn-xs" href="{{ url('page-edit-project-two') }}" title="Chỉnh sửa">
@@ -95,6 +101,13 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="9">
+                                            <b class="text-danger">Không có dữ liệu</b>
+                                        </td>
+                                    </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -109,6 +122,17 @@
         <!-- /.container-fluid -->
     </section>
 
+    @if (Session::has('add_project_two_session'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'success'
+                , title: 'Đã thêm dự án cấp 2'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
 
 @endsection
 {{--======================================================--}}

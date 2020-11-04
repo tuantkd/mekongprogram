@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectLevelOnesTable extends Migration
+class CreateProjectLevelOneHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateProjectLevelOnesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_level_ones', function (Blueprint $table) {
+        Schema::create('project_level_one_histories', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('project_parent_id')->nullable();
-            $table->foreign('project_parent_id')->references('id')->on('project_parents')->onDelete('cascade');
+            $table->unsignedBigInteger('project_one_id')->nullable();
+            $table->foreign('project_one_id')->references('id')
+                ->on('project_level_ones')->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
 
             $table->string('project_one_code')->nullable();
             $table->text('project_one_name_operation')->nullable();
@@ -25,7 +30,6 @@ class CreateProjectLevelOnesTable extends Migration
             $table->text('project_one_result_need_reach')->nullable();
             $table->text('project_one_index_need_reach')->nullable();
             $table->text('project_one_note')->nullable();
-
             $table->timestamps();
         });
     }
@@ -37,6 +41,6 @@ class CreateProjectLevelOnesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_level_ones');
+        Schema::dropIfExists('project_level_one_histories');
     }
 }
