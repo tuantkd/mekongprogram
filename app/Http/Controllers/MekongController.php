@@ -638,6 +638,10 @@ class MekongController extends Controller
         $inputCodeProjectOne = $project_one_id->project_one_code;
         $inputCodeProjectTwo = $request->input('inputCodeProjectTwo');
 
+        //Convert str to arr
+        $CodeProjectOne = explode('.', $inputCodeProjectOne);
+        $CodeProjectTwo = explode('.', $inputCodeProjectTwo);
+
         $count_id_project_one_two_code = DB::table('project_level_twos')
             ->where([
                 ['project_one_id','=',$id_project_one],
@@ -647,8 +651,7 @@ class MekongController extends Controller
         if ($count_id_project_one_two_code >= 1) {
             $mes_error_two = $request->session()->get('mes_error_two');
             return redirect()->back()->with('mes_error_two','');
-        }elseif (!strripos($inputCodeProjectTwo, $inputCodeProjectOne) && strrpos($inputCodeProjectTwo, $inputCodeProjectOne)){
-            //Nếu tìm thấy khác chuổi cuối cùng và tìm thấy chuổi đầu tiên xuất hiện trong 1 chuỗi mới thì thêm mới CSDL
+        }elseif ($CodeProjectOne[1] == $CodeProjectTwo[1]){
             $add_project_two = new ProjectLevelTwo();
             $add_project_two->project_one_id = $id_project_one;
             $add_project_two->project_two_code = $request->input('inputCodeProjectTwo');
