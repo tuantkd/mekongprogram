@@ -12,13 +12,15 @@ class DeploymentTime extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'id','project_three_id','deployment_month','deployment_number_money',
+        'id','deployment_month_start','deployment_month_end',
+        'deployment_number_money_initial','deployment_number_money_operating','deployment_number_money_real',
+        'deployment_index_achieved','deployment_result_achieved','deployment_method_implementation',
         'deployment_address','deployment_partner','deployment_description'
     ];
 
-    //Thời gian triển khai thuộc dự án cấp ba
-    public function projectlevelthree()
+    //Thời gian triển khai có nhiều dự án
+    public function ProjectThreeAndDeploymentTime()
     {
-        return $this->belongsTo('App\Models\ProjectLevelThree');
+        return $this->hasMany('App\Models\ProjectThreeAndDeploymentTime');
     }
 }

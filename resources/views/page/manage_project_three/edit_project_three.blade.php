@@ -12,9 +12,21 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('page-project-parent') }}">Dự án</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-one') }}">VN-0054</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-two') }}">1.1</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-three') }}">1.1.1</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-one/'.$project_parent_id->id) }}">
+                                {{ $project_parent_id->project_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}">
+                                {{ $project_one_id->project_one_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-three/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$project_two_id->id) }}">
+                                {{ $project_two_id->project_two_code }}
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">Chỉnh sửa dự án cấp ba</li>
                     </ol>
                 </div><!-- /.col -->
@@ -45,21 +57,26 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="" id="AddAdmin" method="POST">
+                            <form action="{{ url('update-project-three/'.$project_parent_id->id.'/'
+                            .$project_one_id->id.'/'.$project_two_id->id.'/'.$edit_project_three->id) }}"
+                            id="EditProjectLevelThree" method="POST">
+                                @csrf
+                                @method('PUT')
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-2">
                                         <label for="">Mã dự án</label>
-                                        <input type="number" name="inputCodeProject" class="form-control" placeholder="Nhập mã dự án">
+                                        <input type="text" name="inputCodeProjectThree" class="form-control" disabled
+                                        value="{{ $edit_project_three->project_three_code }}">
                                     </div>
                                     <div class="col-12 col-lg-5">
                                         <label for="">Tên hoạt động</label>
                                         <textarea name="inputNameOperation" rows="3"
-                                                  class="form-control" placeholder="Nhập tên hoạt động"></textarea>
+                                                  class="form-control" placeholder="Nhập tên hoạt động">{{ $edit_project_three->project_three_name_operation }}</textarea>
                                     </div>
                                     <div class="col-12 col-lg-5">
                                         <label for="">Chỉ số cần đạt</label>
                                         <textarea name="inputIndexReach" rows="3"
-                                                  class="form-control" placeholder="Nhập chỉ số cần đạt"></textarea>
+                                                  class="form-control" placeholder="Nhập chỉ số cần đạt">{{ $edit_project_three->project_three_index_need_reach }}</textarea>
                                     </div>
                                 </div>
 
@@ -68,12 +85,12 @@
                                     <div class="col-12 col-lg-5">
                                         <label for="">Kết quả cần đạt</label>
                                         <textarea name="inputResultReach" rows="3"
-                                                  class="form-control" placeholder="Nhập kết quả cần đạt"></textarea>
+                                                  class="form-control" placeholder="Nhập kết quả cần đạt">{{ $edit_project_three->project_three_result_need_reach }}</textarea>
                                     </div>
                                     <div class="col-12 col-lg-5">
                                         <label for="">Ghi chú</label>
                                         <textarea name="inputNote" rows="3"
-                                                  class="form-control" placeholder="Nhập ghi chú"></textarea>
+                                                  class="form-control" placeholder="Nhập ghi chú">{{ $edit_project_three->project_three_note }}</textarea>
                                     </div>
                                 </div>
 
@@ -100,9 +117,9 @@
             debug: true,
             success: "valid"
         });
-        $( "#AddAdmin" ).validate({
+        $( "#EditProjectLevelThree" ).validate({
             rules: {
-                inputCodeProject: {
+                inputCodeProjectThree: {
                     required: true
                 },
                 inputNameOperation: {
@@ -119,7 +136,7 @@
                 }
             },
             messages: {
-                inputCodeProject: "Chưa nhập mã dự án",
+                inputCodeProject: "Nhập mã hoạt động",
                 inputNameOperation: "Chưa nhập tên hoạt động",
                 inputIndexReach: "Chưa nhập chỉ số cần đạt",
                 inputResultReach: "Chưa nhập kết quả cần đạt",

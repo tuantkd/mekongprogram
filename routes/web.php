@@ -180,24 +180,64 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('page-add-project-two/{id_project_parent}/{id_project_one}',
     [MekongController::class, 'page_add_project_two']);
 
+    //Xóa dự án cấp 2
+    Route::get('delete-project-two/{id_project_two}',
+    [MekongController::class, 'delete_project_two']);
+
     //Thêm dự án cấp 2 CSDL
     Route::post('post-add-project-two/{id_project_parent}/{id_project_one}',
     [MekongController::class, 'post_add_project_two']);
 
+    //Xem lịch sử chỉnh sửa dự án cấp 2
+    Route::get('history-project-two/{id_project_parent}/{id_project_one}/{id_project_two}',
+    [MekongController::class, 'history_project_two']);
+
+    //Xóa lịch sử chỉnh sửa dự án cấp 2
+    Route::get('delete-history-project-two/{id_history_project_two}',
+    [MekongController::class, 'delete_history_project_two']);
+
     //Chỉnh sửa dự án cấp 2
-    Route::get('page-edit-project-two', [MekongController::class, 'page_edit_project_two']);
+    Route::get('page-edit-project-two/{id_project_parent}/{id_project_one}/{id_project_two}',
+    [MekongController::class, 'page_edit_project_two']);
+
+    //Cập nhật dự án cấp 2
+    Route::put('update-project-two/{id_project_parent}/{id_project_one}/{id_project_two}',
+    [MekongController::class, 'update_project_two']);
     /*======================================================================*/
 
 
     /*======================================================================*/
+    //Xem lịch sử chỉnh sửa dự án cấp 3
+    Route::get('history-project-three/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'history_project_three']);
+
+    //Xóa lịch sử chỉnh sửa dự án cấp 3
+    Route::get('delete-history-project-three/{id_project_three}',
+    [MekongController::class, 'delete_history_project_three']);
+
     //Trang dự án cấp 3
-    Route::get('page-project-three', [MekongController::class, 'page_project_three']);
+    Route::get('page-project-three/{id_project_parent}/{id_project_one}/{id_project_two}',
+    [MekongController::class, 'page_project_three']);
 
     //Thêm dự án cấp 3
-    Route::get('page-add-project-three', [MekongController::class, 'page_add_project_three']);
+    Route::get('page-add-project-three/{id_project_parent}/{id_project_one}/{id_project_two}',
+    [MekongController::class, 'page_add_project_three']);
+
+    //Xóa dự án cấp 3
+    Route::get('delete-project-three/{id_project_three}',
+    [MekongController::class, 'delete_project_three']);
+
+    //Thêm dự án cấp 3 CSDL
+    Route::post('post-add-project-three/{id_project_parent}/{id_project_one}/{id_project_two}',
+    [MekongController::class, 'post_add_project_three']);
 
     //Chỉnh sửa dự án cấp 3
-    Route::get('page-edit-project-three', [MekongController::class, 'page_edit_project_three']);
+    Route::get('page-edit-project-three/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'page_edit_project_three']);
+
+    //Cập nhật dự án cấp 3
+    Route::put('update-project-three/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'update_project_three']);
     /*======================================================================*/
 
 
