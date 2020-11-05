@@ -27,4 +27,16 @@ class ProjectLevelThree extends Model
     {
         return $this->hasMany('App\Models\DeploymentTime');
     }
+
+    //Dự án cấp ba có nhiều lịch sử chỉnh sửa
+    public function ProjectLevelThreeHistory()
+    {
+        return $this->hasMany('App\Models\ProjectLevelThreeHistory');
+    }
+
+    //Dự án cấp ba có nhiều thời gian triển khai
+    public function ProjectThreeAndDeploymentTime()
+    {
+        return $this->hasMany('App\Models\ProjectThreeAndDeploymentTime');
+    }
 }

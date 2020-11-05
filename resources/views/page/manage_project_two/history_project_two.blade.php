@@ -17,6 +17,11 @@
                                 {{ $project_parent_id->project_code }}
                             </a>
                         </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}">
+                                {{ $project_one_id->project_one_code }}
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">Lịch sử chỉnh sửa</li>
                     </ol>
                 </div><!-- /.col -->
@@ -63,42 +68,42 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($history_ones as $key => $history_one)
+                                    @forelse($show_history_two as $key => $history_two)
                                         <tr>
                                             <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
                                             <td data-label="Mã dự án:" class="text-primary p-1">
-                                                <h6 style="text-transform: uppercase;font-weight: bold;">{{ $history_one->project_one_code  }}</h6>
+                                                <h6 style="text-transform: uppercase;font-weight: bold;">{{ $history_two->project_two_code  }}</h6>
                                             </td>
                                             <td data-label="Tên hoạt động:" class="text-primary p-1">
-                                                <b class="text-danger">{{ $history_one->project_one_name_operation }}</b>
+                                                <b class="text-danger">{{ $history_two->project_two_name_operation }}</b>
                                             </td>
                                             <td data-label="Kết quả cần đạt:" class="text-primary p-1">
-                                                <b class="text-danger">{{ $history_one->project_one_result_need_reach }}</b>
+                                                <b class="text-danger">{{ $history_two->project_two_result_need_reach }}</b>
                                             </td>
                                             <td data-label="Chỉ số cần đạt:" class="text-primary p-1">
-                                                <b class="text-danger">{{ $history_one->project_one_index_need_reach }}</b>
+                                                <b class="text-danger">{{ $history_two->project_two_index_need_reach }}</b>
                                             </td>
                                             <td data-label="Ghi chú:" class="text-muted p-1">
-                                                <p class="text-danger">{{ $history_one->project_one_note }}</p>
+                                                <p class="text-danger">{{ $history_two->project_two_note }}</p>
                                             </td>
                                             <td data-label="Sửa bởi:" class="p-1">
-                                                @php($users = DB::table('users')->where('id',$history_one->user_id)->get())
+                                                @php($users = DB::table('users')->where('id',$history_two->user_id)->get())
                                                 @foreach($users as $user)
                                                     <b>{{ $user->fullname }}</b>
                                                 @endforeach
                                             </td>
                                             <td data-label="Ngày sửa:" class="p-1">
-                                                {{ date('d/m/Y H:i:s', strtotime($history_one->created_at)) }}
+                                                {{ date('d/m/Y H:i:s', strtotime($history_two->created_at)) }}
                                             </td>
 
                                             @if (Auth::user()->role_id ==1)
-                                            <td data-label="Chọn:" class="p-1">
-                                                <a class="btn btn-danger btn-xs"
-                                                   href="{{ url('delete-history-project-one/'.$history_one->id) }}" title="Xóa"
-                                                   onclick="return confirm('Bạn có chắc chắn xóa ?');">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
+                                                <td data-label="Chọn:" class="p-1">
+                                                    <a class="btn btn-danger btn-xs"
+                                                       href="{{ url('delete-history-project-two/'.$history_two->id) }}" title="Xóa"
+                                                       onclick="return confirm('Bạn có chắc chắn xóa ?');">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
                                             @endif
                                         </tr>
                                     @empty
@@ -114,7 +119,7 @@
 
                             {{--pagination--}}
                             <ul class="pagination justify-content-center pagination-sm">
-                                {{ $history_ones->links() }}
+                                {{ $show_history_two->links() }}
                             </ul>
                             {{--pagination--}}
                         </div>
@@ -130,7 +135,7 @@
 
     {{--Thông báo box--}}
 
-    @if (Session::has('delete_history_project_one_session'))
+    @if (Session::has('delete_history_project_two_session'))
         <script type="text/javascript">
             Swal.fire({
                 position: 'center'

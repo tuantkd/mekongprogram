@@ -62,7 +62,7 @@
                                         <th scope="col" style="width:15%;">Kết quả cần đạt</th>
                                         <th scope="col" style="width:15%;">Chỉ số cần đạt</th>
                                         <th scope="col" style="width:15%;">Ghi chú</th>
-                                        <th scope="col" colspan="2" style="width:8%;">Tùy chọn</th>
+                                        <th scope="col" colspan="3" style="width:8%;">Tùy chọn</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -70,12 +70,18 @@
                                     <tr>
                                         <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
                                         <td data-label="Mã hoạt động:" class="p-1">
-                                            <a href="{{ url('page-project-three') }}">
-                                                <h6 style="text-transform: uppercase;font-weight: bold;color:#00bfff;">{{ $show_project_two->project_two_code }}</h6>
-                                            </a>
+                                        <a href="{{ url('page-project-three/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$show_project_two->id) }}">
+                                            <h6 style="text-transform: uppercase;font-weight: bold;color:#00bfff;">
+                                                {{ $show_project_two->project_two_code }}
+                                            </h6>
+                                        </a>
                                         </td>
                                         <td data-label="Tên hoạt động:" class="p-1">
-                                            <b style="color:#00bfff;">{{ $show_project_two->project_two_name_operation }}</b>
+                                        <a href="{{ url('page-project-three/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$show_project_two->id) }}">
+                                            <b style="color:#00bfff;">
+                                                {{ $show_project_two->project_two_name_operation }}
+                                            </b>
+                                        </a>
                                         </td>
                                         <td data-label="Tổng tiền:" class="p-1">
                                             <b style="color:#2e8b57;">1.000 đ</b>
@@ -86,18 +92,29 @@
                                         <td data-label="Chỉ số cần đạt:" class="text-muted p-1">
                                             <p>{{ $show_project_two->project_two_index_need_reach }}</p>
                                         </td>
-
                                         <td data-label="Ghi chú:" class="text-muted p-1">
                                             <p>{{ $show_project_two->project_two_note }}</p>
                                         </td>
-                                        <td data-label="Tùy chọn:" class="p-1">
-                                            <a class="btn btn-primary btn-xs" href="{{ url('page-edit-project-two') }}" title="Chỉnh sửa">
+
+                                        <td data-label="Chọn:" class="p-1">
+                                            <a class="btn btn-primary btn-xs"
+                                            href="{{ url('page-edit-project-two/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$show_project_two->id) }}" title="Chỉnh sửa">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
-                                        <td data-label="Tùy chọn:" class="p-1">
-                                            <a class="btn btn-danger btn-xs" href="#" title="Xóa" onclick="return confirm('Bạn có chắc chắn xóa ?');">
+
+                                        <td data-label="Chọn:" class="p-1">
+                                            <a class="btn btn-danger btn-xs"
+                                               href="{{ url('delete-project-two/'.$show_project_two->id) }}" title="Xóa"
+                                               onclick="return confirm('Bạn có chắc chắn xóa ?');">
                                                 <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </td>
+
+                                        <td data-label="Chọn:" class="p-1">
+                                            <a class="btn btn-warning btn-xs"
+                                               href="{{ url('history-project-two/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$show_project_two->id) }}" title="Lịch sử">
+                                                <i class="fa fa-history"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -128,6 +145,18 @@
                 position: 'center'
                 , icon: 'success'
                 , title: 'Đã thêm dự án cấp 2'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
+
+    @if (Session::has('delete_project_two_session'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'success'
+                , title: 'Đã xóa dự án cấp 2'
                 , showConfirmButton: false
                 , timer: 2000
             });

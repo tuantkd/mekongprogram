@@ -27,4 +27,10 @@ class ProjectLevelTwo extends Model
     {
         return $this->hasMany('App\Models\ProjectLevelThree');
     }
+
+    //Dự án cấp hai có nhiều lịch sử chỉnh sửa
+    public function ProjectLevelTwoHistory()
+    {
+        return $this->hasMany('App\Models\ProjectLevelTwoHistory');
+    }
 }
