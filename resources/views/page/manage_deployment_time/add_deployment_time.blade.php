@@ -12,10 +12,27 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('page-project-parent') }}">Dự án</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-one') }}">VN-0054</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-two') }}">1.1</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-three') }}">1.1.1</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-deployment-time') }}">1.1.1.1</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-one/'.$project_parent_id->id) }}">
+                                {{ $project_parent_id->project_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}">
+                                {{ $project_one_id->project_one_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-project-three/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$project_two_id->id) }}">
+                                {{ $project_two_id->project_two_code }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('page-deployment-time/'.$project_parent_id->id.'/'
+                            .$project_one_id->id.'/'.$project_two_id->id.'/'.$project_three_id->id) }}">
+                                {{ $project_three_id->project_three_code }}
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">Thêm thời gian triển khai</li>
                     </ol>
                 </div><!-- /.col -->
@@ -46,42 +63,33 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="" id="AddDeployment" method="POST">
+                            <form action="{{ url('post-add-deployment-time/'.$project_parent_id->id.'/'
+                            .$project_one_id->id.'/'.$project_two_id->id.'/'.$project_three_id->id) }}"
+                            id="AddDeployment" method="POST">
+                                @csrf
                                 <div class="form-group row">
-                                    <div class="col-12 col-lg-2">
-                                        <label for="">Tháng triển khai</label>
-                                        <select class="form-control" name="inputMonthDeployment">
-                                            <option value="">- - Chọn - -</option>
-                                            <option value="Tháng 1">Tháng 1</option>
-                                            <option value="Tháng 2">Tháng 2</option>
-                                            <option value="Tháng 3">Tháng 3</option>
-                                            <option value="Tháng 4">Tháng 4</option>
-                                            <option value="Tháng 5">Tháng 5</option>
-                                            <option value="Tháng 6">Tháng 6</option>
-                                            <option value="Tháng 7">Tháng 7</option>
-                                            <option value="Tháng 8">Tháng 8</option>
-                                            <option value="Tháng 9">Tháng 9</option>
-                                            <option value="Tháng 10">Tháng 10</option>
-                                            <option value="Tháng 11">Tháng 11</option>
-                                            <option value="Tháng 12">Tháng 12</option>
-                                        </select>
+                                    <div class="col-12 col-lg-3">
+                                        <label for="">Ngày khởi tạo</label>
+                                        <input name="inputDateInitialize" type="date" class="form-control">
                                     </div>
                                     <div class="col-12 col-lg-3">
-                                        <label for="">Số tiền</label>
-                                        <input name="inputNumberMoney" type="number" class="form-control" placeholder="Nhập số tiền">
+                                        <label for="">Số tiền dự án</label>
+                                        <input name="inputNumberMoneyInitial" type="number" class="form-control"
+                                               placeholder="Nhập số tiền ban đầu">
                                     </div>
-                                    <div class="col-12 col-lg-7">
+                                    <div class="col-12 col-lg-6">
                                         <label for="">Đối tác</label>
-                                        <textarea name="inputPartner" rows="2" class="form-control" placeholder="Nhập đối tác"></textarea>
+                                        <textarea name="inputPartner" rows="2" class="form-control"
+                                        placeholder="Nhập đối tác"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-12 col-lg-5">
+                                    <div class="col-12 col-lg-6">
                                         <label for="">Địa điểm</label>
                                         <textarea name="inputAddress" rows="3" class="form-control" placeholder="Nhập địa điểm"></textarea>
                                     </div>
-                                    <div class="col-12 col-lg-7">
+                                    <div class="col-12 col-lg-6">
                                         <label for="">Mô tả</label>
                                         <textarea name="inputDiscribe" rows="3" class="form-control" placeholder="Nhập mô tả"></textarea>
                                     </div>
@@ -112,10 +120,10 @@
         });
         $( "#AddDeployment" ).validate({
             rules: {
-                inputMonthDeployment: {
+                inputDateInitialize: {
                     required: true
                 },
-                inputNumberMoney: {
+                inputNumberMoneyInitial: {
                     required: true
                 },
                 inputPartner: {
@@ -123,14 +131,11 @@
                 },
                 inputAddress: {
                     required: true
-                },
-                inputDiscribe: {
-                    required: true
                 }
             },
             messages: {
-                inputMonthDeployment: "Chưa chọn tháng",
-                inputNumberMoney: "Chưa nhập số tiền",
+                inputDateInitialize: "Chọn ngày khởi tạo",
+                inputNumberMoneyInitial: "Chưa nhập số tiền",
                 inputPartner: "Chưa nhập đối tác",
                 inputAddress: "Chưa nhập địa điểm",
                 inputDiscribe: "Chưa nhập mô tả"

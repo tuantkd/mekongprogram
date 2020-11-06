@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\DeploymentTime;
 use App\Models\ProjectAndUser;
 use App\Models\ProjectLevelOne;
 use App\Models\ProjectLevelOneHistory;
@@ -10,6 +11,7 @@ use App\Models\ProjectLevelTwo;
 use App\Models\ProjectLevelTwoHistory;
 use App\Models\ProjectParent;
 use App\Models\ProjectParentHistory;
+use App\Models\ProjectThreeAndDeploymentTime;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Models\User;
@@ -895,21 +897,113 @@ class MekongController extends Controller
 
     /*========================================================*/
     //Trang thời gian triển khai
-    public function page_deployment_time()
+    public function page_deployment_time($id_project_parent,$id_project_one,$id_project_two,$id_project_three)
     {
-        return view('page.manage_deployment_time.page_deployment_time');
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+
+        $project_three_deployment_time = ProjectThreeAndDeploymentTime::where('project_three_id',$id_project_three)->latest()->paginate(5);
+        return view('page.manage_deployment_time.page_deployment_time',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id,
+            'project_three_deployment_time'=>$project_three_deployment_time
+        ]);
     }
 
     //Thêm thời gian triển khai
-    public function page_add_deployment_time()
+    public function page_add_deployment_time($id_project_parent,$id_project_one,$id_project_two,$id_project_three)
     {
-        return view('page.manage_deployment_time.add_deployment_time');
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+
+        return view('page.manage_deployment_time.add_deployment_time',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id
+        ]);
+    }
+
+    //Thêm thời gian triển khai CSDL
+    public function post_add_deployment_time(Request $request,$id_project_parent,$id_project_one,$id_project_two,$id_project_three)
+    {
+        //Thực hiện add lần 1
+        $add_deployment_time = new DeploymentTime();
+        $add_deployment_time->deployment_month_initialize = $request->input('inputDateInitialize');
+        $add_deployment_time->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
+        $add_deployment_time->deployment_partner = $request->input('inputPartner');
+        $add_deployment_time->deployment_address = $request->input('inputAddress');
+        $add_deployment_time->deployment_description = $request->input('inputDiscribe');
+        $add_deployment_time->save();
+
+        //Thực hiện get data max ID lần 2
+        $max_id_deployment_time = DB::table('deployment_times')->max('id');
+
+        //Thực hiện add lần 3
+        $add_project_three_deployment_time = new ProjectThreeAndDeploymentTime();
+        $add_project_three_deployment_time->project_three_id = $id_project_three;
+        $add_project_three_deployment_time->deployment_time_id = $max_id_deployment_time;
+        $add_project_three_deployment_time->save();
+
+        $add_deployment_time_session = $request->session()->get('add_deployment_time_session');
+        return redirect('page-deployment-time/'.$id_project_parent.'/'.$id_project_one.'/'.$id_project_two.'/'.$id_project_three)
+        ->with('add_deployment_time_session','');
     }
 
     //Chỉnh sửa thời gian triển khai
-    public function page_edit_deployment_time()
+    public function page_edit_deployment_time($id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time)
     {
-        return view('page.manage_deployment_time.edit_deployment_time');
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+        $edit_deployment_time = DeploymentTime::find($id_deployment_time);
+
+        return view('page.manage_deployment_time.edit_deployment_time',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id,
+            'edit_deployment_time'=>$edit_deployment_time
+        ]);
+    }
+
+    //Cập nhật thời gian triển khai
+    public function update_deployment_time(Request $request,$id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+
+        $update_deployment_time = DeploymentTime::find($id_deployment_time);
+        $update_deployment_time->deployment_month_initialize = $request->input('inputDateInitialize');
+        $update_deployment_time->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
+        $update_deployment_time->deployment_partner = $request->input('inputPartner');
+        $update_deployment_time->deployment_address = $request->input('inputAddress');
+        $update_deployment_time->deployment_description = $request->input('inputDiscribe');
+        $update_deployment_time->save();
+
+        $update_deployment_time_session = $request->session()->get('update_deployment_time_session');
+        return redirect('page-deployment-time/'.$id_project_parent.'/'.$id_project_one.'/'.$id_project_two.'/'.$id_project_three)
+        ->with('update_deployment_time_session','');
+    }
+
+    //Xóa gian triển khai
+    public function delete_deployment_time(Request $request,$id_deployment_time)
+    {
+        DeploymentTime::destroy($id_deployment_time);
+        $delete_deployment_time_session = $request->session()->get('delete_deployment_time_session');
+        return redirect()->back()->with('delete_deployment_time_session','');
     }
     /*========================================================*/
 }

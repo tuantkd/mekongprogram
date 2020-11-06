@@ -12,7 +12,7 @@ class DeploymentTime extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'id','deployment_month_start','deployment_month_end',
+        'id','deployment_month_initialize','deployment_month_start','deployment_month_end',
         'deployment_number_money_initial','deployment_number_money_operating','deployment_number_money_real',
         'deployment_index_achieved','deployment_result_achieved','deployment_method_implementation',
         'deployment_address','deployment_partner','deployment_description'
