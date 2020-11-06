@@ -76,12 +76,16 @@
                                     <tr>
                                         <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
                                         <td data-label="Mã dự án:" class="p-1">
-                                            <a href="{{ url('page-deployment-time') }}">
+                                            <a href="{{ url('page-deployment-time/'.$project_parent_id->id.'/'.$project_one_id->id.'/'
+                                            .$project_two_id->id.'/'.$show_project_three->id) }}">
                                                 <h6 style="text-transform: uppercase;font-weight: bold;color:#2e8b57;">{{ $show_project_three->project_three_code }}</h6>
                                             </a>
                                         </td>
                                         <td data-label="Tên hoạt động:" class="p-1">
-                                            <b style="color:#2e8b57;">{{ $show_project_three->project_three_name_operation }}</b>
+                                            <a href="{{ url('page-deployment-time/'.$project_parent_id->id.'/'.$project_one_id->id.'/'
+                                            .$project_two_id->id.'/'.$show_project_three->id) }}">
+                                                <b style="color:#2e8b57;">{{ $show_project_three->project_three_name_operation }}</b>
+                                            </a>
                                         </td>
                                         <td data-label="Tổng tiền:" class="p-1">
                                             <b style="color:#2e8b57;">643000sf đ</b>
@@ -129,6 +133,12 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            {{--pagination--}}
+                            <ul class="pagination justify-content-center pagination-sm">
+                                {{ $show_project_threes->links() }}
+                            </ul>
+                            {{--pagination--}}
                         </div>
                         <!-- /.card-body -->
                     </div>

@@ -243,13 +243,27 @@ Route::middleware([CheckLogin::class])->group(function () {
 
     /*======================================================================*/
     //Trang thời gian triển khai
-    Route::get('page-deployment-time', [MekongController::class, 'page_deployment_time']);
+    Route::get('page-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'page_deployment_time']);
 
     //Thêm thời gian triển khai
-    Route::get('page-add-deployment-time', [MekongController::class, 'page_add_deployment_time']);
+    Route::get('page-add-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'page_add_deployment_time']);
+
+    //Thêm thời gian triển khai CSDL
+    Route::post('post-add-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'post_add_deployment_time']);
 
     //Chỉnh sửa thời gian triển khai
-    Route::get('page-edit-deployment-time', [MekongController::class, 'page_edit_deployment_time']);
+    Route::get('page-edit-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time}',
+    [MekongController::class, 'page_edit_deployment_time']);
+
+    //Cập nhật thời gian triển khai
+    Route::put('update-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time}',
+    [MekongController::class, 'update_deployment_time']);
+
+    //Xóa thời gian triển khai
+    Route::get('delete-deployment-time/{id_deployment_time}', [MekongController::class, 'delete_deployment_time']);
     /*======================================================================*/
 
 });
