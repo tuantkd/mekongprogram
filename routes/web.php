@@ -262,8 +262,26 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::put('update-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time}',
     [MekongController::class, 'update_deployment_time']);
 
+    //Xem lịch sử chỉnh sửa thời gian triển khai
+    Route::get('history-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time}',
+    [MekongController::class, 'history_deployment_time']);
+
+    //Xóa lịch sử chỉnh sửa thời gian triển khai
+    Route::get('delete-history-deployment-time/{id_history_deployment_time}',
+    [MekongController::class, 'delete_history_deployment_time']);
+
     //Xóa thời gian triển khai
     Route::get('delete-deployment-time/{id_deployment_time}', [MekongController::class, 'delete_deployment_time']);
+    /*======================================================================*/
+
+
+
+    /*======================================================================*/
+    //Tháng và dự án
+    Route::get('page-month-project/{id_month}', [MekongController::class, 'page_month_project']);
+
+    //Tháng và dự án CSDL
+    Route::post('post-add-project-to-month/{id_month}', [MekongController::class, 'post_add_project_to_month']);
     /*======================================================================*/
 
 });

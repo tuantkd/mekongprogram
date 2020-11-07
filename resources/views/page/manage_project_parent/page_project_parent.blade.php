@@ -127,6 +127,7 @@
 
     <section class="content">
         <div class="container-fluid p-0">
+
             <!-- Main row -->
             <div class="row">
                 <section class="col-lg-12 connectedSortable">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DeploymentTime;
+use App\Models\DeploymentTimeHistory;
 use App\Models\ProjectAndUser;
 use App\Models\ProjectLevelOne;
 use App\Models\ProjectLevelOneHistory;
@@ -935,7 +936,13 @@ class MekongController extends Controller
     //Thêm thời gian triển khai CSDL
     public function post_add_deployment_time(Request $request,$id_project_parent,$id_project_one,$id_project_two,$id_project_three)
     {
-        //Thực hiện add lần 1
+        $this->validate($request,[
+            'inputDateInitialize'=>'unique:deployment_times,deployment_month_initialize'
+        ],[
+            'inputDateInitialize.unique'=>'Tháng đã tồn tại!'
+        ]);
+
+        //Lấy tháng khởi tạo
         $add_deployment_time = new DeploymentTime();
         $add_deployment_time->deployment_month_initialize = $request->input('inputDateInitialize');
         $add_deployment_time->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
@@ -955,7 +962,8 @@ class MekongController extends Controller
 
         $add_deployment_time_session = $request->session()->get('add_deployment_time_session');
         return redirect('page-deployment-time/'.$id_project_parent.'/'.$id_project_one.'/'.$id_project_two.'/'.$id_project_three)
-        ->with('add_deployment_time_session','');
+            ->with('add_deployment_time_session','');
+
     }
 
     //Chỉnh sửa thời gian triển khai
@@ -966,6 +974,17 @@ class MekongController extends Controller
         $project_two_id = ProjectLevelTwo::find($id_project_two);
         $project_three_id = ProjectLevelThree::find($id_project_three);
         $edit_deployment_time = DeploymentTime::find($id_deployment_time);
+
+        //Lưu lịch sử chỉnh sửa thời gian triển khai
+        $history_deployment_time = new DeploymentTimeHistory();
+        $history_deployment_time->user_id = Auth::id();
+        $history_deployment_time->deployment_time_id = $id_deployment_time;
+        $history_deployment_time->deployment_month_initialize = $edit_deployment_time->deployment_month_initialize;
+        $history_deployment_time->deployment_number_money_initial = $edit_deployment_time->deployment_number_money_initial;
+        $history_deployment_time->deployment_address = $edit_deployment_time->deployment_address;
+        $history_deployment_time->deployment_partner = $edit_deployment_time->deployment_partner;
+        $history_deployment_time->deployment_description = $edit_deployment_time->deployment_description;
+        $history_deployment_time->save();
 
         return view('page.manage_deployment_time.edit_deployment_time',
         [
@@ -1004,6 +1023,73 @@ class MekongController extends Controller
         DeploymentTime::destroy($id_deployment_time);
         $delete_deployment_time_session = $request->session()->get('delete_deployment_time_session');
         return redirect()->back()->with('delete_deployment_time_session','');
+    }
+
+    //Xóa lịch sử chỉnh sửa thời gian triển khai
+    public function delete_history_deployment_time(Request $request,$id_history_deployment_time)
+    {
+        DeploymentTimeHistory::destroy($id_history_deployment_time);
+        $delete_history_deployment_time_session = $request->session()->get('delete_history_deployment_time_session');
+        return redirect()->back()->with('delete_history_deployment_time_session','');
+    }
+
+    //Xem lịch sử chỉnh sửa thời gian triển khai
+    public function history_deployment_time($id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+        $deployment_time_id = DeploymentTime::find($id_deployment_time);
+
+        $history_deployment_times = DeploymentTimeHistory::where('deployment_time_id',$id_deployment_time)->latest()->paginate(5);
+        return view('page.manage_deployment_time.history_deployment_time',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id,
+            'deployment_time_id'=>$deployment_time_id,
+            'history_deployment_times'=>$history_deployment_times
+        ]);
+    }
+    /*========================================================*/
+
+
+
+
+    /*========================================================*/
+    //Tháng và dự án
+    protected function page_month_project($id_month)
+    {
+        $view_deployment_times = DeploymentTime::find($id_month);
+        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->paginate(3);
+        return view('page.manage_month_project.page_month_project',
+        ['view_deployment_times'=>$view_deployment_times, 'month_projects'=>$month_projects]);
+    }
+
+    //Tháng và dự án CSDL
+    protected function post_add_project_to_month(Request $request,$id_month)
+    {
+        $inputProjectLevelThreeId = $request->input('inputProjectLevelThreeId');
+        $count_project_month = DB::table('project_three_and_deployment_times')
+        ->where([
+            ['deployment_time_id','=',$id_month],
+            ['project_three_id','=',$inputProjectLevelThreeId]
+        ])->count();
+
+        if ($count_project_month >= 1) {
+            $mes_exist_project_to_month = $request->session()->get('mes_exist_project_to_month');
+            return redirect()->back()->with('mes_exist_project_to_month','');
+        }else{
+            $add_project_to_month = new ProjectThreeAndDeploymentTime();
+            $add_project_to_month->project_three_id = $request->input('inputProjectLevelThreeId');
+            $add_project_to_month->deployment_time_id = $id_month;
+            $add_project_to_month->save();
+
+            $add_project_to_month_session = $request->session()->get('add_project_to_month_session');
+            return redirect()->back()->with('add_project_to_month_session','');
+        }
     }
     /*========================================================*/
 }

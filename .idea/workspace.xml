@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Models/DeploymentTimeHistory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_11_06_121435_create_deployment_time_histories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/history_deployment_time.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/DeploymentTime.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeploymentTime.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_13_032939_create_deployment_times_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_13_032939_create_deployment_times_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/page_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/page_deployment_time.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_three/page_project_three.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_three/page_project_three.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_project_parent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_parent/page_project_parent.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +211,10 @@
       <workItem from="1604502322086" duration="38000" />
       <workItem from="1604559321936" duration="12412000" />
       <workItem from="1604595968967" duration="84000" />
-      <workItem from="1604629150022" duration="9172000" />
+      <workItem from="1604629150022" duration="16240000" />
+      <workItem from="1604676308040" duration="706000" />
+      <workItem from="1604718741028" duration="3045000" />
+      <workItem from="1604725838515" duration="12494000" />
     </task>
     <servers />
   </component>

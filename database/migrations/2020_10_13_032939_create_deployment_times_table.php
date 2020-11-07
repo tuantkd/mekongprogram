@@ -15,9 +15,9 @@ class CreateDeploymentTimesTable extends Migration
     {
         Schema::create('deployment_times', function (Blueprint $table) {
             $table->id();
-            $table->date('deployment_month_initialize')->nullable();
-            $table->date('deployment_month_start')->nullable();
-            $table->date('deployment_month_end')->nullable();
+            $table->string('deployment_month_initialize')->nullable();
+            $table->string('deployment_month_start')->nullable();
+            $table->string('deployment_month_end')->nullable();
             $table->double('deployment_number_money_initial')->nullable();
             $table->double('deployment_number_money_operating')->nullable();
             $table->double('deployment_number_money_real')->nullable();
