@@ -68,12 +68,12 @@
                                     <thead>
                                     <tr>
                                         <th scope="col" style="width:5%;">STT</th>
-                                        <th scope="col" style="width:15%;">Ngày khởi tạo</th>
+                                        <th scope="col" style="width:10%;">Tháng</th>
                                         <th scope="col" style="width:15%;">Số tiền ban đầu</th>
                                         <th scope="col" style="width:20%;">Địa điểm</th>
                                         <th scope="col" style="width:15%;">Đối tác</th>
                                         <th scope="col" style="width:20%;">Mô tả</th>
-                                        <th scope="col" colspan="3" style="width:10%;">Tùy chọn</th>
+                                        <th scope="col" colspan="3" style="width:15%;">Tùy chọn</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -84,9 +84,11 @@
                                         <tr>
                                             <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
                                             <td data-label="Tháng:" class="p-1">
+                                                <a href="{{ url('page-month-project/'.$show_deployment_time->id) }}">
                                                 <h6 style="text-transform: uppercase;font-weight: bold;">
-                                                    {{ date('d/m/Y', strtotime($show_deployment_time->deployment_month_initialize)) }}
+                                                    Tháng {{ $show_deployment_time->deployment_month_initialize }}
                                                 </h6>
+                                                </a>
                                             </td>
                                             <td data-label="Số tiền dự án:" class="p-1">
                                                 <b class="text-success">{{ number_format($show_deployment_time->deployment_number_money_initial) }} Đ</b>
@@ -118,7 +120,7 @@
 
                                             <td data-label="Chọn:" class="p-1">
                                                 <a class="btn btn-warning btn-xs"
-                                                    href="{{ url('history-/'.$project_parent_id->id.'/'.$project_one_id->id.'/'
+                                                    href="{{ url('history-deployment-time/'.$project_parent_id->id.'/'.$project_one_id->id.'/'
                                                     .$project_two_id->id.'/'.$project_three_id->id.'/'.$show_deployment_time->id) }}" title="Lịch sử">
                                                     <i class="fa fa-history"></i>
                                                 </a>

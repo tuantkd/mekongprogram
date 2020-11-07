@@ -69,8 +69,25 @@
                                 @csrf
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-3">
-                                        <label for="">Ngày khởi tạo</label>
-                                        <input name="inputDateInitialize" type="date" class="form-control">
+                                        <label for="">Tháng khởi tạo</label>
+                                        <select name="inputDateInitialize" class="form-control">
+                                            <option value="">- - Chọn tháng - -</option>
+                                            <option value="1">Tháng 1</option>
+                                            <option value="2">Tháng 2</option>
+                                            <option value="3">Tháng 3</option>
+                                            <option value="4">Tháng 4</option>
+                                            <option value="5">Tháng 5</option>
+                                            <option value="6">Tháng 6</option>
+                                            <option value="7">Tháng 7</option>
+                                            <option value="8">Tháng 8</option>
+                                            <option value="9">Tháng 9</option>
+                                            <option value="10">Tháng 10</option>
+                                            <option value="11">Tháng 11</option>
+                                            <option value="12">Tháng 12</option>
+                                        </select>
+                                        <small class="text-danger font-italic font-weight-bold">
+                                            {{ $errors->first('inputDateInitialize') }}
+                                        </small>
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <label for="">Số tiền dự án</label>
@@ -145,6 +162,19 @@
             }
         });
     </script>
+
+
+    @if (Session::has('mes_exist_month_session'))
+        <script type="text/javascript">
+            Swal.fire({
+                position: 'center'
+                , icon: 'error'
+                , title: 'Tháng đã tồn tại!'
+                , showConfirmButton: false
+                , timer: 2000
+            });
+        </script>
+    @endif
 
 
 @endsection
