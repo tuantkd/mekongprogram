@@ -43,8 +43,6 @@
     <link rel="stylesheet prefetch" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
-
-
     <style type="text/css" media="screen">
         table {
             margin: 5;
@@ -251,7 +249,7 @@
                                         <a href="#" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>
-                                                Tháng {{ $deployment->deployment_month_initialize }}
+                                                Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
                                                 <i class="right fas fa-angle-left"></i>
                                             </p>
                                         </a>
@@ -290,12 +288,6 @@
                             <a href="{{ url('page-project-parent') }}" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>Dự án ban đầu</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('page-month-project') }}" class="nav-link">
-                                <i class="nav-icon fa fa-calendar"></i>
-                                <p>Tháng và dự án</p>
                             </a>
                         </li>
                         <div class="dropdown-divider mb-0"></div>

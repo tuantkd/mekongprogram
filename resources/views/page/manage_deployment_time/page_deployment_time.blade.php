@@ -41,8 +41,229 @@
 {{--======================================================--}}
 @section('content')
 
+    <style>
+        @media screen and (max-width: 600px) {
+            .mobile-hidden{
+                display: none;
+            }
+        }
+        /*Now the CSS Created by R.S*/
+        * {margin: 0; padding: 0;}
+        .tree ul {
+            padding-top: 20px; position: relative;
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        .tree li {
+            float: left; text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        /*We will use ::before and ::after to draw the connectors*/
+        .tree li::before, .tree li::after{
+            content: '';
+            position: absolute; top: 0; right: 50%;
+            border-top: 1px solid #ccc;
+            width: 50%; height: 20px;
+        }
+        .tree li::after{
+            right: auto; left: 50%;
+            border-left: 1px solid #ccc;
+        }
+        /*We need to remove left-right connectors from elements without
+        any siblings*/
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+        /*Remove space from the top of single children*/
+        .tree li:only-child{ padding-top: 0;}
+
+        /*Remove left connector from first child and
+        right connector from last child*/
+        .tree li:first-child::before, .tree li:last-child::after{
+            border: 0 none;
+        }
+        /*Adding back the vertical connector to the last nodes*/
+        .tree li:last-child::before{
+            border-right: 1px solid #ccc;
+            border-radius: 0 5px 0 0;
+            -webkit-border-radius: 0 5px 0 0;
+            -moz-border-radius: 0 5px 0 0;
+        }
+        .tree li:first-child::after{
+            border-radius: 5px 0 0 0;
+            -webkit-border-radius: 5px 0 0 0;
+            -moz-border-radius: 5px 0 0 0;
+        }
+
+        /*Time to add downward connectors from parents*/
+        .tree ul ul::before{
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            border-left: 1px solid #ccc;
+            width: 0; height: 20px;
+        }
+
+        .tree li a{
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #666;
+            font-family: arial, verdana, tahoma;
+            font-size: 11px;
+            display: inline-block;
+
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        /*Time for some hover effects*/
+        /*We will apply the hover effect the the lineage of the element also*/
+        .tree li a:hover, .tree li a:hover+ul li a {
+            background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+        }
+        /*Connector styles on hover*/
+        .tree li a:hover+ul li::after,
+        .tree li a:hover+ul li::before,
+        .tree li a:hover+ul::before,
+        .tree li a:hover+ul ul::before{
+            border-color:  #94a0b4;
+        }
+    </style>
+
     <section class="content">
         <div class="container-fluid p-0">
+
+            <!-- Tree project -->
+            <div class="row mobile-hidden">
+                <section class="col-lg-12 connectedSortable">
+                    <!-- TO DO List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <b><i class="ion ion-clipboard mr-1"></i>CÂY DỰ ÁN BAN ĐẦU</b>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-1">
+                            @php($project_parents = DB::table('project_parents')->latest()->take(5)->get())
+                            @if (Auth::user()->role_id == 1)
+                                {{--==================================================================--}}
+                                {{--QUẢN TRỊ XEM HẾT--}}
+                                <div class="tree">
+                                    <ul>
+                                        @foreach($project_parents as $project_parent)
+                                            <li>
+                                                <a href="{{ url('page-project-one/'.$project_parent->id) }}">
+                                                    {{ $project_parent->project_code }}
+                                                </a>
+                                                <ul>
+                                                    @php($project_ones = DB::table('project_level_ones')->where('project_parent_id',$project_parent->id)->get())
+                                                    @foreach($project_ones as $project_one)
+                                                        <li>
+                                                            <a href="{{ url('page-project-two/'.$project_parent->id.'/'.$project_one->id) }}">
+                                                                {{ $project_one->project_one_code }}
+                                                            </a>
+                                                            <ul>
+                                                                @php($project_twos = DB::table('project_level_twos')->where('project_one_id',$project_one->id)->get())
+                                                                @foreach($project_twos as $project_two)
+                                                                    <li>
+                                                                        <a href="{{ url('page-project-three/'.$project_parent->id.'/'.$project_one->id.'/'.$project_two->id) }}">
+                                                                            {{ $project_two->project_two_code }}
+                                                                        </a>
+                                                                        <ul>
+                                                                            @php($project_threes = DB::table('project_level_threes')->where('project_two_id',$project_two->id)->get())
+                                                                            @foreach($project_threes as $project_three)
+                                                                                <li>
+                                                                                    <a href="{{ url('page-deployment-time/'.$project_parent->id.'/'
+                                                                    .$project_one->id.'/'.$project_two->id.'/'.$project_three->id) }}">
+                                                                                        {{ $project_three->project_three_code }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                {{--QUẢN TRỊ XEM HẾT--}}
+                                {{--==================================================================--}}
+                            @else
+                                {{--==================================================================--}}
+                                {{--NGƯỜI DÙNG GIAO QUYỀN MỚI ĐƯỢC XEM--}}
+                                <div class="tree">
+                                    <ul>
+                                        @foreach($project_parents as $parent)
+                                            @php($project_users = DB::table('project_and_users')->where([['user_id','=',Auth::id()], ['project_parent_id','=',$parent->id]])->get())
+                                            @foreach($project_users as $project_user)
+                                                <li>
+                                                    <a href="{{ url('page-project-one/'.$parent->id) }}">
+                                                        {{ $parent->project_code }}
+                                                    </a>
+                                                    <ul>
+                                                        @php($project_ones = DB::table('project_level_ones')->where('project_parent_id',$parent->id)->get())
+                                                        @foreach($project_ones as $project_one)
+                                                            <li>
+                                                                <a href="{{ url('page-project-two/'.$parent->id.'/'.$project_one->id) }}">
+                                                                    {{ $project_one->project_one_code }}
+                                                                </a>
+                                                                <ul>
+                                                                    @php($project_twos = DB::table('project_level_twos')->where('project_one_id',$project_one->id)->get())
+                                                                    @foreach($project_twos as $project_two)
+                                                                        <li>
+                                                                            <a href="{{ url('page-project-three/'.$parent->id.'/'.$project_one->id.'/'.$project_two->id) }}">
+                                                                                {{ $project_two->project_two_code }}
+                                                                            </a>
+                                                                            <ul>
+                                                                                @php($project_threes = DB::table('project_level_threes')->where('project_two_id',$project_two->id)->get())
+                                                                                @foreach($project_threes as $project_three)
+                                                                                    <li>
+                                                                                        <a href="{{ url('page-deployment-time/'.$parent->id.'/'
+                                                                                    .$project_one->id.'/'.$project_two->id.'/'.$project_three->id) }}">
+                                                                                            {{ $project_three->project_three_code }}
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                            @endforeach
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                {{--NGƯỜI DÙNG GIAO QUYỀN MỚI ĐƯỢC XEM--}}
+                                {{--==================================================================--}}
+                            @endif
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </section>
+            </div>
+            <!-- /End Tree project -->
+
+
             <!-- Main row -->
             <div class="row">
                 <section class="col-lg-12 connectedSortable">
@@ -85,9 +306,10 @@
                                             <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
                                             <td data-label="Tháng:" class="p-1">
                                                 <a href="{{ url('page-month-project/'.$show_deployment_time->id) }}">
-                                                <h6 style="text-transform: uppercase;font-weight: bold;">
-                                                    Tháng {{ $show_deployment_time->deployment_month_initialize }}
-                                                </h6>
+                                                <b style="text-transform: uppercase;font-weight: bold;">
+                                                    Tháng
+                                                    {{ $show_deployment_time->deployment_month_initialize }}/{{ $show_deployment_time->deployment_year_initialize }}
+                                                </b>
                                                 </a>
                                             </td>
                                             <td data-label="Số tiền dự án:" class="p-1">

@@ -936,34 +936,43 @@ class MekongController extends Controller
     //Thêm thời gian triển khai CSDL
     public function post_add_deployment_time(Request $request,$id_project_parent,$id_project_one,$id_project_two,$id_project_three)
     {
-        $this->validate($request,[
-            'inputDateInitialize'=>'unique:deployment_times,deployment_month_initialize'
-        ],[
-            'inputDateInitialize.unique'=>'Tháng đã tồn tại!'
-        ]);
+        //Ràng buộc tồn tại
+        $inputMonthInitialize = $request->input('inputMonthInitialize');
+        $inputYearInitialize = $request->input('inputYearInitialize');
+        $count_month_year = DB::table('deployment_times')
+        ->where([
+            ['deployment_month_initialize','=',$inputMonthInitialize],
+            ['deployment_year_initialize','=',$inputYearInitialize]
+        ])->count();
 
-        //Lấy tháng khởi tạo
-        $add_deployment_time = new DeploymentTime();
-        $add_deployment_time->deployment_month_initialize = $request->input('inputDateInitialize');
-        $add_deployment_time->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
-        $add_deployment_time->deployment_partner = $request->input('inputPartner');
-        $add_deployment_time->deployment_address = $request->input('inputAddress');
-        $add_deployment_time->deployment_description = $request->input('inputDiscribe');
-        $add_deployment_time->save();
+        if ($count_month_year >= 1) {
+            $mes_exist_session = $request->session()->get('mes_exist_session');
+            return redirect()->back()->with('mes_exist_session','');
+        }else{
 
-        //Thực hiện get data max ID lần 2
-        $max_id_deployment_time = DB::table('deployment_times')->max('id');
+            //Lấy tháng khởi tạo
+            $add_deployment_time = new DeploymentTime();
+            $add_deployment_time->deployment_month_initialize = $request->input('inputMonthInitialize');
+            $add_deployment_time->deployment_year_initialize = $request->input('inputYearInitialize');
+            $add_deployment_time->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
+            $add_deployment_time->deployment_partner = $request->input('inputPartner');
+            $add_deployment_time->deployment_address = $request->input('inputAddress');
+            $add_deployment_time->deployment_description = $request->input('inputDiscribe');
+            $add_deployment_time->save();
 
-        //Thực hiện add lần 3
-        $add_project_three_deployment_time = new ProjectThreeAndDeploymentTime();
-        $add_project_three_deployment_time->project_three_id = $id_project_three;
-        $add_project_three_deployment_time->deployment_time_id = $max_id_deployment_time;
-        $add_project_three_deployment_time->save();
+            //Thực hiện get data max ID lần 2
+            $max_id_deployment_time = DB::table('deployment_times')->max('id');
 
-        $add_deployment_time_session = $request->session()->get('add_deployment_time_session');
-        return redirect('page-deployment-time/'.$id_project_parent.'/'.$id_project_one.'/'.$id_project_two.'/'.$id_project_three)
-            ->with('add_deployment_time_session','');
+            //Thực hiện add lần 3
+            $add_project_three_deployment_time = new ProjectThreeAndDeploymentTime();
+            $add_project_three_deployment_time->project_three_id = $id_project_three;
+            $add_project_three_deployment_time->deployment_time_id = $max_id_deployment_time;
+            $add_project_three_deployment_time->save();
 
+            $add_deployment_time_session = $request->session()->get('add_deployment_time_session');
+            return redirect('page-deployment-time/'.$id_project_parent.'/'.$id_project_one.'/'.$id_project_two.'/'.$id_project_three)
+                ->with('add_deployment_time_session','');
+        }
     }
 
     //Chỉnh sửa thời gian triển khai

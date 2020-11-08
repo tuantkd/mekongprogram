@@ -50,7 +50,7 @@
         <div class="container-fluid p-0">
             <!-- Main row -->
             <div class="row">
-                <section class="col-lg-10 offset-lg-1">
+                <section class="col-lg-12">
                     <!-- TO DO List -->
                     <div class="card">
                         <div class="card-header">
@@ -68,10 +68,10 @@
                             id="AddDeployment" method="POST">
                                 @csrf
                                 <div class="form-group row">
-                                    <div class="col-12 col-lg-3">
+                                    <div class="col-12 col-lg-2">
                                         <label for="">Tháng khởi tạo</label>
-                                        <select name="inputDateInitialize" class="form-control">
-                                            <option value="">- - Chọn tháng - -</option>
+                                        <select name="inputMonthInitialize" class="form-control">
+                                            <option value="">- - Tháng - -</option>
                                             <option value="1">Tháng 1</option>
                                             <option value="2">Tháng 2</option>
                                             <option value="3">Tháng 3</option>
@@ -85,18 +85,26 @@
                                             <option value="11">Tháng 11</option>
                                             <option value="12">Tháng 12</option>
                                         </select>
-                                        <small class="text-danger font-italic font-weight-bold">
-                                            {{ $errors->first('inputDateInitialize') }}
-                                        </small>
                                     </div>
-                                    <div class="col-12 col-lg-3">
+                                    <div class="col-12 col-lg-2">
+                                        <label for="">Năm khởi tạo</label>
+                                        <select name="inputYearInitialize" class="form-control">
+                                            <option value="">- - Năm - -</option>
+                                            <?php
+                                                for($i = 2018 ; $i <= date('Y'); $i++){
+                                                    echo "<option value='$i'>$i</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-lg-2">
                                         <label for="">Số tiền dự án</label>
                                         <input name="inputNumberMoneyInitial" type="number" class="form-control"
-                                               placeholder="Nhập số tiền ban đầu">
+                                               placeholder="Số tiền dự án">
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label for="">Đối tác</label>
-                                        <textarea name="inputPartner" rows="2" class="form-control"
+                                        <textarea name="inputPartner" rows="3" class="form-control"
                                         placeholder="Nhập đối tác"></textarea>
                                     </div>
                                 </div>
@@ -164,12 +172,12 @@
     </script>
 
 
-    @if (Session::has('mes_exist_month_session'))
+    @if (Session::has('mes_exist_session'))
         <script type="text/javascript">
             Swal.fire({
                 position: 'center'
                 , icon: 'error'
-                , title: 'Tháng đã tồn tại!'
+                , title: 'Tháng năm đã tồn tại!'
                 , showConfirmButton: false
                 , timer: 2000
             });
