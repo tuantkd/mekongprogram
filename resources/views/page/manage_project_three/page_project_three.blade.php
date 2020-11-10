@@ -309,7 +309,15 @@
                                             </a>
                                         </td>
                                         <td data-label="Tổng tiền:" class="p-1">
-                                            <b style="color:#2e8b57;">643000sf đ</b>
+                                            <?php $total_money_initial = 0; ?>
+                                            @php($project_deployments = DB::table('project_three_and_deployment_times')->where('project_three_id',$show_project_three->id)->get())
+                                            @foreach($project_deployments as $project_deployment)
+                                                @php($deployment_times = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->sum('deployment_number_money_initial'))
+                                                <?php $total_money_initial = $total_money_initial + $deployment_times; ?>
+                                            @endforeach
+                                            <b style="color:#2e8b57;">
+                                                <?php echo number_format($total_money_initial); ?>đ
+                                            </b>
                                         </td>
                                         <td data-label="Kết quả cần đạt:" class="text-muted p-1">
                                             <p>{{ $show_project_three->project_three_result_need_reach }}</p>

@@ -246,9 +246,25 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('page-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
     [MekongController::class, 'page_deployment_time']);
 
+    //Trang thời gian triển khai kế hoạch
+    Route::get('page-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
+    [MekongController::class, 'page_deployment_time_plan']);
+
     //Thêm thời gian triển khai
     Route::get('page-add-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
     [MekongController::class, 'page_add_deployment_time']);
+
+    //Thêm thời gian triển khai kế hoạch (Cập nhật lại)
+    Route::get('add-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time_plan}',
+    [MekongController::class, 'add_deployment_time_plan']);
+
+    //Chỉnh sửa thời gian triển khai kế hoạch (Cập nhật lại)
+    Route::get('edit-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time_plan}',
+    [MekongController::class, 'edit_deployment_time_plan']);
+
+    //Cập nhật thời gian triển khai kế hoạch (Cập nhật lại)
+    Route::put('update-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time_plan}',
+    [MekongController::class, 'update_deployment_time_plan']);
 
     //Thêm thời gian triển khai CSDL
     Route::post('post-add-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
@@ -266,6 +282,14 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('history-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time}',
     [MekongController::class, 'history_deployment_time']);
 
+    //Xem lịch sử chỉnh sửa thời gian triển khai kế hoạch
+    Route::get('history-deployment-time-plan/{id_deployment_time}',
+    [MekongController::class, 'history_deployment_time_plan']);
+
+    //Xóa lịch sử chỉnh sửa thời gian triển khai kế hoạch
+    Route::get('delete-history-deployment-time-plan/{id_history_deployment_time}',
+    [MekongController::class, 'delete_history_deployment_time_plan']);
+
     //Xóa lịch sử chỉnh sửa thời gian triển khai
     Route::get('delete-history-deployment-time/{id_history_deployment_time}',
     [MekongController::class, 'delete_history_deployment_time']);
@@ -279,6 +303,15 @@ Route::middleware([CheckLogin::class])->group(function () {
     /*======================================================================*/
     //Tháng và dự án
     Route::get('page-month-project/{id_month}', [MekongController::class, 'page_month_project']);
+
+    //Chỉnh sửa tháng và dự án lối tắt nhanh
+    Route::get('edit-month-project/{id_month}', [MekongController::class, 'edit_month_project']);
+
+    //Cập nhật tháng và dự án lối tắt nhanh
+    Route::put('update-month-project/{id_month}', [MekongController::class, 'update_month_project']);
+
+    //Tháng và dự án kế hoạch
+    Route::get('page-month-project-plan/{id_month}', [MekongController::class, 'page_month_project_plan']);
 
     //Tháng và dự án CSDL
     Route::post('post-add-project-to-month/{id_month}', [MekongController::class, 'post_add_project_to_month']);

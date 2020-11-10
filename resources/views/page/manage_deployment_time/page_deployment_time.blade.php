@@ -289,7 +289,7 @@
                                     <thead>
                                     <tr>
                                         <th scope="col" style="width:5%;">STT</th>
-                                        <th scope="col" style="width:10%;">Tháng</th>
+                                        <th scope="col" style="width:10%;">Tháng/Năm</th>
                                         <th scope="col" style="width:15%;">Số tiền ban đầu</th>
                                         <th scope="col" style="width:20%;">Địa điểm</th>
                                         <th scope="col" style="width:15%;">Đối tác</th>
@@ -304,7 +304,7 @@
                                         @foreach($show_deployment_times as $key => $show_deployment_time)
                                         <tr>
                                             <td data-label="STT:" class="p-1"><b>{{ ++$key }}</b></td>
-                                            <td data-label="Tháng:" class="p-1">
+                                            <td data-label="Tháng/Năm:" class="p-1">
                                                 <a href="{{ url('page-month-project/'.$show_deployment_time->id) }}">
                                                 <b style="text-transform: uppercase;font-weight: bold;">
                                                     Tháng

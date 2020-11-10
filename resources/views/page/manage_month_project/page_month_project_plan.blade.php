@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title','Tháng dự án')
+@section('title','Tháng kế hoạch')
 {{--======================================================--}}
 
 
@@ -11,7 +11,7 @@
                 <div class="col-sm-12 text-right">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
-                        <li class="breadcrumb-item active">Tháng dự án</li>
+                        <li class="breadcrumb-item active">Tháng kế hoạch</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,6 +31,7 @@
 
         .tree ul {
             padding-top: 20px; position: relative;
+
             transition: all 0.5s;
             -webkit-transition: all 0.5s;
             -moz-transition: all 0.5s;
@@ -136,55 +137,125 @@
                             <h3 class="card-title">
                                 <b>
                                     <i class="ion ion-clipboard mr-1"></i>
-                                    DỰ ÁN THÁNG <b class="text-primary">{{ $view_deployment_times->deployment_month_initialize }}/{{ $view_deployment_times->deployment_year_initialize }}</b>
+                                    KẾ HOẠCH THÁNG
+                                    <b class="text-info">{{ $view_deployment_times->deployment_month_initialize }}/{{ $view_deployment_times->deployment_year_initialize }}</b>
                                 </b>
                             </h3>
                             <div class="card-tools">
-                                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modelId" href="#">
-                                    <i class="fa fa-plus"></i> Thêm dự án vào tháng
-                                </a>
+                                @if($view_deployment_times->deployment_number_money_operating == null)
+                                    @foreach($month_projects as $month_project)
+                                        @php($threes = DB::table('project_level_threes')->where('id',$month_project->project_three_id)->get())
+                                        @foreach($threes as $three)
+                                            @php($twos = DB::table('project_level_twos')->where('id',$three->project_two_id)->get())
+                                            @foreach($twos as $two)
+                                                @php($ones = DB::table('project_level_ones')->where('id',$two->project_one_id)->get())
+                                                @foreach($ones as $one)
+                                                    @php($parents = DB::table('project_parents')->where('id',$one->project_parent_id)->get())
+                                                    @foreach($parents as $parent)
+                                                        <a class="btn btn-info btn-xs"
+                                                        href="{{ url('add-deployment-time-plan/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three->id.'/'.$view_deployment_times->id) }}">
+                                                            <i class="fa fa-plus"></i> Thêm bổ sung kế hoạch
+                                                        </a>
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
+                                    @endforeach
+                                @else
+                                @endif
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body p-2">
+                        <div class="card-body p-1">
                             <div class="table-responsive-sm">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th scope="col" style="width:15%;">Số tiền ban đầu</th>
-                                        <th scope="col" style="width:25%;">Địa điểm</th>
-                                        <th scope="col" style="width:25%;">Đối tác</th>
-                                        <th scope="col" style="width:25%;">Mô tả</th>
-                                        <th scope="col" style="width:10%;" colspan="2">Tùy chọn</th>
+                                        @if (($view_deployment_times->deployment_day_start != null) &&
+                                        ($view_deployment_times->deployment_month_start != null) &&
+                                        ($view_deployment_times->deployment_year_start != null))
+                                        <th scope="col" style="width:9%;">Ngày BĐ</th>
+                                        @endif
+
+                                        @if (($view_deployment_times->deployment_day_end != null) &&
+                                        ($view_deployment_times->deployment_month_end != null) &&
+                                        ($view_deployment_times->deployment_year_end != null))
+                                        <th scope="col" style="width:9%;">Ngày KT</th>
+                                        @endif
+
+                                        <th scope="col" style="width:11%;">Tiền ban đầu</th>
+
+                                        @if ($view_deployment_times->deployment_number_money_operating != null)
+                                        <th scope="col" style="width:11%;">Tiền H.động</th>
+                                        @endif
+
+                                        <th scope="col" style="width:11%;">Địa điểm</th>
+                                        <th scope="col" style="width:11%;">Đối tác</th>
+
+                                        @if ($view_deployment_times->deployment_method_implementation != null)
+                                        <th scope="col" style="width:11%;">PP thực hiện</th>
+                                        @endif
+
+                                        <th scope="col" style="width:15%;">Mô tả</th>
+                                        <th scope="col" style="width:5%;" colspan="2">Chọn</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
+                                        @if (($view_deployment_times->deployment_day_start != null) &&
+                                        ($view_deployment_times->deployment_month_start != null) &&
+                                        ($view_deployment_times->deployment_year_start != null))
+                                        <td data-label="Ngày bắt đầu:" class="p-1">
+                                            <h6 class="text-info">
+                                                {{ $view_deployment_times->deployment_day_start }}/{{ $view_deployment_times->deployment_month_start }}/{{ $view_deployment_times->deployment_year_start }}
+                                            </h6>
+                                        </td>
+                                        @endif
+
+                                        @if (($view_deployment_times->deployment_day_end != null) &&
+                                        ($view_deployment_times->deployment_month_end != null) &&
+                                        ($view_deployment_times->deployment_year_end != null))
+                                        <td data-label="Ngày kết thúc:" class="p-1">
+                                            <h6 class="text-info">
+                                                {{ $view_deployment_times->deployment_day_end }}/{{ $view_deployment_times->deployment_month_end }}/{{ $view_deployment_times->deployment_year_end }}
+                                            </h6>
+                                        </td>
+                                        @endif
+
                                         <td data-label="Số tiền dự án:" class="p-1">
-                                            <h6 class="text-primary">
+                                            <h6 class="text-info">
                                                 {{ number_format($view_deployment_times->deployment_number_money_initial) }} Đ
                                             </h6>
                                         </td>
+
+                                        @if ($view_deployment_times->deployment_number_money_operating != null)
+                                        <td data-label="Số tiền hoạt động:" class="p-1">
+                                            <h6 class="text-info">
+                                                {{ number_format($view_deployment_times->deployment_number_money_operating) }} Đ
+                                            </h6>
+                                        </td>
+                                        @endif
+
                                         <td data-label="Địa điểm:" class="text-muted p-1">
                                             <p>{{ $view_deployment_times->deployment_address }}</p>
                                         </td>
                                         <td data-label="Đối tác:" class="text-muted p-1">
                                             <p>{{ $view_deployment_times->deployment_partner }}</p>
                                         </td>
+
+                                        @if ($view_deployment_times->deployment_method_implementation != null)
+                                        <td data-label="PP thực hiện:" class="text-muted p-1">
+                                            <p>{{ $view_deployment_times->deployment_method_implementation }}</p>
+                                        </td>
+                                        @endif
+
                                         <td data-label="Mô tả:" class="text-muted p-1">
                                             <p>{{ $view_deployment_times->deployment_description }}</p>
                                         </td>
-                                        <td data-label="Tùy chọn:" class="p-1">
-                                            <a class="btn btn-primary btn-xs"
-                                               href="{{ url('edit-month-project/'.$view_deployment_times->id) }}" title="Chỉnh sửa">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
+
                                         <td data-label="Chọn:" class="p-1">
-                                            @php($three_and_deployments = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$view_deployment_times->id)->get())
-                                            @foreach($three_and_deployments as $three_and_deployment)
-                                                @if($loop->first)
-                                                @php($threes = DB::table('project_level_threes')->where('id',$three_and_deployment->project_three_id)->get())
+                                            @foreach($month_projects as $month_project)
+                                                @php($threes = DB::table('project_level_threes')->where('id',$month_project->project_three_id)->get())
                                                 @foreach($threes as $three)
                                                     @php($twos = DB::table('project_level_twos')->where('id',$three->project_two_id)->get())
                                                     @foreach($twos as $two)
@@ -192,21 +263,30 @@
                                                         @foreach($ones as $one)
                                                             @php($parents = DB::table('project_parents')->where('id',$one->project_parent_id)->get())
                                                             @foreach($parents as $parent)
-                                                                <a class="btn btn-warning btn-xs"
-                                                                   href="{{ url('history-deployment-time/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three->id.'/'.$view_deployment_times->id) }}" title="Lịch sử">
-                                                                    <i class="fa fa-history"></i>
+                                                                <a class="btn btn-info btn-xs"
+                                                                href="{{ url('edit-deployment-time-plan/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three->id.'/'.$view_deployment_times->id) }}">
+                                                                    <i class="fa fa-edit"></i>
                                                                 </a>
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
-                                                @endif
                                             @endforeach
+                                        </td>
+
+                                        <td data-label="Chọn:" class="p-1">
+                                            <a class="btn btn-warning btn-xs"
+                                               href="{{ url('history-deployment-time-plan/'.$view_deployment_times->id) }}" title="Lịch sử">
+                                                <i class="fa fa-history"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
+
+
+
 
                             <div class="tree">
                                 @foreach($month_projects as $month_project)
@@ -220,7 +300,7 @@
                                                 @foreach($parents as $parent)
                                                     <ul>
                                                         <li>
-                                                            <a href="{{ url('page-deployment-time/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three->id) }}">
+                                                            <a href="{{ url('page-deployment-time-plan/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three->id) }}">
                                                                 {{ $three->project_three_code }}
                                                             </a>
                                                             <ul>
@@ -263,56 +343,6 @@
         <!-- /.container-fluid -->
     </section>
 
-
-    <!-- Modal add project to month-->
-    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="{{ url('post-add-project-to-month/'.$view_deployment_times->id) }}" method="POST">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title">
-                            <b>Thêm dự án [ THÁNG {{ $view_deployment_times->deployment_month_initialize }} ]</b>
-                        </h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="">Dự án cấp 3:</label>
-                            <select name="inputProjectLevelThreeId" class="form-control" required>
-                                <option value="">- - Chọn dự án - -</option>
-                                @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$view_deployment_times->id)->latest()->get())
-                                @foreach($project_months as $project_month)
-                                    @php($project_level_threes = DB::table('project_level_threes')->where('id','<>',$project_month->project_three_id)->latest()->get())
-                                    @foreach($project_level_threes as $project_level_three)
-                                    <option value="{{ $project_level_three->id }}">
-                                        {{ $project_level_three->project_three_code }}
-                                    </option>
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Thoát</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Thêm</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        $('#exampleModal').on('show.bs.modal', event => {
-            var button = $(event.relatedTarget);
-            var modal = $(this);
-        });
-    </script>
-    <!-- Modal add project to month-->
-
-
     @if (Session::has('add_project_to_month_session'))
         <script type="text/javascript">
             Swal.fire({
@@ -325,24 +355,24 @@
         </script>
     @endif
 
-    @if (Session::has('mes_exist_project_to_month'))
+    @if (Session::has('update_plan_session'))
         <script type="text/javascript">
             Swal.fire({
                 position: 'center'
-                , icon: 'error'
-                , title: 'Dự án đã tồn tại trong tháng'
+                , icon: 'success'
+                , title: 'Đã thêm hoặc cập nhật kế hoạch {{ $view_deployment_times->deployment_month_initialize }}'
                 , showConfirmButton: false
                 , timer: 2000
             });
         </script>
     @endif
 
-    @if (Session::has('update_month_project_session'))
+    @if (Session::has('mes_exist_project_to_month'))
         <script type="text/javascript">
             Swal.fire({
                 position: 'center'
-                , icon: 'success'
-                , title: 'Đã cập nhật thời gian triển khai ban đầu'
+                , icon: 'error'
+                , title: 'Dự án đã tồn tại trong tháng'
                 , showConfirmButton: false
                 , timer: 2000
             });
