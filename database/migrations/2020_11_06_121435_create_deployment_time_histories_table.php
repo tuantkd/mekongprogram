@@ -24,7 +24,8 @@ class CreateDeploymentTimeHistoriesTable extends Migration
             $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade');
 
-            $table->string('deployment_month_initialize')->nullable();
+            $table->integer('deployment_month_initialize')->nullable();
+            $table->integer('deployment_year_initialize')->nullable();
             //$table->date('deployment_month_start')->nullable();
             //$table->date('deployment_month_end')->nullable();
             $table->double('deployment_number_money_initial')->nullable();

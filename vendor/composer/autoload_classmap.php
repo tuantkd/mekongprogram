@@ -22,6 +22,7 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Models\\DeploymentTime' => $baseDir . '/app/Models/DeploymentTime.php',
     'App\\Models\\DeploymentTimeHistory' => $baseDir . '/app/Models/DeploymentTimeHistory.php',
+    'App\\Models\\DeploymentTimePlanHistory' => $baseDir . '/app/Models/DeploymentTimePlanHistory.php',
     'App\\Models\\ProjectAndUser' => $baseDir . '/app/Models/ProjectAndUser.php',
     'App\\Models\\ProjectLevelOne' => $baseDir . '/app/Models/ProjectLevelOne.php',
     'App\\Models\\ProjectLevelOneHistory' => $baseDir . '/app/Models/ProjectLevelOneHistory.php',

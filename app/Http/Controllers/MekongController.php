@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\DeploymentTime;
 use App\Models\DeploymentTimeHistory;
+use App\Models\DeploymentTimePlanHistory;
 use App\Models\ProjectAndUser;
 use App\Models\ProjectLevelOne;
 use App\Models\ProjectLevelOneHistory;
@@ -916,6 +917,25 @@ class MekongController extends Controller
         ]);
     }
 
+    //Trang thời gian triển khai kế hoạch
+    public function page_deployment_time_plan($id_project_parent,$id_project_one,$id_project_two,$id_project_three)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+
+        $project_three_deployment_time = ProjectThreeAndDeploymentTime::where('project_three_id',$id_project_three)->latest()->paginate(5);
+        return view('page.manage_deployment_time.page_deployment_time_plan',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id,
+            'project_three_deployment_time'=>$project_three_deployment_time
+        ]);
+    }
+
     //Thêm thời gian triển khai
     public function page_add_deployment_time($id_project_parent,$id_project_one,$id_project_two,$id_project_three)
     {
@@ -989,6 +1009,7 @@ class MekongController extends Controller
         $history_deployment_time->user_id = Auth::id();
         $history_deployment_time->deployment_time_id = $id_deployment_time;
         $history_deployment_time->deployment_month_initialize = $edit_deployment_time->deployment_month_initialize;
+        $history_deployment_time->deployment_year_initialize = $edit_deployment_time->deployment_year_initialize;
         $history_deployment_time->deployment_number_money_initial = $edit_deployment_time->deployment_number_money_initial;
         $history_deployment_time->deployment_address = $edit_deployment_time->deployment_address;
         $history_deployment_time->deployment_partner = $edit_deployment_time->deployment_partner;
@@ -1005,6 +1026,61 @@ class MekongController extends Controller
         ]);
     }
 
+    //Thêm thời gian triển khai kế hoạch
+    public function add_deployment_time_plan($id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time_plan)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+        $add_deployment_time_plan = DeploymentTime::find($id_deployment_time_plan);
+
+        return view('page.manage_deployment_time.add_deployment_time_plan',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id,
+            'add_deployment_time_plan'=>$add_deployment_time_plan
+        ]);
+    }
+
+    //Chỉnh sửa thời gian triển khai kế hoạch
+    public function edit_deployment_time_plan($id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time_plan)
+    {
+        $project_parent_id = ProjectParent::find($id_project_parent);
+        $project_one_id = ProjectLevelOne::find($id_project_one);
+        $project_two_id = ProjectLevelTwo::find($id_project_two);
+        $project_three_id = ProjectLevelThree::find($id_project_three);
+        $edit_deployment_time_plan = DeploymentTime::find($id_deployment_time_plan);
+
+        //Lưu lịch sử chỉnh sửa thời gian triển khai kế hoạch
+        $history_plan = new DeploymentTimePlanHistory();
+        $history_plan->deployment_time_id = $id_deployment_time_plan;
+        $history_plan->user_id = Auth::id();
+
+        $history_plan->deployment_day_start = $edit_deployment_time_plan->deployment_day_start;
+        $history_plan->deployment_month_start = $edit_deployment_time_plan->deployment_month_start;
+        $history_plan->deployment_year_start = $edit_deployment_time_plan->deployment_year_start;
+
+        $history_plan->deployment_day_end = $edit_deployment_time_plan->deployment_day_end;
+        $history_plan->deployment_month_end = $edit_deployment_time_plan->deployment_month_end;
+        $history_plan->deployment_year_end = $edit_deployment_time_plan->deployment_year_end;
+
+        $history_plan->deployment_number_money_operating = $edit_deployment_time_plan->deployment_number_money_operating;
+        $history_plan->deployment_method_implementation = $edit_deployment_time_plan->deployment_method_implementation;
+        $history_plan->save();
+
+        return view('page.manage_deployment_time.edit_deployment_time_plan',
+        [
+            'project_parent_id'=>$project_parent_id,
+            'project_one_id'=>$project_one_id,
+            'project_two_id'=>$project_two_id,
+            'project_three_id'=>$project_three_id,
+            'edit_deployment_time_plan'=>$edit_deployment_time_plan
+        ]);
+    }
+
     //Cập nhật thời gian triển khai
     public function update_deployment_time(Request $request,$id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time)
     {
@@ -1014,7 +1090,8 @@ class MekongController extends Controller
         $project_three_id = ProjectLevelThree::find($id_project_three);
 
         $update_deployment_time = DeploymentTime::find($id_deployment_time);
-        $update_deployment_time->deployment_month_initialize = $request->input('inputDateInitialize');
+        $update_deployment_time->deployment_month_initialize = $request->input('inputMonthInitialize');
+        $update_deployment_time->deployment_year_initialize = $request->input('inputYearInitialize');
         $update_deployment_time->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
         $update_deployment_time->deployment_partner = $request->input('inputPartner');
         $update_deployment_time->deployment_address = $request->input('inputAddress');
@@ -1024,6 +1101,49 @@ class MekongController extends Controller
         $update_deployment_time_session = $request->session()->get('update_deployment_time_session');
         return redirect('page-deployment-time/'.$id_project_parent.'/'.$id_project_one.'/'.$id_project_two.'/'.$id_project_three)
         ->with('update_deployment_time_session','');
+    }
+
+    //Cập nhật thời gian triển khai kế hoạch
+    public function update_deployment_time_plan(Request $request,$id_deployment_time_plan)
+    {
+        $update_plan = DeploymentTime::find($id_deployment_time_plan);
+
+        //Month and Year in DB
+        $MonthInitializeDB = $update_plan->deployment_month_initialize;
+        $YearInitializeDB = $update_plan->deployment_year_initialize;
+
+        //Month and Year in Start
+        $MonthInitializeStart = $request->input('inputMonthInitializeStart');
+        $YearInitializeStart = $request->input('inputYearInitializeStart');
+
+        //Month and Year in End
+        $MonthInitializeEnd = $request->input('inputMonthInitializeEnd');
+        $YearInitializeEnd = $request->input('inputYearInitializeEnd');
+
+        if (
+            ($MonthInitializeStart == $MonthInitializeDB) &&
+            ($MonthInitializeEnd == $MonthInitializeDB) &&
+            ($YearInitializeStart == $YearInitializeDB) &&
+            ($YearInitializeEnd == $YearInitializeDB)
+        ) {
+            $update_plan->deployment_day_start = $request->input('inputDayInitializeStart');
+            $update_plan->deployment_month_start = $request->input('inputMonthInitializeStart');
+            $update_plan->deployment_year_start = $request->input('inputYearInitializeStart');
+
+            $update_plan->deployment_day_end = $request->input('inputDayInitializeEnd');
+            $update_plan->deployment_month_end = $request->input('inputMonthInitializeEnd');
+            $update_plan->deployment_year_end = $request->input('inputYearInitializeEnd');
+
+            $update_plan->deployment_number_money_operating = $request->input('inputMoneyOperating');
+            $update_plan->deployment_method_implementation = $request->input('inputMethodImplementation');
+            $update_plan->save();
+
+            $update_plan_session = $request->session()->get('update_plan_session');
+            return redirect('page-month-project-plan/'.$id_deployment_time_plan)->with('update_plan_session','');
+        }else{
+            $mes_error_month_year_session = $request->session()->get('mes_error_month_year_session');
+            return redirect()->back()->with('mes_error_month_year_session','');
+        }
     }
 
     //Xóa gian triển khai
@@ -1040,6 +1160,14 @@ class MekongController extends Controller
         DeploymentTimeHistory::destroy($id_history_deployment_time);
         $delete_history_deployment_time_session = $request->session()->get('delete_history_deployment_time_session');
         return redirect()->back()->with('delete_history_deployment_time_session','');
+    }
+
+    //Xóa lịch sử chỉnh sửa thời gian triển khai kế hoạch
+    public function delete_history_deployment_time_plan(Request $request,$id_history_deployment_time)
+    {
+        DeploymentTimePlanHistory::destroy($id_history_deployment_time);
+        $delete_history_deployment_time_plan_session = $request->session()->get('delete_history_deployment_time_plan_session');
+        return redirect()->back()->with('delete_history_deployment_time_plan_session','');
     }
 
     //Xem lịch sử chỉnh sửa thời gian triển khai
@@ -1062,6 +1190,18 @@ class MekongController extends Controller
             'history_deployment_times'=>$history_deployment_times
         ]);
     }
+
+    //Xem lịch sử chỉnh sửa thời gian triển khai kế hoạch
+    public function history_deployment_time_plan($id_deployment_time)
+    {
+        $deployment_time_id = DeploymentTime::find($id_deployment_time);
+        $history_deployment_time_plans = DeploymentTimePlanHistory::where('deployment_time_id',$id_deployment_time)->latest()->paginate(5);
+        return view('page.manage_deployment_time.history_deployment_time_plan',
+        [
+            'deployment_time_id'=>$deployment_time_id,
+            'history_deployment_time_plans'=>$history_deployment_time_plans
+        ]);
+    }
     /*========================================================*/
 
 
@@ -1075,6 +1215,51 @@ class MekongController extends Controller
         $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->paginate(3);
         return view('page.manage_month_project.page_month_project',
         ['view_deployment_times'=>$view_deployment_times, 'month_projects'=>$month_projects]);
+    }
+
+    //Tháng và dự án kế hoạch
+    protected function page_month_project_plan($id_month)
+    {
+        $view_deployment_times = DeploymentTime::find($id_month);
+        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->paginate(3);
+        return view('page.manage_month_project.page_month_project_plan',
+        ['view_deployment_times'=>$view_deployment_times, 'month_projects'=>$month_projects]);
+    }
+
+    //Chỉnh sửa tháng và dự án kế hoạch
+    protected function edit_month_project($id_month)
+    {
+        $edit_deployment_time = DeploymentTime::find($id_month);
+
+        //Lưu lịch sử chỉnh sửa thời gian triển khai
+        $history_deployment_time = new DeploymentTimeHistory();
+        $history_deployment_time->user_id = Auth::id();
+        $history_deployment_time->deployment_time_id = $id_month;
+        $history_deployment_time->deployment_month_initialize = $edit_deployment_time->deployment_month_initialize;
+        $history_deployment_time->deployment_year_initialize = $edit_deployment_time->deployment_year_initialize;
+        $history_deployment_time->deployment_number_money_initial = $edit_deployment_time->deployment_number_money_initial;
+        $history_deployment_time->deployment_address = $edit_deployment_time->deployment_address;
+        $history_deployment_time->deployment_partner = $edit_deployment_time->deployment_partner;
+        $history_deployment_time->deployment_description = $edit_deployment_time->deployment_description;
+        $history_deployment_time->save();
+
+        return view('page.manage_month_project.edit_month_project',['edit_deployment_time'=>$edit_deployment_time]);
+    }
+
+    //Cập nhật tháng và dự án kế hoạch
+    protected function update_month_project(Request $request,$id_month)
+    {
+        $update_month_project = DeploymentTime::find($id_month);
+        $update_month_project->deployment_month_initialize = $request->input('inputMonthInitialize');
+        $update_month_project->deployment_year_initialize = $request->input('inputYearInitialize');
+        $update_month_project->deployment_number_money_initial = $request->input('inputNumberMoneyInitial');
+        $update_month_project->deployment_partner = $request->input('inputPartner');
+        $update_month_project->deployment_address = $request->input('inputAddress');
+        $update_month_project->deployment_description = $request->input('inputDiscribe');
+        $update_month_project->save();
+
+        $update_month_project_session = $request->session()->get('update_month_project_session');
+        return redirect('page-month-project/'.$id_month)->with('update_month_project_session','');
     }
 
     //Tháng và dự án CSDL

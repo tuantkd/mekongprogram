@@ -11,27 +11,8 @@
                 <div class="col-sm-12 text-right">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('page-project-parent') }}">Dự án</a></li>
                         <li class="breadcrumb-item">
-                            <a href="{{ url('page-project-one/'.$project_parent_id->id) }}">
-                                {{ $project_parent_id->project_code }}
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url('page-project-two/'.$project_parent_id->id.'/'.$project_one_id->id) }}">
-                                {{ $project_one_id->project_one_code }}
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url('page-project-three/'.$project_parent_id->id.'/'.$project_one_id->id.'/'.$project_two_id->id) }}">
-                                {{ $project_two_id->project_two_code }}
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url('page-deployment-time/'.$project_parent_id->id.'/'
-                            .$project_one_id->id.'/'.$project_two_id->id.'/'.$project_three_id->id) }}">
-                                {{ $project_three_id->project_three_code }}
-                            </a>
+                            <a href="{{ url('page-month-project/'.$edit_deployment_time->id) }}">Tháng dự án</a>
                         </li>
                         <li class="breadcrumb-item active">Chỉnh sửa thời gian triển khai</li>
                     </ol>
@@ -63,12 +44,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="{{ url('update-deployment-time/'.$project_parent_id->id.'/'
-                            .$project_one_id->id.'/'.$project_two_id->id.'/'.$project_three_id->id.'/'.$edit_deployment_time->id) }}"
-                            id="EditDeployment" method="POST">
+                            <form action="{{ url('update-month-project/'.$edit_deployment_time->id) }}" id="EditDeployment" method="POST">
                                 @csrf
                                 @method('PUT')
-
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-2">
                                         <label for="">Tháng khởi tạo</label>
@@ -108,12 +86,12 @@
                                     <div class="col-12 col-lg-2">
                                         <label for="">Số tiền dự án</label>
                                         <input name="inputNumberMoneyInitial" type="number" class="form-control"
-                                        placeholder="Số tiền dự án" value="{{ $edit_deployment_time->deployment_number_money_initial }}">
+                                               placeholder="Số tiền dự án" value="{{ $edit_deployment_time->deployment_number_money_initial }}">
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label for="">Đối tác</label>
                                         <textarea name="inputPartner" rows="3" class="form-control"
-                                        placeholder="Nhập đối tác">{{ $edit_deployment_time->deployment_partner }}</textarea>
+                                                  placeholder="Nhập đối tác">{{ $edit_deployment_time->deployment_partner }}</textarea>
                                     </div>
                                 </div>
 
@@ -121,12 +99,12 @@
                                     <div class="col-12 col-lg-6">
                                         <label for="">Địa điểm</label>
                                         <textarea name="inputAddress" rows="3"
-                                        class="form-control" placeholder="Nhập địa điểm">{{ $edit_deployment_time->deployment_address }}</textarea>
+                                                  class="form-control" placeholder="Nhập địa điểm">{{ $edit_deployment_time->deployment_address }}</textarea>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label for="">Mô tả</label>
                                         <textarea name="inputDiscribe" rows="3"
-                                        class="form-control" placeholder="Nhập mô tả">{{ $edit_deployment_time->deployment_description }}</textarea>
+                                                  class="form-control" placeholder="Nhập mô tả">{{ $edit_deployment_time->deployment_description }}</textarea>
                                     </div>
                                 </div>
 
