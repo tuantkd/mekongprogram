@@ -2,30 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/DeploymentTimePlanHistory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_11_10_162422_create_deployment_time_plan_histories_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/history_deployment_time_plan.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/page_deployment_time_plan.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/edit_month_project.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_report.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_report.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/edit_month_project_report.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DeploymentTime.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeploymentTime.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_06_121435_create_deployment_time_histories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_06_121435_create_deployment_time_histories_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/history_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/history_deployment_time.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/page_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/page_deployment_time.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_one/page_project_one.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_one/page_project_one.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_three/page_project_three.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_three/page_project_three.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_project_two/page_project_two.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_project_two/page_project_two.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,6 +162,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\mekongprogram.vn\resources\views\page\manage_month_project" />
       <recent name="C:\xampp\htdocs\mekongprogram.vn\resources\views\page\manage_profile" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -229,7 +217,11 @@
       <workItem from="1604937170539" duration="415000" />
       <workItem from="1604976064189" duration="4728000" />
       <workItem from="1604990461476" duration="5707000" />
-      <workItem from="1605000019060" duration="2114000" />
+      <workItem from="1605000019060" duration="2475000" />
+      <workItem from="1605015556735" duration="2464000" />
+      <workItem from="1605026670097" duration="153000" />
+      <workItem from="1605066848541" duration="1608000" />
+      <workItem from="1605068859697" duration="11646000" />
     </task>
     <servers />
   </component>

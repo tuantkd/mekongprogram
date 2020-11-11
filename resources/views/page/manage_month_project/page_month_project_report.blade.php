@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title','Tháng kế hoạch')
+@section('title','Tháng báo cáo')
 {{--======================================================--}}
 
 
@@ -11,7 +11,7 @@
                 <div class="col-sm-12 text-right">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
-                        <li class="breadcrumb-item active">Tháng kế hoạch</li>
+                        <li class="breadcrumb-item active">Tháng báo cáo</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -137,15 +137,15 @@
                             <h3 class="card-title">
                                 <b>
                                     <i class="ion ion-clipboard mr-1"></i>
-                                    KẾ HOẠCH THÁNG
-                                    <b class="text-info">{{ $view_deployment_times->deployment_month_initialize }}/{{ $view_deployment_times->deployment_year_initialize }}</b>
+                                    BÁO CÁO THÁNG
+                                    <b class="text-success">{{ $view_deployment_times->deployment_month_initialize }}/{{ $view_deployment_times->deployment_year_initialize }}</b>
                                 </b>
                             </h3>
                             <div class="card-tools">
-                                @if($view_deployment_times->deployment_number_money_operating == null)
-                                    <a class="btn btn-info btn-xs"
-                                    href="{{ url('add-deployment-time-plan/'.$view_deployment_times->id) }}">
-                                        <i class="fa fa-plus"></i> Thêm bổ sung kế hoạch
+                                @if($view_deployment_times->deployment_number_money_real == null && $view_deployment_times->deployment_number_money_operating != null)
+                                    <a class="btn btn-success btn-xs"
+                                       href="{{ url('add-deployment-time-report/'.$view_deployment_times->id) }}">
+                                        <i class="fa fa-plus"></i> Thêm bổ sung báo cáo
                                     </a>
                                 @else
                                 @endif
@@ -153,113 +153,116 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-1">
+
+                            @if($view_deployment_times->deployment_number_money_real != null && $view_deployment_times->deployment_number_money_operating != null)
                             <div class="table-responsive-sm">
                                 <table class="table table-striped">
-                                    <thead>
                                     <tr>
-                                        @if (($view_deployment_times->deployment_day_start != null) &&
-                                        ($view_deployment_times->deployment_month_start != null) &&
-                                        ($view_deployment_times->deployment_year_start != null))
-                                        <th scope="col" style="width:9%;">Ngày BĐ</th>
-                                        @endif
-
-                                        @if (($view_deployment_times->deployment_day_end != null) &&
-                                        ($view_deployment_times->deployment_month_end != null) &&
-                                        ($view_deployment_times->deployment_year_end != null))
-                                        <th scope="col" style="width:9%;">Ngày KT</th>
-                                        @endif
-
-                                        <th scope="col" style="width:11%;">Tiền ban đầu</th>
-
-                                        @if ($view_deployment_times->deployment_number_money_operating != null)
-                                        <th scope="col" style="width:11%;">Tiền H.động</th>
-                                        @endif
-
-                                        <th scope="col" style="width:11%;">Địa điểm</th>
-                                        <th scope="col" style="width:11%;">Đối tác</th>
-
-                                        @if ($view_deployment_times->deployment_method_implementation != null)
-                                        <th scope="col" style="width:11%;">PP thực hiện</th>
-                                        @endif
-
-                                        <th scope="col" style="width:15%;">Mô tả</th>
-                                        <th scope="col" style="width:5%;" colspan="2">Chọn</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        @if (($view_deployment_times->deployment_day_start != null) &&
-                                        ($view_deployment_times->deployment_month_start != null) &&
-                                        ($view_deployment_times->deployment_year_start != null))
-                                        <td data-label="Ngày bắt đầu:" class="p-1">
-                                            <h6 class="text-info">
-                                                {{ $view_deployment_times->deployment_day_start }}/{{ $view_deployment_times->deployment_month_start }}/{{ $view_deployment_times->deployment_year_start }}
-                                            </h6>
+                                        <td style="width: 15%;" class="text-right"><b>Ngày bắt đầu:</b></td>
+                                        <td style="width: 85%;">
+                                            <span class="badge badge-warning badge-pill">
+                                            {{ $view_deployment_times->deployment_day_start }}/{{ $view_deployment_times->deployment_month_start }}/{{ $view_deployment_times->deployment_year_start }}
+                                            </span>
                                         </td>
-                                        @endif
-
-                                        @if (($view_deployment_times->deployment_day_end != null) &&
-                                        ($view_deployment_times->deployment_month_end != null) &&
-                                        ($view_deployment_times->deployment_year_end != null))
-                                        <td data-label="Ngày kết thúc:" class="p-1">
-                                            <h6 class="text-info">
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><b>Ngày kết thúc:</b></td>
+                                        <td>
+                                            <span class="badge badge-danger badge-pill">
                                                 {{ $view_deployment_times->deployment_day_end }}/{{ $view_deployment_times->deployment_month_end }}/{{ $view_deployment_times->deployment_year_end }}
-                                            </h6>
+                                            </span>
                                         </td>
-                                        @endif
-
-                                        <td data-label="Số tiền dự án:" class="p-1">
-                                            <h6 class="text-info">
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><b>Số tiền dự án ban đầu:</b></td>
+                                        <td>
+                                            <span class="bg-success font-weight-bold p-1" style="border-radius: 10px;">
                                                 {{ number_format($view_deployment_times->deployment_number_money_initial) }} Đ
-                                            </h6>
+                                            </span>
                                         </td>
-
-                                        @if ($view_deployment_times->deployment_number_money_operating != null)
-                                        <td data-label="Số tiền hoạt động:" class="p-1">
-                                            <h6 class="text-info">
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><b>Số tiền hoạt động:</b></td>
+                                        <td>
+                                            <span class="bg-success font-weight-bold p-1" style="border-radius: 10px;">
                                                 {{ number_format($view_deployment_times->deployment_number_money_operating) }} Đ
-                                            </h6>
+                                            </span>
                                         </td>
-                                        @endif
+                                    </tr>
 
-                                        <td data-label="Địa điểm:" class="text-muted p-1">
-                                            <p>{{ $view_deployment_times->deployment_address }}</p>
-                                        </td>
-                                        <td data-label="Đối tác:" class="text-muted p-1">
-                                            <p>{{ $view_deployment_times->deployment_partner }}</p>
-                                        </td>
+                                    @if ($view_deployment_times->deployment_number_money_real != null)
+                                        <tr>
+                                            <td class="text-right"><b>Số tiền thực tế:</b></td>
+                                            <td>
+                                            <span class="bg-success font-weight-bold p-1" style="border-radius: 10px;">
+                                                {{ number_format($view_deployment_times->deployment_number_money_real) }} Đ
+                                            </span>
+                                            </td>
+                                        </tr>
+                                    @endif
 
-                                        @if ($view_deployment_times->deployment_method_implementation != null)
-                                        <td data-label="PP thực hiện:" class="text-muted p-1">
-                                            <p>{{ $view_deployment_times->deployment_method_implementation }}</p>
+                                    <tr>
+                                        <td class="text-right"><b>Địa điểm:</b></td>
+                                        <td>
+                                            {{ $view_deployment_times->deployment_address }}
                                         </td>
-                                        @endif
-
-                                        <td data-label="Mô tả:" class="text-muted p-1">
-                                            <p>{{ $view_deployment_times->deployment_description }}</p>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><b>Đối tác:</b></td>
+                                        <td>
+                                            {{ $view_deployment_times->deployment_partner }}
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><b>Phương pháp thực hiện:</b></td>
+                                        <td>
+                                            {{ $view_deployment_times->deployment_method_implementation }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><b>Mô tả:</b></td>
+                                        <td>
+                                            {{ $view_deployment_times->deployment_description }}
+                                        </td>
+                                    </tr>
 
-                                        <td data-label="Chọn:" class="p-1">
+                                    @if ($view_deployment_times->deployment_index_achieved != null)
+                                    <tr>
+                                        <td class="text-right"><b>Chỉ số đạt được:</b></td>
+                                        <td class="text-justify">
+                                            {{ $view_deployment_times->deployment_index_achieved }}
+                                        </td>
+                                    </tr>
+                                    @endif
+
+                                    @if ($view_deployment_times->deployment_result_achieved != null)
+                                    <tr>
+                                        <td class="text-right"><b>Kết quả đạt được:</b></td>
+                                        <td class="text-justify">
+                                            {{ $view_deployment_times->deployment_result_achieved }}
+                                        </td>
+                                    </tr>
+                                    @endif
+
+                                    <tr>
+                                        <td class="text-right"><b>Tùy chọn:</b></td>
+                                        <td class="text-justify">
                                             <a class="btn btn-info btn-xs"
-                                            href="{{ url('edit-deployment-time-plan/'.$view_deployment_times->id) }}">
-                                                <i class="fa fa-edit"></i>
+                                               href="{{ url('edit-deployment-time-report/'.$view_deployment_times->id) }}">
+                                                <i class="fa fa-edit"></i> Chỉnh sửa
                                             </a>
-                                        </td>
-
-                                        <td data-label="Chọn:" class="p-1">
+                                            &ensp;
                                             <a class="btn btn-warning btn-xs"
-                                               href="{{ url('history-deployment-time-plan/'.$view_deployment_times->id) }}" title="Lịch sử">
-                                                <i class="fa fa-history"></i>
+                                               href="{{ url('history-deployment-time-report/'.$view_deployment_times->id) }}" title="Lịch sử">
+                                                <i class="fa fa-history"></i> Lịch sử chỉnh sửa
                                             </a>
                                         </td>
                                     </tr>
-                                    </tbody>
                                 </table>
                             </div>
+                            @endif
 
-
-
-
+                            {{--TREE--}}
                             <div class="tree">
                                 @foreach($month_projects as $month_project)
                                     @php($threes = DB::table('project_level_threes')->where('id',$month_project->project_three_id)->get())
@@ -304,6 +307,7 @@
                                     @endforeach
                                 @endforeach
                             </div>
+                            {{--TREE--}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -315,12 +319,12 @@
         <!-- /.container-fluid -->
     </section>
 
-    @if (Session::has('update_plan_session'))
+    @if (Session::has('update_report_session'))
         <script type="text/javascript">
             Swal.fire({
                 position: 'center'
                 , icon: 'success'
-                , title: 'Đã thêm hoặc cập nhật kế hoạch tháng {{ $view_deployment_times->deployment_month_initialize }}'
+                , title: 'Đã thêm hoặc cập nhật báo cáo tháng {{ $view_deployment_times->deployment_month_initialize }}'
                 , showConfirmButton: false
                 , timer: 2000
             });

@@ -255,16 +255,28 @@ Route::middleware([CheckLogin::class])->group(function () {
     [MekongController::class, 'page_add_deployment_time']);
 
     //Thêm thời gian triển khai kế hoạch (Cập nhật lại)
-    Route::get('add-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time_plan}',
+    Route::get('add-deployment-time-plan/{id_deployment_time_plan}',
     [MekongController::class, 'add_deployment_time_plan']);
 
+    //Thêm thời gian triển khai báo cáo (Cập nhật lại)
+    Route::get('add-deployment-time-report/{id_deployment_time_report}',
+    [MekongController::class, 'add_deployment_time_report']);
+
     //Chỉnh sửa thời gian triển khai kế hoạch (Cập nhật lại)
-    Route::get('edit-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time_plan}',
+    Route::get('edit-deployment-time-plan/{id_deployment_time_plan}',
     [MekongController::class, 'edit_deployment_time_plan']);
 
+    //Chỉnh sửa thời gian triển khai báo cáo (Cập nhật lại)
+    Route::get('edit-deployment-time-report/{id_deployment_time_report}',
+    [MekongController::class, 'edit_deployment_time_report']);
+
     //Cập nhật thời gian triển khai kế hoạch (Cập nhật lại)
-    Route::put('update-deployment-time-plan/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}/{id_deployment_time_plan}',
+    Route::put('update-deployment-time-plan/{id_deployment_time_plan}',
     [MekongController::class, 'update_deployment_time_plan']);
+
+    //Cập nhật thời gian triển khai báo cáo (Cập nhật lại)
+    Route::put('update-deployment-time-report/{id_deployment_time_report}',
+    [MekongController::class, 'update_deployment_time_report']);
 
     //Thêm thời gian triển khai CSDL
     Route::post('post-add-deployment-time/{id_project_parent}/{id_project_one}/{id_project_two}/{id_project_three}',
@@ -312,6 +324,9 @@ Route::middleware([CheckLogin::class])->group(function () {
 
     //Tháng và dự án kế hoạch
     Route::get('page-month-project-plan/{id_month}', [MekongController::class, 'page_month_project_plan']);
+
+    //Tháng và dự án báo cáo
+    Route::get('page-month-project-report/{id_month}', [MekongController::class, 'page_month_project_report']);
 
     //Tháng và dự án CSDL
     Route::post('post-add-project-to-month/{id_month}', [MekongController::class, 'post_add_project_to_month']);
