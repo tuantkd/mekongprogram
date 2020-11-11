@@ -160,17 +160,17 @@
                                     <tr>
                                         <td style="width: 15%;" class="text-right"><b>Ngày bắt đầu:</b></td>
                                         <td style="width: 85%;">
-                                            <span class="badge badge-warning badge-pill">
+                                            <h6>
                                             {{ $view_deployment_times->deployment_day_start }}/{{ $view_deployment_times->deployment_month_start }}/{{ $view_deployment_times->deployment_year_start }}
-                                            </span>
+                                            </h6>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-right"><b>Ngày kết thúc:</b></td>
                                         <td>
-                                            <span class="badge badge-danger badge-pill">
+                                            <h6>
                                                 {{ $view_deployment_times->deployment_day_end }}/{{ $view_deployment_times->deployment_month_end }}/{{ $view_deployment_times->deployment_year_end }}
-                                            </span>
+                                            </h6>
                                         </td>
                                     </tr>
                                     <tr>

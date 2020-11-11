@@ -204,7 +204,7 @@
                                         <label for="">Chỉ số đạt được:</label>
                                     </div>
                                     <div class="col-12 col-lg-9">
-                                        <textarea name="inputIndexAchieved" rows="3"
+                                        <textarea name="inputIndexAchieved" rows="5"
                                                   class="form-control" placeholder="Nhập chỉ số đạt được">{{ $edit_deployment_time_report->deployment_index_achieved }}</textarea>
                                     </div>
                                 </div>
@@ -214,8 +214,18 @@
                                         <label for="">Kết quả đạt được:</label>
                                     </div>
                                     <div class="col-12 col-lg-9">
-                                        <textarea name="inputResultAchieved" rows="3"
+                                        <textarea name="inputResultAchieved" rows="5"
                                                   class="form-control" placeholder="Nhập kết quả đạt được">{{ $edit_deployment_time_report->deployment_result_achieved }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-12 col-lg-3">
+                                        <label for="">Mô tả:</label>
+                                    </div>
+                                    <div class="col-12 col-lg-9">
+                                        <textarea name="inputDescription" rows="5"
+                                                  class="form-control" placeholder="Nhập kết quả đạt được">{{ $edit_deployment_time_report->deployment_description }}</textarea>
                                     </div>
                                 </div>
 
@@ -250,6 +260,9 @@
                 inputIndexAchieved: {
                     required: true
                 },
+                inputDescription: {
+                    required: true
+                },
                 inputResultAchieved: {
                     required: true
                 }
@@ -257,6 +270,7 @@
             messages: {
                 inputMoneyReal: "Chưa nhập số tiền thực tế",
                 inputIndexAchieved: "Chưa nhập chỉ số đạt được",
+                inputDescription: "Chưa nhập mô tả",
                 inputResultAchieved: "Chưa nhập kết quả đạt được"
             },
             submitHandler: function(form) {
@@ -264,18 +278,6 @@
             }
         });
     </script>
-
-    @if (Session::has('mes_error_month_year_session'))
-        <script type="text/javascript">
-            Swal.fire({
-                position: 'center'
-                , icon: 'error'
-                , title: 'Tháng và Năm không hợp lệ!'
-                , showConfirmButton: false
-                , timer: 2000
-            });
-        </script>
-    @endif
 
 @endsection
 {{--======================================================--}}

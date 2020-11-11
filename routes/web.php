@@ -338,6 +338,9 @@ Route::middleware([CheckLogin::class])->group(function () {
 
     //Tháng và dự án CSDL
     Route::post('post-add-project-to-month/{id_month}', [MekongController::class, 'post_add_project_to_month']);
+
+    //Review
+    Route::get('review-deployment-time-report/{id_month}', [MekongController::class, 'review_deployment_time_report']);
     /*======================================================================*/
 
 });
