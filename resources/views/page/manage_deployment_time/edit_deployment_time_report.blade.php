@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title','Chỉnh sửa kế hoạch')
+@section('title','Chỉnh sửa báo cáo')
 {{--======================================================--}}
 
 
@@ -12,11 +12,11 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Bảng điều khiển</a></li>
                         <li class="breadcrumb-item">
-                            <a href="{{ url('page-month-project-plan/'.$edit_deployment_time_plan->id) }}">
-                                Tháng kế hoạch
+                            <a href="{{ url('page-month-project-report/'.$edit_deployment_time_report->id) }}">
+                                Tháng báo cáo
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">Chỉnh sửa kế hoạch</li>
+                        <li class="breadcrumb-item active">Chỉnh sửa báo cáo</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -40,25 +40,24 @@
                             <h3 class="card-title">
                                 <b>
                                     <i class="ion ion-clipboard mr-1"></i>
-                                    CHỈNH SỬA KẾ HOẠCH
-                                    <b class="text-info">{{ $edit_deployment_time_plan->deployment_month_initialize }}/{{ $edit_deployment_time_plan->deployment_year_initialize }}</b>
+                                    CHỈNH SỬA BÁO CÁO
+                                    <b class="text-info">{{ $edit_deployment_time_report->deployment_month_initialize }}/{{ $edit_deployment_time_report->deployment_year_initialize }}</b>
                                 </b>
                             </h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="{{ url('update-deployment-time-plan/'.$edit_deployment_time_plan->id) }}" id="EditDeployment" method="POST">
+                            <form action="{{ url('update-deployment-time-report/'.$edit_deployment_time_report->id) }}"
+                            id="EditDeployment" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <div class="form-group row">
+
+                                {{--<div class="form-group row">
                                     <div class="col-12 col-lg-3">
                                         <label for="">Ngày bắt đầu:</label>
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <select name="inputDayInitializeStart" class="form-control">
-                                            <option value="{{ $edit_deployment_time_plan->deployment_day_start }}">
-                                                Ngày {{ $edit_deployment_time_plan->deployment_day_start }}
-                                            </option>
                                             <option value="">- - Chọn Ngày - -</option>
                                             <option value="1">Ngày 1</option>
                                             <option value="2">Ngày 2</option>
@@ -95,9 +94,6 @@
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <select name="inputMonthInitializeStart" class="form-control">
-                                            <option value="{{ $edit_deployment_time_plan->deployment_month_start }}">
-                                                Tháng {{ $edit_deployment_time_plan->deployment_month_start }}
-                                            </option>
                                             <option value="">- - Chọn Tháng - -</option>
                                             <option value="1">Tháng 1</option>
                                             <option value="2">Tháng 2</option>
@@ -115,9 +111,6 @@
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <select name="inputYearInitializeStart" class="form-control">
-                                            <option value="{{ $edit_deployment_time_plan->deployment_year_start }}">
-                                                Năm {{ $edit_deployment_time_plan->deployment_year_start }}
-                                            </option>
                                             <option value="">- - Chọn Năm - -</option>
                                             <?php
                                             for($i = 2018 ; $i <= date('Y'); $i++){
@@ -126,17 +119,14 @@
                                             ?>
                                         </select>
                                     </div>
-                                </div>
+                                </div>--}}
 
-                                <div class="form-group row">
+                                {{--<div class="form-group row">
                                     <div class="col-12 col-lg-3">
                                         <label for="">Ngày kết thúc:</label>
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <select name="inputDayInitializeEnd" class="form-control">
-                                            <option value="{{ $edit_deployment_time_plan->deployment_day_end }}">
-                                                Ngày {{ $edit_deployment_time_plan->deployment_day_end }}
-                                            </option>
                                             <option value="">- - Chọn Ngày - -</option>
                                             <option value="1">Ngày 1</option>
                                             <option value="2">Ngày 2</option>
@@ -173,9 +163,6 @@
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <select name="inputMonthInitializeEnd" class="form-control">
-                                            <option value="{{ $edit_deployment_time_plan->deployment_month_end }}">
-                                                Tháng {{ $edit_deployment_time_plan->deployment_month_end }}
-                                            </option>
                                             <option value="">- - Chọn Tháng - -</option>
                                             <option value="1">Tháng 1</option>
                                             <option value="2">Tháng 2</option>
@@ -193,9 +180,6 @@
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <select name="inputYearInitializeEnd" class="form-control">
-                                            <option value="{{ $edit_deployment_time_plan->deployment_year_end }}">
-                                                Năm {{ $edit_deployment_time_plan->deployment_year_end }}
-                                            </option>
                                             <option value="">- - Chọn Năm - -</option>
                                             <?php
                                             for($i = 2018 ; $i <= date('Y'); $i++){
@@ -204,24 +188,34 @@
                                             ?>
                                         </select>
                                     </div>
+                                </div>--}}
+
+                                <div class="form-group row">
+                                    <div class="col-12 col-lg-3">
+                                        <label for="">Số tiền thực tế:</label>
+                                    </div>
+                                    <div class="col-12 col-lg-9">
+                                        <input type="number" name="inputMoneyReal" class="form-control" placeholder="Nhập số tiền triển khai thực tế"
+                                        value="{{ $edit_deployment_time_report->deployment_number_money_real }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12 col-lg-3">
+                                        <label for="">Chỉ số đạt được:</label>
+                                    </div>
+                                    <div class="col-12 col-lg-9">
+                                        <textarea name="inputIndexAchieved" rows="3"
+                                                  class="form-control" placeholder="Nhập chỉ số đạt được">{{ $edit_deployment_time_report->deployment_index_achieved }}</textarea>
+                                    </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-3">
-                                        <label for="">Số tiền hoạt động:</label>
+                                        <label for="">Kết quả đạt được:</label>
                                     </div>
                                     <div class="col-12 col-lg-9">
-                                        <input type="number" name="inputMoneyOperating" class="form-control" placeholder="Nhập số tiền hoạt động"
-                                        value="{{ $edit_deployment_time_plan->deployment_number_money_operating }}">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 col-lg-3">
-                                        <label for="">P.Pháp thực hiện:</label>
-                                    </div>
-                                    <div class="col-12 col-lg-9">
-                                        <textarea name="inputMethodImplementation" rows="3"
-                                                  class="form-control" placeholder="Nhập phương pháp thực hiện">{{ $edit_deployment_time_plan->deployment_method_implementation }}</textarea>
+                                        <textarea name="inputResultAchieved" rows="3"
+                                                  class="form-control" placeholder="Nhập kết quả đạt được">{{ $edit_deployment_time_report->deployment_result_achieved }}</textarea>
                                     </div>
                                 </div>
 
@@ -250,44 +244,20 @@
         });
         $( "#EditDeployment" ).validate({
             rules: {
-                inputDayInitializeStart: {
+                inputMoneyReal: {
                     required: true
                 },
-                inputMonthInitializeStart: {
+                inputIndexAchieved: {
                     required: true
                 },
-                inputYearInitializeStart: {
-                    required: true
-                },
-
-                inputDayInitializeEnd: {
-                    required: true
-                },
-                inputMonthInitializeEnd: {
-                    required: true
-                },
-                inputYearInitializeEnd: {
-                    required: true
-                },
-
-                inputMoneyOperating: {
-                    required: true
-                },
-                inputMethodImplementation: {
+                inputResultAchieved: {
                     required: true
                 }
             },
             messages: {
-                inputDayInitializeStart: "Chưa chọn ngày",
-                inputMonthInitializeStart: "Chưa chọn tháng",
-                inputYearInitializeStart: "Chưa chọn năm",
-
-                inputDayInitializeEnd: "Chưa chọn ngày",
-                inputMonthInitializeEnd: "Chưa chọn tháng",
-                inputYearInitializeEnd: "Chưa chọn năm",
-
-                inputMoneyOperating: "Chưa nhập số tiền hoạt động",
-                inputMethodImplementation: "Chưa nhập phương pháp thực hiện"
+                inputMoneyReal: "Chưa nhập số tiền thực tế",
+                inputIndexAchieved: "Chưa nhập chỉ số đạt được",
+                inputResultAchieved: "Chưa nhập kết quả đạt được"
             },
             submitHandler: function(form) {
                 form.submit();

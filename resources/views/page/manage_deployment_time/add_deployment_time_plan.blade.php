@@ -47,12 +47,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="{{ url('update-deployment-time-plan/'.$project_parent_id->id.'/'
-                            .$project_one_id->id.'/'.$project_two_id->id.'/'.$project_three_id->id.'/'.$add_deployment_time_plan->id) }}"
-                                  id="EditDeployment" method="POST">
+                            <form action="{{ url('update-deployment-time-plan/'.$add_deployment_time_plan->id) }}" id="EditDeployment" method="POST">
                                 @csrf
                                 @method('PUT')
-
                                 <div class="form-group row">
                                     <div class="col-12 col-lg-3">
                                         <label for="">Ngày bắt đầu:</label>
@@ -284,7 +281,7 @@
             Swal.fire({
                 position: 'center'
                 , icon: 'error'
-                , title: 'Tháng và Năm không hợp lệ!'
+                , title: 'Tháng/Năm bắt đầu và kết thúc không hợp lệ!'
                 , showConfirmButton: false
                 , timer: 2000
             });

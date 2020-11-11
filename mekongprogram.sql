@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2020 at 10:09 AM
+-- Generation Time: Nov 11, 2020 at 08:44 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mekongprogram`
+-- Database: `mekongprogram_edit`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +29,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `deployment_times` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `deployment_month_initialize` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deployment_month_start` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deployment_month_end` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deployment_month_initialize` int(11) DEFAULT NULL,
+  `deployment_year_initialize` int(11) DEFAULT NULL,
+  `deployment_day_start` int(11) DEFAULT NULL,
+  `deployment_month_start` int(11) DEFAULT NULL,
+  `deployment_year_start` int(11) DEFAULT NULL,
+  `deployment_day_end` int(11) DEFAULT NULL,
+  `deployment_month_end` int(11) DEFAULT NULL,
+  `deployment_year_end` int(11) DEFAULT NULL,
   `deployment_number_money_initial` double DEFAULT NULL,
   `deployment_number_money_operating` double DEFAULT NULL,
   `deployment_number_money_real` double DEFAULT NULL,
@@ -49,9 +54,8 @@ CREATE TABLE `deployment_times` (
 -- Dumping data for table `deployment_times`
 --
 
-INSERT INTO `deployment_times` (`id`, `deployment_month_initialize`, `deployment_month_start`, `deployment_month_end`, `deployment_number_money_initial`, `deployment_number_money_operating`, `deployment_number_money_real`, `deployment_index_achieved`, `deployment_result_achieved`, `deployment_address`, `deployment_partner`, `deployment_method_implementation`, `deployment_description`, `created_at`, `updated_at`) VALUES
-(10, '9', NULL, NULL, 5000000, NULL, NULL, NULL, NULL, 'rrrrrrrrrrrrrrr', 'yyyyyyyyyy', NULL, 'oooooooooo', '2020-11-07 03:50:53', '2020-11-07 05:23:01'),
-(12, '10', NULL, NULL, 45, NULL, NULL, NULL, NULL, 'fsdfsdfsdf', 'fe', NULL, 'sdfsdFF', '2020-11-07 08:41:42', '2020-11-07 08:41:42');
+INSERT INTO `deployment_times` (`id`, `deployment_month_initialize`, `deployment_year_initialize`, `deployment_day_start`, `deployment_month_start`, `deployment_year_start`, `deployment_day_end`, `deployment_month_end`, `deployment_year_end`, `deployment_number_money_initial`, `deployment_number_money_operating`, `deployment_number_money_real`, `deployment_index_achieved`, `deployment_result_achieved`, `deployment_address`, `deployment_partner`, `deployment_method_implementation`, `deployment_description`, `created_at`, `updated_at`) VALUES
+(3, 1, 2020, 1, 1, 2020, 8, 1, 2020, 5000000, 2000000, 15000000, 'cewrrrrrrrrrrr', 'fsaddddddd', 'dfbadfbfdb', 'bfdadfb', 'rrrr', 'vbdffđf', '2020-11-11 07:32:51', '2020-11-11 07:42:16');
 
 -- --------------------------------------------------------
 
@@ -63,7 +67,8 @@ CREATE TABLE `deployment_time_histories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `deployment_time_id` bigint(20) UNSIGNED DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `deployment_month_initialize` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deployment_month_initialize` int(11) DEFAULT NULL,
+  `deployment_year_initialize` int(11) DEFAULT NULL,
   `deployment_number_money_initial` double DEFAULT NULL,
   `deployment_address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deployment_partner` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -72,12 +77,39 @@ CREATE TABLE `deployment_time_histories` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `deployment_time_histories`
+-- Table structure for table `deployment_time_plan_histories`
 --
 
-INSERT INTO `deployment_time_histories` (`id`, `deployment_time_id`, `user_id`, `deployment_month_initialize`, `deployment_number_money_initial`, `deployment_address`, `deployment_partner`, `deployment_description`, `created_at`, `updated_at`) VALUES
-(5, 10, 2, '6', 6464565, 'dfadfad', 'ggreg', 'vfdv', '2020-11-07 05:22:47', '2020-11-07 05:22:47');
+CREATE TABLE `deployment_time_plan_histories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `deployment_time_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `deployment_day_start` int(11) DEFAULT NULL,
+  `deployment_month_start` int(11) DEFAULT NULL,
+  `deployment_year_start` int(11) DEFAULT NULL,
+  `deployment_day_end` int(11) DEFAULT NULL,
+  `deployment_month_end` int(11) DEFAULT NULL,
+  `deployment_year_end` int(11) DEFAULT NULL,
+  `deployment_number_money_operating` double DEFAULT NULL,
+  `deployment_method_implementation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `deployment_time_plan_histories`
+--
+
+INSERT INTO `deployment_time_plan_histories` (`id`, `deployment_time_id`, `user_id`, `deployment_day_start`, `deployment_month_start`, `deployment_year_start`, `deployment_day_end`, `deployment_month_end`, `deployment_year_end`, `deployment_number_money_operating`, `deployment_method_implementation`, `created_at`, `updated_at`) VALUES
+(7, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:36:25', '2020-11-11 07:36:25'),
+(8, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:36:59', '2020-11-11 07:36:59'),
+(9, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:18', '2020-11-11 07:38:18'),
+(10, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:49', '2020-11-11 07:38:49'),
+(11, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:51', '2020-11-11 07:38:51'),
+(12, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:58', '2020-11-11 07:38:58');
 
 -- --------------------------------------------------------
 
@@ -97,19 +129,20 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2020_10_13_025615_create_roles_table', 1),
+(3, '2020_10_13_031420_create_project_parents_table', 1),
 (4, '2020_10_13_031709_create_project_level_ones_table', 1),
 (5, '2020_10_13_032521_create_project_level_twos_table', 1),
 (6, '2020_10_13_032721_create_project_level_threes_table', 1),
-(8, '2014_10_12_000000_create_users_table', 2),
-(9, '2020_10_30_195912_create_project_and_users_table', 3),
-(12, '2020_10_13_031420_create_project_parents_table', 6),
-(13, '2020_11_01_161043_create_project_parent_histories_table', 7),
-(15, '2020_11_02_135704_create_project_level_one_histories_table', 8),
-(16, '2020_11_04_154414_create_project_level_two_histories_table', 9),
-(17, '2020_11_05_154833_create_project_level_three_histories_table', 10),
-(19, '2020_11_05_165350_create_project_three_and_deployment_times_table', 12),
-(22, '2020_10_13_032939_create_deployment_times_table', 15),
-(23, '2020_11_06_121435_create_deployment_time_histories_table', 16);
+(7, '2020_10_13_032939_create_deployment_times_table', 1),
+(8, '2020_10_30_195912_create_project_and_users_table', 1),
+(9, '2020_11_01_161043_create_project_parent_histories_table', 1),
+(10, '2020_11_02_135704_create_project_level_one_histories_table', 1),
+(11, '2020_11_04_154414_create_project_level_two_histories_table', 1),
+(12, '2020_11_05_154833_create_project_level_three_histories_table', 1),
+(13, '2020_11_05_165350_create_project_three_and_deployment_times_table', 1),
+(14, '2020_11_06_121435_create_deployment_time_histories_table', 1),
+(15, '2014_10_12_000000_create_users_table', 2),
+(16, '2020_11_10_162422_create_deployment_time_plan_histories_table', 3);
 
 -- --------------------------------------------------------
 
@@ -130,9 +163,7 @@ CREATE TABLE `project_and_users` (
 --
 
 INSERT INTO `project_and_users` (`id`, `user_id`, `project_parent_id`, `created_at`, `updated_at`) VALUES
-(7, 2, 4, '2020-11-02 01:39:20', '2020-11-02 01:39:20'),
-(8, 2, 1, '2020-11-02 01:54:04', '2020-11-02 01:54:04'),
-(9, 5, 1, '2020-11-02 02:05:54', '2020-11-02 02:05:54');
+(1, 2, 1, '2020-11-10 02:57:03', '2020-11-10 02:57:03');
 
 -- --------------------------------------------------------
 
@@ -145,6 +176,7 @@ CREATE TABLE `project_level_ones` (
   `project_parent_id` bigint(20) UNSIGNED DEFAULT NULL,
   `project_one_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_one_name_operation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_one_total_money` double DEFAULT NULL,
   `project_one_result_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_one_index_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_one_note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -156,8 +188,8 @@ CREATE TABLE `project_level_ones` (
 -- Dumping data for table `project_level_ones`
 --
 
-INSERT INTO `project_level_ones` (`id`, `project_parent_id`, `project_one_code`, `project_one_name_operation`, `project_one_result_need_reach`, `project_one_index_need_reach`, `project_one_note`, `created_at`, `updated_at`) VALUES
-(5, 1, '1.2', 'dsafds', 'advvdsav', 'dsafsd', 'dvdsv', '2020-11-03 04:06:02', '2020-11-03 04:06:02');
+INSERT INTO `project_level_ones` (`id`, `project_parent_id`, `project_one_code`, `project_one_name_operation`, `project_one_total_money`, `project_one_result_need_reach`, `project_one_index_need_reach`, `project_one_note`, `created_at`, `updated_at`) VALUES
+(1, 1, '1.1', 'dsfd', NULL, 'dfvfv', 'dvdfv', 'fdvfd', '2020-11-10 02:57:14', '2020-11-10 02:57:14');
 
 -- --------------------------------------------------------
 
@@ -179,13 +211,6 @@ CREATE TABLE `project_level_one_histories` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `project_level_one_histories`
---
-
-INSERT INTO `project_level_one_histories` (`id`, `project_one_id`, `user_id`, `project_one_code`, `project_one_name_operation`, `project_one_total_money`, `project_one_result_need_reach`, `project_one_index_need_reach`, `project_one_note`, `created_at`, `updated_at`) VALUES
-(7, 5, 2, '1.2', 'dsafds', NULL, 'advvdsav', 'dsafsd', 'dvdsv', '2020-11-04 09:00:15', '2020-11-04 09:00:15');
-
 -- --------------------------------------------------------
 
 --
@@ -197,6 +222,7 @@ CREATE TABLE `project_level_threes` (
   `project_two_id` bigint(20) UNSIGNED DEFAULT NULL,
   `project_three_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_three_name_operation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_three_total_money` double DEFAULT NULL,
   `project_three_result_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_three_index_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_three_note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -208,10 +234,8 @@ CREATE TABLE `project_level_threes` (
 -- Dumping data for table `project_level_threes`
 --
 
-INSERT INTO `project_level_threes` (`id`, `project_two_id`, `project_three_code`, `project_three_name_operation`, `project_three_result_need_reach`, `project_three_index_need_reach`, `project_three_note`, `created_at`, `updated_at`) VALUES
-(5, 13, '1.2.2.1', 'eee', 'fff', 'qqq', 'vvv', '2020-11-05 08:10:50', '2020-11-05 08:31:39'),
-(6, 13, '1.2.2.3', 'dvfavadfv', 'fdavdfvdfv', 'fdavfd', 'vfdav', '2020-11-07 07:35:28', '2020-11-07 07:35:28'),
-(7, 13, '1.2.2.5', 'vbv', 'bfabfga', 'dfagdgg', 'fgfadfag', '2020-11-07 08:30:41', '2020-11-07 08:30:41');
+INSERT INTO `project_level_threes` (`id`, `project_two_id`, `project_three_code`, `project_three_name_operation`, `project_three_total_money`, `project_three_result_need_reach`, `project_three_index_need_reach`, `project_three_note`, `created_at`, `updated_at`) VALUES
+(1, 1, '1.1.1.1', 'FDGFDSGDFG', NULL, 'GREGQREG', 'DFAGRGRA', 'REGEG', '2020-11-10 02:58:02', '2020-11-10 02:58:02');
 
 -- --------------------------------------------------------
 
@@ -225,19 +249,13 @@ CREATE TABLE `project_level_three_histories` (
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `project_three_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_three_name_operation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_three_total_money` double DEFAULT NULL,
   `project_three_result_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_three_index_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_three_note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `project_level_three_histories`
---
-
-INSERT INTO `project_level_three_histories` (`id`, `project_three_id`, `user_id`, `project_three_code`, `project_three_name_operation`, `project_three_result_need_reach`, `project_three_index_need_reach`, `project_three_note`, `created_at`, `updated_at`) VALUES
-(3, 5, 2, '1.2.2.1', 'eee', 'fff', 'qqq', 'vvv', '2020-11-05 09:29:47', '2020-11-05 09:29:47');
 
 -- --------------------------------------------------------
 
@@ -250,6 +268,7 @@ CREATE TABLE `project_level_twos` (
   `project_one_id` bigint(20) UNSIGNED DEFAULT NULL,
   `project_two_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_two_name_operation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_two_total_money` double DEFAULT NULL,
   `project_two_result_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_two_index_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_two_note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -261,8 +280,8 @@ CREATE TABLE `project_level_twos` (
 -- Dumping data for table `project_level_twos`
 --
 
-INSERT INTO `project_level_twos` (`id`, `project_one_id`, `project_two_code`, `project_two_name_operation`, `project_two_result_need_reach`, `project_two_index_need_reach`, `project_two_note`, `created_at`, `updated_at`) VALUES
-(13, 5, '1.2.2', 'AAAAAAAAAAAAAAA', 'CCCCCCCCCCCCC', 'BBBBBBBBBBBBB', 'DDDDDDĐ', '2020-11-04 08:05:51', '2020-11-04 09:12:43');
+INSERT INTO `project_level_twos` (`id`, `project_one_id`, `project_two_code`, `project_two_name_operation`, `project_two_total_money`, `project_two_result_need_reach`, `project_two_index_need_reach`, `project_two_note`, `created_at`, `updated_at`) VALUES
+(1, 1, '1.1.1', 'sdfSF', NULL, 'FSEFEF', 'SAFSDF', 'SDFSD', '2020-11-10 02:57:51', '2020-11-10 02:57:51');
 
 -- --------------------------------------------------------
 
@@ -276,19 +295,13 @@ CREATE TABLE `project_level_two_histories` (
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `project_two_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_two_name_operation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_two_total_money` double DEFAULT NULL,
   `project_two_result_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_two_index_need_reach` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `project_two_note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `project_level_two_histories`
---
-
-INSERT INTO `project_level_two_histories` (`id`, `project_two_id`, `user_id`, `project_two_code`, `project_two_name_operation`, `project_two_result_need_reach`, `project_two_index_need_reach`, `project_two_note`, `created_at`, `updated_at`) VALUES
-(3, 13, 2, '1.2.2', 'AAAAAAAAAAAAAAA', 'CCCCCCCCCCCCC', 'BBBBBBBBBBBBB', 'DDDDDDĐ', '2020-11-04 09:15:26', '2020-11-04 09:15:26');
 
 -- --------------------------------------------------------
 
@@ -310,7 +323,7 @@ CREATE TABLE `project_parents` (
 --
 
 INSERT INTO `project_parents` (`id`, `project_code`, `project_name`, `project_description`, `created_at`, `updated_at`) VALUES
-(1, 'VN-0078', 'Logfram original - Bánh Mỳ', 'csdfÊF', '2020-11-02 01:54:04', '2020-11-02 01:54:04');
+(1, 'VN-0078', 'Logfram original-Bánh Mỳ', 'csdafghgdfgbf', '2020-11-10 02:57:03', '2020-11-10 02:57:03');
 
 -- --------------------------------------------------------
 
@@ -328,15 +341,6 @@ CREATE TABLE `project_parent_histories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `project_parent_histories`
---
-
-INSERT INTO `project_parent_histories` (`id`, `user_id`, `project_parent_id`, `project_code`, `project_name`, `project_description`, `created_at`, `updated_at`) VALUES
-(2, 5, 1, 'VN-0078', 'Logfram original - Bánh Mỳ', 'csdfÊF', '2020-11-02 02:06:19', '2020-11-02 02:06:19'),
-(3, 2, 1, 'VN-0078', 'Logfram original - Bánh Mỳ', 'csdfÊF', '2020-11-02 02:25:26', '2020-11-02 02:25:26'),
-(4, 2, 1, 'VN-0078', 'Logfram original - Bánh Mỳ', 'csdfÊF', '2020-11-04 09:00:04', '2020-11-04 09:00:04');
 
 -- --------------------------------------------------------
 
@@ -357,9 +361,7 @@ CREATE TABLE `project_three_and_deployment_times` (
 --
 
 INSERT INTO `project_three_and_deployment_times` (`id`, `project_three_id`, `deployment_time_id`, `created_at`, `updated_at`) VALUES
-(19, 5, 10, '2020-11-07 03:50:53', '2020-11-07 03:50:53'),
-(24, 6, 10, '2020-11-07 08:25:29', '2020-11-07 08:25:29'),
-(25, 5, 12, '2020-11-07 08:41:42', '2020-11-07 08:41:42');
+(3, 1, 3, '2020-11-11 07:32:51', '2020-11-11 07:32:51');
 
 -- --------------------------------------------------------
 
@@ -380,8 +382,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `role_name`, `role_description`, `created_at`, `updated_at`) VALUES
-(1, 'Quản trị', 'Quản trị toàn quyền', '2020-10-30 12:45:10', '2020-10-30 12:45:10'),
-(2, 'Điều phối viên', 'Nhận làm nhiệm vụ của admin', '2020-10-30 14:04:37', '2020-10-30 14:04:37');
+(1, 'Quản trị', 'Quản trị toàn quyền', '2020-10-30 05:45:10', '2020-10-30 05:45:10'),
+(2, 'Điều phối viên', 'Nhận làm nhiệm vụ của admin', '2020-10-30 07:04:37', '2020-10-30 07:04:37');
 
 -- --------------------------------------------------------
 
@@ -411,8 +413,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `fullname`, `username`, `password`, `email`, `sex`, `birthday`, `phone`, `address`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Phạm Ngọc Nhàn', 'ngocnhan', '$2y$10$Q86rrzG3EvBmbXGhzILdGeIKLVQ76H.Ck3vVJ/V4VHl3Yzta/DFtK', NULL, 'Nam', NULL, NULL, NULL, 'avatar5.png', NULL, '2020-10-30 12:45:28', '2020-10-30 12:45:28'),
-(5, 2, 'Trần Thị Xíu', 'xiucute', '$2y$10$SG2Jkq8ElQ8b9y5mmF7/WOz2ySO5VUG3uQyJ3Py9gIREFr3z2XY3S', NULL, 'Nữ', NULL, NULL, NULL, 'nguyen-van-dui-05.jpg', NULL, '2020-11-01 07:19:01', '2020-11-01 07:19:01');
+(2, 1, 'Phạm Ngọc Nhàn', 'ngocnhan', '$2y$10$Q86rrzG3EvBmbXGhzILdGeIKLVQ76H.Ck3vVJ/V4VHl3Yzta/DFtK', NULL, 'Nam', NULL, NULL, NULL, 'avatar5.png', NULL, '2020-10-30 05:45:28', '2020-10-30 05:45:28'),
+(5, 2, 'Trần Thị Xíu', 'xiucute', '$2y$10$SG2Jkq8ElQ8b9y5mmF7/WOz2ySO5VUG3uQyJ3Py9gIREFr3z2XY3S', NULL, 'Nữ', NULL, NULL, NULL, 'nguyen-van-dui-05.jpg', NULL, '2020-11-01 00:19:01', '2020-11-01 00:19:01');
 
 --
 -- Indexes for dumped tables
@@ -433,6 +435,14 @@ ALTER TABLE `deployment_time_histories`
   ADD KEY `deployment_time_histories_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `deployment_time_plan_histories`
+--
+ALTER TABLE `deployment_time_plan_histories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `deployment_time_plan_histories_deployment_time_id_foreign` (`deployment_time_id`),
+  ADD KEY `deployment_time_plan_histories_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -451,7 +461,6 @@ ALTER TABLE `project_and_users`
 --
 ALTER TABLE `project_level_ones`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `project_level_ones_project_one_code_unique` (`project_one_code`),
   ADD KEY `project_level_ones_project_parent_id_foreign` (`project_parent_id`);
 
 --
@@ -539,61 +548,67 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `deployment_times`
 --
 ALTER TABLE `deployment_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `deployment_time_histories`
 --
 ALTER TABLE `deployment_time_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `deployment_time_plan_histories`
+--
+ALTER TABLE `deployment_time_plan_histories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `project_and_users`
 --
 ALTER TABLE `project_and_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `project_level_ones`
 --
 ALTER TABLE `project_level_ones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `project_level_one_histories`
 --
 ALTER TABLE `project_level_one_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_level_threes`
 --
 ALTER TABLE `project_level_threes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `project_level_three_histories`
 --
 ALTER TABLE `project_level_three_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_level_twos`
 --
 ALTER TABLE `project_level_twos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `project_level_two_histories`
 --
 ALTER TABLE `project_level_two_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_parents`
@@ -605,19 +620,19 @@ ALTER TABLE `project_parents`
 -- AUTO_INCREMENT for table `project_parent_histories`
 --
 ALTER TABLE `project_parent_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_three_and_deployment_times`
 --
 ALTER TABLE `project_three_and_deployment_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -635,6 +650,13 @@ ALTER TABLE `users`
 ALTER TABLE `deployment_time_histories`
   ADD CONSTRAINT `deployment_time_histories_deployment_time_id_foreign` FOREIGN KEY (`deployment_time_id`) REFERENCES `deployment_times` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `deployment_time_histories_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `deployment_time_plan_histories`
+--
+ALTER TABLE `deployment_time_plan_histories`
+  ADD CONSTRAINT `deployment_time_plan_histories_deployment_time_id_foreign` FOREIGN KEY (`deployment_time_id`) REFERENCES `deployment_times` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `deployment_time_plan_histories_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `project_and_users`
