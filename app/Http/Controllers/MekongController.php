@@ -1168,6 +1168,7 @@ class MekongController extends Controller
         $update_report->deployment_number_money_real = $request->input('inputMoneyReal');
         $update_report->deployment_index_achieved = $request->input('inputIndexAchieved');
         $update_report->deployment_result_achieved = $request->input('inputResultAchieved');
+        $update_report->deployment_description = $request->input('inputDescription');
         $update_report->save();
 
         $update_report_session = $request->session()->get('update_report_session');
@@ -1342,6 +1343,13 @@ class MekongController extends Controller
             $add_project_to_month_session = $request->session()->get('add_project_to_month_session');
             return redirect()->back()->with('add_project_to_month_session','');
         }
+    }
+
+    //Review
+    protected function review_deployment_time_report($id_month)
+    {
+        $review = DeploymentTime::find($id_month);
+        return view('page.manage_month_project.review_report',['review'=>$review]);
     }
     /*========================================================*/
 }

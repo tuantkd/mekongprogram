@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/DeploymentTimeReportHistory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_11_11_145723_create_deployment_time_report_histories_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/history_deployment_time_report.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/review_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DeploymentTime.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeploymentTime.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +154,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ThiTrucTuyen" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -220,7 +220,8 @@
       <workItem from="1605015556735" duration="2464000" />
       <workItem from="1605026670097" duration="153000" />
       <workItem from="1605066848541" duration="1608000" />
-      <workItem from="1605068859697" duration="13440000" />
+      <workItem from="1605068859697" duration="15117000" />
+      <workItem from="1605107246650" duration="836000" />
     </task>
     <servers />
   </component>
@@ -243,10 +244,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="312" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1604062571885" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604937583635">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1605108081866">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604937583635" />
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605108081866" />
     <state x="199" y="9" key="SettingsEditor" timestamp="1604138050133">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
