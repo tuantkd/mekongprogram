@@ -35,4 +35,10 @@ class DeploymentTime extends Model
     {
         return $this->hasMany('App\Models\DeploymentTimePlanHistory');
     }
+
+    //Thời gian triển khai có nhiều lịch sử chỉnh sửa báo cáo
+    public function DeploymentTimeReportHistory()
+    {
+        return $this->hasMany('App\Models\DeploymentTimeReportHistory');
+    }
 }

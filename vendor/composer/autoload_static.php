@@ -537,6 +537,7 @@ class ComposerStaticInitf1134a1268f76bc633428d82029aff0b
         'App\\Models\\DeploymentTime' => __DIR__ . '/../..' . '/app/Models/DeploymentTime.php',
         'App\\Models\\DeploymentTimeHistory' => __DIR__ . '/../..' . '/app/Models/DeploymentTimeHistory.php',
         'App\\Models\\DeploymentTimePlanHistory' => __DIR__ . '/../..' . '/app/Models/DeploymentTimePlanHistory.php',
+        'App\\Models\\DeploymentTimeReportHistory' => __DIR__ . '/../..' . '/app/Models/DeploymentTimeReportHistory.php',
         'App\\Models\\ProjectAndUser' => __DIR__ . '/../..' . '/app/Models/ProjectAndUser.php',
         'App\\Models\\ProjectLevelOne' => __DIR__ . '/../..' . '/app/Models/ProjectLevelOne.php',
         'App\\Models\\ProjectLevelOneHistory' => __DIR__ . '/../..' . '/app/Models/ProjectLevelOneHistory.php',

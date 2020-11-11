@@ -203,25 +203,25 @@
 
                                     <tr>
                                         <td class="text-right"><b>Địa điểm:</b></td>
-                                        <td>
+                                        <td class="text-justify">
                                             {{ $view_deployment_times->deployment_address }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-right"><b>Đối tác:</b></td>
-                                        <td>
+                                        <td class="text-justify">
                                             {{ $view_deployment_times->deployment_partner }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-right"><b>Phương pháp thực hiện:</b></td>
-                                        <td>
+                                        <td class="text-justify">
                                             {{ $view_deployment_times->deployment_method_implementation }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-right"><b>Mô tả:</b></td>
-                                        <td>
+                                        <td class="text-justify">
                                             {{ $view_deployment_times->deployment_description }}
                                         </td>
                                     </tr>
@@ -310,6 +310,17 @@
                             {{--TREE--}}
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer text-right">
+                            <a class="btn btn-success btn-sm"
+                               href="{{ url('download-report/'.$view_deployment_times->id) }}">
+                                <i class="fa fa-download"></i> Download file
+                            </a>
+                            &ensp;
+                            <a class="btn btn-warning btn-sm"
+                               href="{{ url('review-deployment-time-report/'.$view_deployment_times->id) }}" title="Lịch sử">
+                                <i class="fa fa-eye"></i> Review
+                            </a>
+                        </div>
                     </div>
                     <!-- /.card -->
                 </section>

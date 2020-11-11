@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_report.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_report.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/edit_month_project_report.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/DeploymentTimeReportHistory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_11_11_145723_create_deployment_time_report_histories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/history_deployment_time_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/add_deployment_time_plan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_deployment_time/edit_deployment_time_plan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/DeploymentTime.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DeploymentTime.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +220,7 @@
       <workItem from="1605015556735" duration="2464000" />
       <workItem from="1605026670097" duration="153000" />
       <workItem from="1605066848541" duration="1608000" />
-      <workItem from="1605068859697" duration="11646000" />
+      <workItem from="1605068859697" duration="13440000" />
     </task>
     <servers />
   </component>

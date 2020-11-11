@@ -298,9 +298,17 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('history-deployment-time-plan/{id_deployment_time}',
     [MekongController::class, 'history_deployment_time_plan']);
 
+    //Xem lịch sử chỉnh sửa thời gian triển khai báo cáo
+    Route::get('history-deployment-time-report/{id_deployment_time}',
+    [MekongController::class, 'history_deployment_time_report']);
+
     //Xóa lịch sử chỉnh sửa thời gian triển khai kế hoạch
     Route::get('delete-history-deployment-time-plan/{id_history_deployment_time}',
     [MekongController::class, 'delete_history_deployment_time_plan']);
+
+    //Xóa lịch sử chỉnh sửa thời gian triển khai báo cáo
+    Route::get('delete-history-deployment-time-report/{id_history_deployment_time}',
+    [MekongController::class, 'delete_history_deployment_time_report']);
 
     //Xóa lịch sử chỉnh sửa thời gian triển khai
     Route::get('delete-history-deployment-time/{id_history_deployment_time}',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\DeploymentTime;
 use App\Models\DeploymentTimeHistory;
 use App\Models\DeploymentTimePlanHistory;
+use App\Models\DeploymentTimeReportHistory;
 use App\Models\ProjectAndUser;
 use App\Models\ProjectLevelOne;
 use App\Models\ProjectLevelOneHistory;
@@ -1080,6 +1081,16 @@ class MekongController extends Controller
     public function edit_deployment_time_report($id_deployment_time_report)
     {
         $edit_deployment_time_report = DeploymentTime::find($id_deployment_time_report);
+
+        //Lưu lịch sử chỉnh sửa dự án báo cáo
+        $history_report = new DeploymentTimeReportHistory();
+        $history_report->deployment_time_id = $id_deployment_time_report;
+        $history_report->user_id = Auth::id();
+        $history_report->deployment_number_money_real = $edit_deployment_time_report->deployment_number_money_real;
+        $history_report->deployment_index_achieved = $edit_deployment_time_report->deployment_index_achieved;
+        $history_report->deployment_result_achieved = $edit_deployment_time_report->deployment_result_achieved;
+        $history_report->save();
+
         return view('page.manage_deployment_time.edit_deployment_time_report',
         [
             'edit_deployment_time_report'=>$edit_deployment_time_report
@@ -1187,6 +1198,14 @@ class MekongController extends Controller
         return redirect()->back()->with('delete_history_deployment_time_plan_session','');
     }
 
+    //Xóa lịch sử chỉnh sửa thời gian triển khai báo cáo
+    public function delete_history_deployment_time_report(Request $request,$id_history_deployment_time)
+    {
+        DeploymentTimeReportHistory::destroy($id_history_deployment_time);
+        $delete_history_deployment_time_report_session = $request->session()->get('delete_history_deployment_time_report_session');
+        return redirect()->back()->with('delete_history_deployment_time_report_session','');
+    }
+
     //Xem lịch sử chỉnh sửa thời gian triển khai
     public function history_deployment_time($id_project_parent,$id_project_one,$id_project_two,$id_project_three,$id_deployment_time)
     {
@@ -1217,6 +1236,18 @@ class MekongController extends Controller
         [
             'deployment_time_id'=>$deployment_time_id,
             'history_deployment_time_plans'=>$history_deployment_time_plans
+        ]);
+    }
+
+    //Xem lịch sử chỉnh sửa thời gian triển khai báo cáo
+    public function history_deployment_time_report($id_deployment_time)
+    {
+        $deployment_time_id = DeploymentTime::find($id_deployment_time);
+        $history_deployment_time_reports = DeploymentTimeReportHistory::where('deployment_time_id',$id_deployment_time)->latest()->paginate(5);
+        return view('page.manage_deployment_time.history_deployment_time_report',
+        [
+            'deployment_time_id'=>$deployment_time_id,
+            'history_deployment_time_reports'=>$history_deployment_time_reports
         ]);
     }
     /*========================================================*/
