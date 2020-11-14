@@ -426,7 +426,106 @@
                             </ul>
                         </li>
                         <div class="dropdown-divider mb-0"></div>
+                        {{--DỰ ÁN BAN ĐẦU--}}
                         {{--===================================================--}}
+
+                        {{--===================================================--}}
+                        {{--DỰ ÁN KẾ HOẠCH--}}
+                        <li class="nav-header">KẾ HOẠCH</li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-calendar-plus-o"></i>
+                                <p>
+                                    Tháng kế hoạch
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview pl-3">
+                                @foreach($project_and_users as $project_user)
+                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->get()->unique('deployment_time_id'))
+                                    @foreach($project_deployments as $project_deployment)
+                                    @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
+                                    @foreach($deployments as $deployment)
+                                        <li class="nav-item has-treeview">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>
+                                                    Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
+                                                    <i class="right fas fa-angle-left"></i>
+                                                </p>
+                                            </a>
+                                            <ul class="nav nav-treeview pl-4">
+                                                @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
+                                                @foreach($project_months as $project_month)
+                                                    @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
+                                                    @foreach($project_level_threes as $project_level_three)
+                                                        <li class="nav-item">
+                                                            <a href="{{ url('page-month-project-plan/'.$deployment->id) }}" class="nav-link">
+                                                                <i class="nav-icon fas fa-circle"></i>
+                                                                <p>{{ $project_level_three->project_three_code }}</p>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                @endforeach
+                                @endforeach
+                            </ul>
+                        </li>
+                        {{--DỰ ÁN KẾ HOẠCH--}}
+                        <div class="dropdown-divider mb-0"></div>
+                        {{--===================================================--}}
+
+                        {{--===================================================--}}
+                        {{--DỰ ÁN BÁO CÁO--}}
+                        <li class="nav-header">BÁO CÁO</li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-calendar-plus-o"></i>
+                                <p>
+                                    Tháng báo cáo
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview pl-3">
+                                @foreach($project_and_users as $project_user)
+                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->get()->unique('deployment_time_id'))
+                                    @foreach($project_deployments as $project_deployment)
+                                    @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
+                                    @foreach($deployments as $deployment)
+                                        <li class="nav-item has-treeview">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>
+                                                    Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
+                                                    <i class="right fas fa-angle-left"></i>
+                                                </p>
+                                            </a>
+                                            <ul class="nav nav-treeview pl-4">
+                                                @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
+                                                @foreach($project_months as $project_month)
+                                                    @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
+                                                    @foreach($project_level_threes as $project_level_three)
+                                                        <li class="nav-item">
+                                                            <a href="{{ url('page-month-project-report/'.$deployment->id) }}" class="nav-link">
+                                                                <i class="nav-icon fas fa-circle"></i>
+                                                                <p>{{ $project_level_three->project_three_code }}</p>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                @endforeach
+                                @endforeach
+                            </ul>
+                        </li>
+                        {{--DỰ ÁN KẾ HOẠCH--}}
+                        {{--===================================================--}}
+
                     @endif
                 </ul>
             </nav>
