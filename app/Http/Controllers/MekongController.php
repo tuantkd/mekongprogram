@@ -1261,7 +1261,7 @@ class MekongController extends Controller
     protected function page_month_project($id_month)
     {
         $view_deployment_times = DeploymentTime::find($id_month);
-        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->paginate(3);
+        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->get();
         return view('page.manage_month_project.page_month_project',
         ['view_deployment_times'=>$view_deployment_times, 'month_projects'=>$month_projects]);
     }
@@ -1270,7 +1270,7 @@ class MekongController extends Controller
     protected function page_month_project_plan($id_month)
     {
         $view_deployment_times = DeploymentTime::find($id_month);
-        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->paginate(3);
+        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->get();
         return view('page.manage_month_project.page_month_project_plan',
         ['view_deployment_times'=>$view_deployment_times, 'month_projects'=>$month_projects]);
     }
@@ -1279,7 +1279,7 @@ class MekongController extends Controller
     protected function page_month_project_report($id_month)
     {
         $view_deployment_times = DeploymentTime::find($id_month);
-        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->paginate(3);
+        $month_projects = ProjectThreeAndDeploymentTime::where('deployment_time_id',$id_month)->latest()->get();
         return view('page.manage_month_project.page_month_project_report',
         ['view_deployment_times'=>$view_deployment_times, 'month_projects'=>$month_projects]);
     }
