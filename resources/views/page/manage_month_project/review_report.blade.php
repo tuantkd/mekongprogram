@@ -113,6 +113,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2">
+                                                                <P>{{ $review->deployment_result_achieved }}</P>
                                                                 <P>{{ $review->deployment_description }}</P>
                                                             </td>
                                                         </tr>

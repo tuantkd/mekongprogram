@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b91171a-8fc9-4c66-8109-1dbd1a5d4d97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/upload_avatar/logo-beer.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MekongController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_plan.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mekongprogram.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mekongprogram.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/page_month_project_report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/page/manage_month_project/review_report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/manage_month_project/review_report.blade.php" afterDir="false" />
     </list>
@@ -223,7 +219,7 @@
       <workItem from="1605108163599" duration="105000" />
       <workItem from="1605163210297" duration="7126000" />
       <workItem from="1605171784925" duration="14000" />
-      <workItem from="1605335813669" duration="4043000" />
+      <workItem from="1605335813669" duration="5804000" />
     </task>
     <servers />
   </component>

@@ -280,9 +280,26 @@
                             @endif
 
                             {{--TREE--}}
-                                @php($twos = DB::table('project_level_twos')->where('id',$three->project_two_id)->first())
-                                @php($ones = DB::table('project_level_ones')->where('id',$two->project_one_id)->first())
-                                @php($parents = DB::table('project_parents')->where('id',$one->project_parent_id)->first())
+                                @php($three_and_deployments = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$view_deployment_times->id)->get())
+                                @foreach($three_and_deployments as $three_and_deployment)
+                                    @if($loop->first)
+                                        @php($threes = DB::table('project_level_threes')->where('id',$three_and_deployment->project_three_id)->get())
+                                        @foreach($threes as $three)
+                                            @php($twos = DB::table('project_level_twos')->where('id',$three->project_two_id)->get())
+                                            @foreach($twos as $two)
+                                                @php($ones = DB::table('project_level_ones')->where('id',$two->project_one_id)->get())
+                                                @foreach($ones as $one)
+                                                    @php($parents = DB::table('project_parents')->where('id',$one->project_parent_id)->get())
+                                                    @foreach($parents as $parent)
+                                                        @php($twos = DB::table('project_level_twos')->where('id',$three->project_two_id)->first())
+                                                        @php($ones = DB::table('project_level_ones')->where('id',$two->project_one_id)->first())
+                                                        @php($parents = DB::table('project_parents')->where('id',$one->project_parent_id)->first())
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
+                                    @endif
+                                @endforeach
 
                                 <div class="tree">
                                     <ul>
@@ -303,10 +320,10 @@
                                                             <ul>
                                                                 @foreach($month_projects as $month_project)
                                                                     @php($threes = DB::table('project_level_threes')->where('id',$month_project->project_three_id)->get())
-                                                                    @foreach($threes as $three)
+                                                                    @foreach($threes as $three_tree)
                                                                         <li>
-                                                                            <a href="{{ url('page-deployment-time-report/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three->id) }}">
-                                                                                {{ $three->project_three_code }}
+                                                                            <a href="{{ url('page-deployment-time-report/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three_tree->id) }}">
+                                                                                {{ $three_tree->project_three_code }}
                                                                             </a>
                                                                         </li>
                                                                     @endforeach
