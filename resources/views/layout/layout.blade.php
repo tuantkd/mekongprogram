@@ -393,33 +393,45 @@
                             <ul class="nav nav-treeview pl-3">
                                 @php($project_and_users = DB::table('project_and_users')->where('user_id', Auth::id())->get())
                                 @foreach($project_and_users as $project_user)
-                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->get()->unique('deployment_time_id'))
-                                    @foreach($project_deployments as $project_deployment)
-                                        @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
-                                        @foreach($deployments as $deployment)
-                                            <li class="nav-item has-treeview">
-                                                <a href="#" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
-                                                        <i class="right fas fa-angle-left"></i>
-                                                    </p>
-                                                </a>
-                                                <ul class="nav nav-treeview pl-4">
-                                                    @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
-                                                    @foreach($project_months as $project_month)
-                                                        @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
-                                                        @foreach($project_level_threes as $project_level_three)
-                                                            <li class="nav-item">
-                                                                <a href="{{ url('page-month-project/'.$deployment->id) }}" class="nav-link">
-                                                                    <i class="nav-icon fas fa-circle"></i>
-                                                                    <p>{{ $project_level_three->project_three_code }}</p>
+                                    @php($project_parents = DB::table('project_parents')->where('id', $project_user->project_parent_id)->get())
+                                    @foreach($project_parents as $project_parent)
+                                        @php($project_level_ones = DB::table('project_level_ones')->where('project_parent_id', $project_parent->id)->get())
+                                        @foreach($project_level_ones as $project_one)
+                                            @php($project_level_twos = DB::table('project_level_twos')->where('project_one_id', $project_one->id)->get())
+                                            @foreach($project_level_twos as $project_two)
+                                                @php($project_level_threes = DB::table('project_level_threes')->where('project_two_id', $project_two->id)->get())
+                                                @foreach($project_level_threes as $project_three)
+                                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->where('project_three_id', $project_three->id)->get()->unique('deployment_time_id'))
+                                                    @foreach($project_deployments as $project_deployment)
+                                                        @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
+                                                        @foreach($deployments as $deployment)
+                                                            <li class="nav-item has-treeview">
+                                                                <a href="#" class="nav-link">
+                                                                    <i class="far fa-circle nav-icon"></i>
+                                                                    <p>
+                                                                        Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
+                                                                        <i class="right fas fa-angle-left"></i>
+                                                                    </p>
                                                                 </a>
+                                                                <ul class="nav nav-treeview pl-4">
+                                                                    @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
+                                                                    @foreach($project_months as $project_month)
+                                                                        @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
+                                                                        @foreach($project_level_threes as $project_level_three)
+                                                                            <li class="nav-item">
+                                                                                <a href="{{ url('page-month-project/'.$deployment->id) }}" class="nav-link">
+                                                                                    <i class="nav-icon fas fa-circle"></i>
+                                                                                    <p>{{ $project_level_three->project_three_code }}</p>
+                                                                                </a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </ul>
                                                             </li>
                                                         @endforeach
                                                     @endforeach
-                                                </ul>
-                                            </li>
+                                                @endforeach
+                                            @endforeach
                                         @endforeach
                                     @endforeach
                                 @endforeach
@@ -428,6 +440,10 @@
                         <div class="dropdown-divider mb-0"></div>
                         {{--DỰ ÁN BAN ĐẦU--}}
                         {{--===================================================--}}
+
+
+
+
 
                         {{--===================================================--}}
                         {{--DỰ ÁN KẾ HOẠCH--}}
@@ -441,36 +457,49 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview pl-3">
+                                @php($project_and_users = DB::table('project_and_users')->where('user_id', Auth::id())->get())
                                 @foreach($project_and_users as $project_user)
-                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->get()->unique('deployment_time_id'))
-                                    @foreach($project_deployments as $project_deployment)
-                                    @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
-                                    @foreach($deployments as $deployment)
-                                        <li class="nav-item has-treeview">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
-                                                    <i class="right fas fa-angle-left"></i>
-                                                </p>
-                                            </a>
-                                            <ul class="nav nav-treeview pl-4">
-                                                @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
-                                                @foreach($project_months as $project_month)
-                                                    @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
-                                                    @foreach($project_level_threes as $project_level_three)
-                                                        <li class="nav-item">
-                                                            <a href="{{ url('page-month-project-plan/'.$deployment->id) }}" class="nav-link">
-                                                                <i class="nav-icon fas fa-circle"></i>
-                                                                <p>{{ $project_level_three->project_three_code }}</p>
-                                                            </a>
-                                                        </li>
+                                    @php($project_parents = DB::table('project_parents')->where('id', $project_user->project_parent_id)->get())
+                                    @foreach($project_parents as $project_parent)
+                                        @php($project_level_ones = DB::table('project_level_ones')->where('project_parent_id', $project_parent->id)->get())
+                                        @foreach($project_level_ones as $project_one)
+                                            @php($project_level_twos = DB::table('project_level_twos')->where('project_one_id', $project_one->id)->get())
+                                            @foreach($project_level_twos as $project_two)
+                                                @php($project_level_threes = DB::table('project_level_threes')->where('project_two_id', $project_two->id)->get())
+                                                @foreach($project_level_threes as $project_three)
+                                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->where('project_three_id', $project_three->id)->get()->unique('deployment_time_id'))
+                                                    @foreach($project_deployments as $project_deployment)
+                                                        @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
+                                                        @foreach($deployments as $deployment)
+                                                            <li class="nav-item has-treeview">
+                                                                <a href="#" class="nav-link">
+                                                                    <i class="far fa-circle nav-icon"></i>
+                                                                    <p>
+                                                                        Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
+                                                                        <i class="right fas fa-angle-left"></i>
+                                                                    </p>
+                                                                </a>
+                                                                <ul class="nav nav-treeview pl-4">
+                                                                    @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
+                                                                    @foreach($project_months as $project_month)
+                                                                        @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
+                                                                        @foreach($project_level_threes as $project_level_three)
+                                                                            <li class="nav-item">
+                                                                                <a href="{{ url('page-month-project-plan/'.$deployment->id) }}" class="nav-link">
+                                                                                    <i class="nav-icon fas fa-circle"></i>
+                                                                                    <p>{{ $project_level_three->project_three_code }}</p>
+                                                                                </a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
                                                     @endforeach
                                                 @endforeach
-                                            </ul>
-                                        </li>
+                                            @endforeach
+                                        @endforeach
                                     @endforeach
-                                @endforeach
                                 @endforeach
                             </ul>
                         </li>
@@ -490,36 +519,49 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview pl-3">
+                                @php($project_and_users = DB::table('project_and_users')->where('user_id', Auth::id())->get())
                                 @foreach($project_and_users as $project_user)
-                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->get()->unique('deployment_time_id'))
-                                    @foreach($project_deployments as $project_deployment)
-                                    @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
-                                    @foreach($deployments as $deployment)
-                                        <li class="nav-item has-treeview">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
-                                                    <i class="right fas fa-angle-left"></i>
-                                                </p>
-                                            </a>
-                                            <ul class="nav nav-treeview pl-4">
-                                                @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
-                                                @foreach($project_months as $project_month)
-                                                    @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
-                                                    @foreach($project_level_threes as $project_level_three)
-                                                        <li class="nav-item">
-                                                            <a href="{{ url('page-month-project-report/'.$deployment->id) }}" class="nav-link">
-                                                                <i class="nav-icon fas fa-circle"></i>
-                                                                <p>{{ $project_level_three->project_three_code }}</p>
-                                                            </a>
-                                                        </li>
+                                    @php($project_parents = DB::table('project_parents')->where('id', $project_user->project_parent_id)->get())
+                                    @foreach($project_parents as $project_parent)
+                                        @php($project_level_ones = DB::table('project_level_ones')->where('project_parent_id', $project_parent->id)->get())
+                                        @foreach($project_level_ones as $project_one)
+                                            @php($project_level_twos = DB::table('project_level_twos')->where('project_one_id', $project_one->id)->get())
+                                            @foreach($project_level_twos as $project_two)
+                                                @php($project_level_threes = DB::table('project_level_threes')->where('project_two_id', $project_two->id)->get())
+                                                @foreach($project_level_threes as $project_three)
+                                                    @php($project_deployments = DB::table('project_three_and_deployment_times')->where('project_three_id', $project_three->id)->get()->unique('deployment_time_id'))
+                                                    @foreach($project_deployments as $project_deployment)
+                                                        @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
+                                                        @foreach($deployments as $deployment)
+                                                            <li class="nav-item has-treeview">
+                                                                <a href="#" class="nav-link">
+                                                                    <i class="far fa-circle nav-icon"></i>
+                                                                    <p>
+                                                                        Tháng {{ $deployment->deployment_month_initialize }}/{{ $deployment->deployment_year_initialize }}
+                                                                        <i class="right fas fa-angle-left"></i>
+                                                                    </p>
+                                                                </a>
+                                                                <ul class="nav nav-treeview pl-4">
+                                                                    @php($project_months = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$deployment->id)->get())
+                                                                    @foreach($project_months as $project_month)
+                                                                        @php($project_level_threes = DB::table('project_level_threes')->where('id',$project_month->project_three_id)->get())
+                                                                        @foreach($project_level_threes as $project_level_three)
+                                                                            <li class="nav-item">
+                                                                                <a href="{{ url('page-month-project-report/'.$deployment->id) }}" class="nav-link">
+                                                                                    <i class="nav-icon fas fa-circle"></i>
+                                                                                    <p>{{ $project_level_three->project_three_code }}</p>
+                                                                                </a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
                                                     @endforeach
                                                 @endforeach
-                                            </ul>
-                                        </li>
+                                            @endforeach
+                                        @endforeach
                                     @endforeach
-                                @endforeach
                                 @endforeach
                             </ul>
                         </li>

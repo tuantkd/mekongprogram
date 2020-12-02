@@ -154,7 +154,6 @@
                         <!-- /.card-header -->
                         <div class="card-body p-1">
 
-                            @if($view_deployment_times->deployment_number_money_real != null && $view_deployment_times->deployment_number_money_operating != null)
                             <div class="table-responsive-sm">
                                 <table class="table table-striped">
                                     <tr>
@@ -277,7 +276,6 @@
                                     </tr>
                                 </table>
                             </div>
-                            @endif
 
                             {{--TREE--}}
                                 @php($three_and_deployments = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$view_deployment_times->id)->get())
@@ -340,10 +338,10 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer text-right">
-                            <a class="btn btn-success btn-sm"
+                            {{--<a class="btn btn-success btn-sm"
                                href="{{ url('download-report/'.$view_deployment_times->id) }}">
                                 <i class="fa fa-download"></i> Download file
-                            </a>
+                            </a>--}}
                             &ensp;
                             <a class="btn btn-warning btn-sm"
                                href="{{ url('review-deployment-time-report/'.$view_deployment_times->id) }}" title="Lịch sử">
