@@ -36,7 +36,7 @@
     </style>
 
     <div class="m-2">
-        <button type="button" id="btnPrint" class="btn btn-danger">
+        <button type="button" id="btnPrint" class="btn btn-danger btn-sm">
             <i class="fa fa-print"></i> Print PDF
         </button>
     </div>

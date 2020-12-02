@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2020 at 08:50 AM
+-- Generation Time: Dec 02, 2020 at 05:12 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -55,9 +55,9 @@ CREATE TABLE `deployment_times` (
 --
 
 INSERT INTO `deployment_times` (`id`, `deployment_month_initialize`, `deployment_year_initialize`, `deployment_day_start`, `deployment_month_start`, `deployment_year_start`, `deployment_day_end`, `deployment_month_end`, `deployment_year_end`, `deployment_number_money_initial`, `deployment_number_money_operating`, `deployment_number_money_real`, `deployment_index_achieved`, `deployment_result_achieved`, `deployment_address`, `deployment_partner`, `deployment_method_implementation`, `deployment_description`, `created_at`, `updated_at`) VALUES
-(3, 1, 2020, 1, 1, 2020, 8, 1, 2020, 5000000, 2000000, 15000000, 'cewrrrrrrrrrrr', 'fsaddddddd', 'dfbadfbfdb', 'bfdadfb', 'rrrr', 'vbdffđf', '2020-11-11 07:32:51', '2020-11-11 07:42:16'),
-(4, 6, 2020, 1, 6, 2020, 15, 6, 2020, 5000000, 10000000, 150000000, 'Tập huấn về các mô hình NLBV cho nhóm GET Tri Tôn \r\n- 30 đại biểu tham dự đại diện cho UNBND xã, HPN, nhóm thợ địa phương, chuyên gia\r\n- Ít nhất 4 mô hình sẽ được thông tin đến học viên\r\n- 1 bản báo cáo hoạt động\r\n- 1 bản tin hoạt động', '1 cuộc tập huấn 3 ngày tại huyện Tri Tôn giới thiệu các mô hình NLBV đang được ứng dụng trong cộng đồng. Nhóm GET nắm vững về các mô hình, nguyên lý hoạt động và có khả năng truyền thông, hướng dẫn cho người dân sử dụng các mô hình NLBV', 'Huyện Tri Tôn, Tịnh Biên, Tỉnh An Giang', 'Trung tâm Phát triển Sáng tạo Xanh (GreenID)', 'Xây dựng thí điểm hệ thống năng lượng mặt trời kết hợp nông nghiệp tại huyện Tịnh Biên', 'Tăng cường cơ hội phát triển sinh kế xanh cho người nghèo trên địa bàn tỉnh An Giang (Tịnh Biên và Tri Tôn) thông qua đẩy mạnh ứng dụng năng lượng tái tạo', '2020-11-11 08:35:06', '2020-11-11 08:41:31'),
-(5, 5, 2020, 1, 5, 2020, 15, 5, 2020, 5000000, 15000000, 25000000, 'bfdwrhtrhth', 'bfgtrhwrh', 'fdgadfg', 'dfsgadfgfdg', 'nỵtejsnfhahrth', 'hdcisdJSDIFJIJslfjlsdjfsdvkljdskljSVJSDVMKDMVKLDSVSD', '2020-11-14 03:43:08', '2020-11-14 03:45:45');
+(6, 9, 2020, 5, 9, 2020, 17, 9, 2020, 5000000, 15000000, 53000000, 'Xây dựng năng lực và thí điểm ứng dụng các giải pháp NLTT trong nông nghiệp xanh và sinh kế xanh cho người dân địa phương', 'Xuất bản poster giới thiệu dự án, truyền thông trên website và fanpage', 'Huyện Tri Tôn, Tịnh Biên, Tỉnh An Giang', 'Trung tâm Phát triển Sáng tạo Xanh (GreenID)', 'iodjawio', 'Hoạt động giúp người dân có kiến thức về các mô hình NLBV được ứng dụng trong cộng đồng, người dân đăng ký ứng dụng mô hình pin NLMT độc lập thông qua cơ chế hỗ trợ tiếp cận của dự án và sẵn sàng chia sẻ thông tin về các mô hình NLBV cho người dân xung quanh, nhóm GET của dự án năng cao kỹ năng truyền thông thông qua các hoạt động chia sẻ trực tiếp tại cộng đồng.', '2020-11-14 07:56:09', '2020-11-14 08:12:34'),
+(7, 1, 2020, 1, 1, 2020, 17, 1, 2020, 4000000, 15000000, 25000000, 'gsdgqehytrhrtjhwtyhjtyhj', 'fghywtjyjhytjtyuwtyj', 'FSDFSDFDSF', 'vsdfĐSF', 'trutwttwtuwryuyu', 'ytrytrutrjeytjfjnfgjwfjwgfhbwtrhwtr', '2020-11-14 08:14:08', '2020-11-14 08:20:49'),
+(9, 8, 2020, 1, 8, 2020, 15, 8, 2020, 10000000, 15000000, 25000000, 'chsjkbjfjksdfb', 'kjsdnjkdsnfjkfnjkd', 'sdfdsfdsf', 'vdsfsdfdsfds', 'jhdsfhslfsflfljlkjfl', 'klfjdlfjFLSDKCVMNSDJLKFJSFLDKLXNCKLDSJFKLSDJFKLDSFDKLN', '2020-12-02 14:01:36', '2020-12-02 14:06:30');
 
 -- --------------------------------------------------------
 
@@ -106,14 +106,7 @@ CREATE TABLE `deployment_time_plan_histories` (
 --
 
 INSERT INTO `deployment_time_plan_histories` (`id`, `deployment_time_id`, `user_id`, `deployment_day_start`, `deployment_month_start`, `deployment_year_start`, `deployment_day_end`, `deployment_month_end`, `deployment_year_end`, `deployment_number_money_operating`, `deployment_method_implementation`, `created_at`, `updated_at`) VALUES
-(7, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:36:25', '2020-11-11 07:36:25'),
-(8, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:36:59', '2020-11-11 07:36:59'),
-(9, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:18', '2020-11-11 07:38:18'),
-(10, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:49', '2020-11-11 07:38:49'),
-(11, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:51', '2020-11-11 07:38:51'),
-(12, 3, 2, 1, 1, 2020, 31, 1, 2020, 8000000, 'vxfvfdagrfger', '2020-11-11 07:38:58', '2020-11-11 07:38:58'),
-(13, 4, 2, 1, 6, 2020, 15, 6, 2020, 10000000, 'Xây dựng thí điểm hệ thống năng lượng mặt trời kết hợp nông nghiệp tại huyện Tịnh Biên', '2020-11-11 08:40:31', '2020-11-11 08:40:31'),
-(14, 5, 2, 1, 5, 2020, 15, 5, 2020, 15000000, 'nỵtejsnfhahrth', '2020-11-14 03:44:33', '2020-11-14 03:44:33');
+(15, 9, 2, 1, 8, 2020, 15, 8, 2020, 15000000, 'jhdsfhslfsflfljlkjfl', '2020-12-02 14:04:45', '2020-12-02 14:04:45');
 
 -- --------------------------------------------------------
 
@@ -137,9 +130,7 @@ CREATE TABLE `deployment_time_report_histories` (
 --
 
 INSERT INTO `deployment_time_report_histories` (`id`, `deployment_time_id`, `user_id`, `deployment_number_money_real`, `deployment_index_achieved`, `deployment_result_achieved`, `created_at`, `updated_at`) VALUES
-(2, 3, 2, NULL, NULL, NULL, '2020-11-11 08:13:56', '2020-11-11 08:13:56'),
-(7, 4, 2, 150000000, 'Tập huấn về các mô hình NLBV cho nhóm GET Tri Tôn \r\n- 30 đại biểu tham dự đại diện cho UNBND xã, HPN, nhóm thợ địa phương, chuyên gia\r\n- Ít nhất 4 mô hình sẽ được thông tin đến học viên\r\n- 1 bản báo cáo hoạt động\r\n- 1 bản tin hoạt động', '1 cuộc tập huấn 3 ngày tại huyện Tri Tôn giới thiệu các mô hình NLBV đang được ứng dụng trong cộng đồng. Nhóm GET nắm vững về các mô hình, nguyên lý hoạt động và có khả năng truyền thông, hướng dẫn cho người dân sử dụng các mô hình NLBV', '2020-11-11 15:15:02', '2020-11-11 15:15:02'),
-(11, 5, 2, 25000000, 'bfdwrhtrhth', 'bfgtrhwrh', '2020-11-14 03:45:32', '2020-11-14 03:45:32');
+(14, 9, 2, 25000000, 'chsjkbjfjksdfb', 'kjsdnjkdsnfjkfnjkd', '2020-12-02 14:06:17', '2020-12-02 14:06:17');
 
 -- --------------------------------------------------------
 
@@ -195,7 +186,8 @@ CREATE TABLE `project_and_users` (
 
 INSERT INTO `project_and_users` (`id`, `user_id`, `project_parent_id`, `created_at`, `updated_at`) VALUES
 (2, 2, 2, '2020-11-11 08:26:13', '2020-11-11 08:26:13'),
-(4, 5, 2, '2020-11-14 07:41:15', '2020-11-14 07:41:15');
+(5, 2, 4, '2020-12-02 13:57:37', '2020-12-02 13:57:37'),
+(6, 8, 4, '2020-12-02 14:10:35', '2020-12-02 14:10:35');
 
 -- --------------------------------------------------------
 
@@ -221,7 +213,8 @@ CREATE TABLE `project_level_ones` (
 --
 
 INSERT INTO `project_level_ones` (`id`, `project_parent_id`, `project_one_code`, `project_one_name_operation`, `project_one_total_money`, `project_one_result_need_reach`, `project_one_index_need_reach`, `project_one_note`, `created_at`, `updated_at`) VALUES
-(2, 2, '1.1', 'Nâng lực quản lý và thực hiện dự án hiệu quả của các đối tác địa phương', NULL, 'Biên bản họp định kỳ với BQL các cấp.\r\nBáo cáo giam sát chương trình hàng năm', 'Các đề xuất dự án được thống nhất và phê duyệt\r\nKế hoạch năm được thống nhất và phê duyêt kịp thời\r\nCác khó khăn vướng mắc trong quá trình thực hiện dự án liên quan đến cấp tỉnh, huyện xẫ được tháo gỡ trong các cuộc họp giao ban định k ỳ.\r\nCác hoạt  được thực hiện theo Kế hoạch.', 'Chính sách về NLBV của đói tác địa phương không thay đổi hoặc thay đổi theo chiều hướng ngày càng hỗ trợ phát triển LNBV', '2020-11-11 08:27:05', '2020-11-11 08:27:05');
+(2, 2, '1.1', 'Nâng lực quản lý và thực hiện dự án hiệu quả của các đối tác địa phương', NULL, 'Biên bản họp định kỳ với BQL các cấp.\r\nBáo cáo giam sát chương trình hàng năm', 'Các đề xuất dự án được thống nhất và phê duyệt\r\nKế hoạch năm được thống nhất và phê duyêt kịp thời\r\nCác khó khăn vướng mắc trong quá trình thực hiện dự án liên quan đến cấp tỉnh, huyện xẫ được tháo gỡ trong các cuộc họp giao ban định k ỳ.\r\nCác hoạt  được thực hiện theo Kế hoạch.', 'Chính sách về NLBV của đói tác địa phương không thay đổi hoặc thay đổi theo chiều hướng ngày càng hỗ trợ phát triển LNBV', '2020-11-11 08:27:05', '2020-11-11 08:27:05'),
+(3, 4, '1.1', 'djcsdfjdf', NULL, 'fdgfg', 'fdgfg', 'dfgd', '2020-12-02 13:58:12', '2020-12-02 13:58:12');
 
 -- --------------------------------------------------------
 
@@ -267,8 +260,8 @@ CREATE TABLE `project_level_threes` (
 --
 
 INSERT INTO `project_level_threes` (`id`, `project_two_id`, `project_three_code`, `project_three_name_operation`, `project_three_total_money`, `project_three_result_need_reach`, `project_three_index_need_reach`, `project_three_note`, `created_at`, `updated_at`) VALUES
-(5, 2, '1.1.1.3', 'fdagfghdfg', NULL, 'gfdgfdg', 'bfbfdgd', 'bfdfd', '2020-11-14 03:42:37', '2020-11-14 03:42:37'),
-(6, 2, '1.1.1.1', 'gdfga', NULL, 'aghadd', 'dfagadg', 'dfgdfghdf', '2020-11-14 06:54:21', '2020-11-14 06:54:21');
+(6, 2, '1.1.1.1', 'gdfga', NULL, 'aghadd', 'dfagadg', 'dfgdfghdf', '2020-11-14 06:54:21', '2020-11-14 06:54:21'),
+(7, 3, '1.1.2.1', 'vsdvdsf', NULL, 'sdcds', 'sd', 'vdsfdf', '2020-12-02 13:59:36', '2020-12-02 13:59:36');
 
 -- --------------------------------------------------------
 
@@ -314,7 +307,8 @@ CREATE TABLE `project_level_twos` (
 --
 
 INSERT INTO `project_level_twos` (`id`, `project_one_id`, `project_two_code`, `project_two_name_operation`, `project_two_total_money`, `project_two_result_need_reach`, `project_two_index_need_reach`, `project_two_note`, `created_at`, `updated_at`) VALUES
-(2, 2, '1.1.1', 'Thay đổi nhận thức của đối tác về phương pháp tiếp cận, lợi ích của các giải pháp NLBV tại địa phương', NULL, 'Các tờ trình hoạt động được phê duyệt', 'Số thanh viên BQL các cấp hiểu rõ về phương pháp tiếp cận cua dự án và lợi ích của cac giải pháp NLBV', 'Không có ghi chú', '2020-11-11 08:27:40', '2020-11-11 08:28:36');
+(2, 2, '1.1.1', 'Thay đổi nhận thức của đối tác về phương pháp tiếp cận, lợi ích của các giải pháp NLBV tại địa phương', NULL, 'Các tờ trình hoạt động được phê duyệt', 'Số thanh viên BQL các cấp hiểu rõ về phương pháp tiếp cận cua dự án và lợi ích của cac giải pháp NLBV', 'Không có ghi chú', '2020-11-11 08:27:40', '2020-11-11 08:28:36'),
+(3, 3, '1.1.2', 'vfdvfd', NULL, 'vdsvdff', 'vsdvd', 'vsdvdsf', '2020-12-02 13:58:57', '2020-12-02 13:58:57');
 
 -- --------------------------------------------------------
 
@@ -363,7 +357,8 @@ CREATE TABLE `project_parents` (
 --
 
 INSERT INTO `project_parents` (`id`, `project_code`, `project_name`, `project_description`, `created_at`, `updated_at`) VALUES
-(2, 'VN-0043', 'Logfram original - Bánh Mỳ', 'Tăng cường cơ hội phát triển sinh kế xanh cho người nghèo trên địa bàn tỉnh An Giang (Tịnh Biên và Tri Tôn) thông qua đẩy mạnh ứng dụng năng lượng tái tạo', '2020-11-11 08:26:13', '2020-11-11 08:26:13');
+(2, 'VN-0043', 'Logfram original - Bánh Mỳ', 'Tăng cường cơ hội phát triển sinh kế xanh cho người nghèo trên địa bàn tỉnh An Giang (Tịnh Biên và Tri Tôn) thông qua đẩy mạnh ứng dụng năng lượng tái tạo', '2020-11-11 08:26:13', '2020-11-11 08:26:13'),
+(4, 'VN-0078', 'Logfram original', 'sdhsjkdafjkdvjvjkvjk', '2020-12-02 13:57:37', '2020-12-02 13:57:37');
 
 -- --------------------------------------------------------
 
@@ -401,8 +396,9 @@ CREATE TABLE `project_three_and_deployment_times` (
 --
 
 INSERT INTO `project_three_and_deployment_times` (`id`, `project_three_id`, `deployment_time_id`, `created_at`, `updated_at`) VALUES
-(7, 5, 5, '2020-11-14 03:43:08', '2020-11-14 03:43:08'),
-(8, 6, 5, '2020-11-14 06:54:31', '2020-11-14 06:54:31');
+(10, 6, 6, '2020-11-14 08:03:41', '2020-11-14 08:03:41'),
+(11, 6, 7, '2020-11-14 08:14:08', '2020-11-14 08:14:08'),
+(13, 7, 9, '2020-12-02 14:01:36', '2020-12-02 14:01:36');
 
 -- --------------------------------------------------------
 
@@ -454,9 +450,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `fullname`, `username`, `password`, `email`, `sex`, `birthday`, `phone`, `address`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Phạm Ngọc Nhàn', 'ngocnhan', '$2y$10$Q86rrzG3EvBmbXGhzILdGeIKLVQ76H.Ck3vVJ/V4VHl3Yzta/DFtK', NULL, 'Nam', NULL, NULL, NULL, 'avatar5.png', NULL, '2020-10-30 05:45:28', '2020-10-30 05:45:28'),
-(5, 2, 'Trần Thị Xíu', 'xiucute', '$2y$10$SG2Jkq8ElQ8b9y5mmF7/WOz2ySO5VUG3uQyJ3Py9gIREFr3z2XY3S', NULL, 'Nữ', NULL, NULL, NULL, 'nguyen-van-dui-05.jpg', NULL, '2020-11-01 00:19:01', '2020-11-01 00:19:01'),
-(6, 2, 'Đỗ Hồng Anh', 'MyMy', '$2y$10$oKh4LjEaivG7LSdg0TWTF.Ysd7D.nUtSacqQU7/Qx0EqIc5hfXvii', NULL, 'Nữ', NULL, NULL, NULL, 'logo-beer.png', NULL, '2020-11-14 07:44:38', '2020-11-14 07:44:38');
+(2, 1, 'Phạm Ngọc Nhàn', 'ngocnhan', '$2y$10$Q86rrzG3EvBmbXGhzILdGeIKLVQ76H.Ck3vVJ/V4VHl3Yzta/DFtK', NULL, 'Nam', NULL, NULL, NULL, 'avatar5.png', 'f5bvG0jGVV0BPBjoasv4aBNe3vDpoHbPmiphBliUc8V5fDYICHXAfE0pMR6J', '2020-10-30 05:45:28', '2020-10-30 05:45:28'),
+(6, 2, 'Đỗ Hồng Anh', 'MyMy', '$2y$10$oKh4LjEaivG7LSdg0TWTF.Ysd7D.nUtSacqQU7/Qx0EqIc5hfXvii', NULL, 'Nữ', NULL, NULL, NULL, 'logo-beer.png', NULL, '2020-11-14 07:44:38', '2020-11-14 07:44:38'),
+(7, 1, 'Nguyễn Văn A', 'vana', '$2y$10$UtJr8rw4W8divsBjO3EVLOJ81vfssGTvEvAkFgYLzJ.VrpMCFtDwG', 'vana@gmail.com', 'Nam', '2020-12-02', NULL, 'Hậu Giang', 'CV_tuan_nguyen.png', NULL, '2020-12-02 13:54:49', '2020-12-02 13:54:49'),
+(8, 2, 'Trần Thị Hạnh', 'thinhanh', '$2y$10$QS36NrMfuBkD84jdkDOcdezLp.jAyHCuN0tBwj0XOYW7Kice5NlAq', 'thihanh@gmail.com', 'Nữ', '2020-12-30', NULL, 'Sóc Trăng', 'be_cung_2.png', NULL, '2020-12-02 13:56:59', '2020-12-02 13:56:59');
 
 --
 -- Indexes for dumped tables
@@ -598,25 +595,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `deployment_times`
 --
 ALTER TABLE `deployment_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `deployment_time_histories`
 --
 ALTER TABLE `deployment_time_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `deployment_time_plan_histories`
 --
 ALTER TABLE `deployment_time_plan_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `deployment_time_report_histories`
 --
 ALTER TABLE `deployment_time_report_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -628,13 +625,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `project_and_users`
 --
 ALTER TABLE `project_and_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `project_level_ones`
 --
 ALTER TABLE `project_level_ones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `project_level_one_histories`
@@ -646,7 +643,7 @@ ALTER TABLE `project_level_one_histories`
 -- AUTO_INCREMENT for table `project_level_threes`
 --
 ALTER TABLE `project_level_threes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `project_level_three_histories`
@@ -658,7 +655,7 @@ ALTER TABLE `project_level_three_histories`
 -- AUTO_INCREMENT for table `project_level_twos`
 --
 ALTER TABLE `project_level_twos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `project_level_two_histories`
@@ -670,7 +667,7 @@ ALTER TABLE `project_level_two_histories`
 -- AUTO_INCREMENT for table `project_parents`
 --
 ALTER TABLE `project_parents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `project_parent_histories`
@@ -682,7 +679,7 @@ ALTER TABLE `project_parent_histories`
 -- AUTO_INCREMENT for table `project_three_and_deployment_times`
 --
 ALTER TABLE `project_three_and_deployment_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -694,7 +691,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
