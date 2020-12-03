@@ -320,7 +320,7 @@
                                                                     @php($threes = DB::table('project_level_threes')->where('id',$month_project->project_three_id)->get())
                                                                     @foreach($threes as $three_tree)
                                                                         <li>
-                                                                            <a href="{{ url('page-deployment-time-report/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three_tree->id) }}">
+                                                                            <a href="{{ url('page-deployment-time/'.$parent->id.'/'.$one->id.'/'.$two->id.'/'.$three_tree->id) }}">
                                                                                 {{ $three_tree->project_three_code }}
                                                                             </a>
                                                                         </li>
