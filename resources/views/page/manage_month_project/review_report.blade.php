@@ -3,13 +3,15 @@
     <title>Export file</title>
     <!-- Icon image -->
     <link rel="icon" type = "image/png" sizes = "32x32" href = "{{ asset('public/dist/img/logo-mekong.png') }}">
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
+
+    <!-- Font-awesome -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -39,6 +41,9 @@
         <button type="button" id="btnPrint" class="btn btn-danger btn-sm">
             <i class="fa fa-print"></i> Print PDF
         </button>
+        <a href="https://smallpdf.com/vi/pdf-to-word" class="btn btn-primary btn-sm">
+            <i class="fa fa-file-word-o"></i> Link tutorial Convert PDF to WORD
+        </a>
     </div>
     <div class="container">
         <div class="row">
@@ -113,10 +118,11 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2">
-                                                                <P>{{ $review->deployment_result_achieved }}</P>
-                                                                <P>{{ $review->deployment_description }}</P>
+                                                                <P style="text-align: justify;">{{ $review->deployment_result_achieved }}</P>
+                                                                <P style="text-align: justify;">{{ $review->deployment_description }}</P>
                                                             </td>
                                                         </tr>
+
                                                     @endforeach
                                                 @endforeach
                                             @endforeach
@@ -128,9 +134,76 @@
                             @endif
                         @endforeach
 
-
-
+                        <tr>
+                            <td colspan="2">
+                                <b style="text-transform: uppercase;color:#ff0000;">
+                                    KẾT QUẢ GIẢI NGÂN TRONG THÁNG  {{ $review->deployment_month_initialize }}/{{ $review->deployment_year_initialize }}
+                                </b>
+                            </td>
+                        </tr>
                     </table>
+
+                    <table>
+                        <thead>
+                            <tr style="border:1px solid grey;">
+                                <td style="width:40%;border:1px solid grey;">Mã và tên hoạt động</td>
+                                <td style="width:20%;border:1px solid grey;">Số tiền giải ngân dự kiến trong tháng</td>
+                                <td style="width:20%;border:1px solid grey;">Số tiền giải ngân trong tháng</td>
+                                <td style="width:20%;border:1px solid grey;">Chênh lệch</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php($three_deployments = DB::table('project_three_and_deployment_times')->where('deployment_time_id',$review->id)->get())
+                            @foreach($three_deployments as $three_deployment)
+                            @if ($loop->first)
+                                @php($threes = DB::table('project_level_threes')->where('id',$three_deployment->project_three_id)->get())
+                                @foreach($threes as $three)
+                                    @php($twos = DB::table('project_level_twos')->where('id',$three->project_two_id)->get())
+                                    @foreach($twos as $two)
+                                        @php($ones = DB::table('project_level_ones')->where('id',$two->project_one_id)->get())
+                                        @foreach($ones as $one)
+                                            @php($parents = DB::table('project_parents')->where('id',$one->project_parent_id)->get()->unique('project_code'))
+                                            @foreach($parents as $parent)
+                                                @php($one_childs = DB::table('project_level_ones')->where('project_parent_id',$parent->id)->get())
+                                                @foreach($one_childs as $one_child)
+                                                    @php($two_childs = DB::table('project_level_twos')->where('project_one_id',$one_child->id)->get())
+                                                    @foreach($two_childs as $two_child)
+                                                        @php($three_childs = DB::table('project_level_threes')->where('project_two_id',$two_child->id)->get())
+                                                        @foreach($three_childs as $three_child)
+                                                            <tr style="border:1px solid grey;">
+                                                                <td style="border:1px solid grey;">
+                                                                    <b>{{ $three_child->project_three_code }} {{ $three_child->project_three_name_operation }} </b>
+                                                                </td>
+                                                                <td style="border:1px solid grey;text-align: center;">
+                                                                    <b>{{ number_format($review->deployment_number_money_real) }} đ</b>
+                                                                </td>
+                                                                <td style="border:1px solid grey;text-align: center;">
+                                                                    <b>{{ number_format($review->deployment_number_money_operating) }} đ</b>
+                                                                </td>
+                                                                <td style="border:1px solid grey;">
+                                                                    <b>
+                                                                        <?php
+                                                                            $money_real = $review->deployment_number_money_real;
+                                                                            $money_operating = $review->deployment_number_money_operating;
+                                                                            $money = $money_real - $money_operating;
+                                                                            echo number_format($money);
+                                                                        ?> đ
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <br><br><br>
                 </div>
             </div>
         </div>

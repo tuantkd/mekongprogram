@@ -403,7 +403,7 @@
                                                 @foreach($project_level_threes as $project_three)
                                                     @php($project_deployments = DB::table('project_three_and_deployment_times')->where('project_three_id', $project_three->id)->get()->unique('deployment_time_id'))
                                                     @foreach($project_deployments as $project_deployment)
-                                                        @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->get())
+                                                        @php($deployments = DB::table('deployment_times')->where('id',$project_deployment->deployment_time_id)->latest()->get())
                                                         @foreach($deployments as $deployment)
                                                             <li class="nav-item has-treeview">
                                                                 <a href="#" class="nav-link">
